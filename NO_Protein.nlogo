@@ -2319,26 +2319,59 @@ to-report farm-production-berries
   report my-production
 end
 
-to-report farm-production-beef
+to-report farm-production-dairy-cow-beef
   let my-production 0
-  if num-dairy-cows + num-beef-cows + num-other-cattle > 0 [
+  if num-dairy-cows > 0 [
     let my-fylke-id fylke-id
     let local-yield-dairy-cows 0
-    let local-yield-beef-cows 0
-    let local-yield-other-cattle 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
       set local-yield-dairy-cows filter [ i -> Year = item 0 i ] yield-dairy-cow-carcass
       set local-yield-dairy-cows item 1 item 0 local-yield-dairy-cows
-      set local-yield-beef-cows filter [ i -> Year = item 0 i ] yield-beef-cow-carcass
-      set local-yield-beef-cows item 1 item 0 local-yield-beef-cows
-      set local-yield-other-cattle filter [ i -> Year = item 0 i ] yield-other-cattle-carcass
-      set local-yield-other-cattle item 1 item 0 local-yield-other-cattle
     ]
-    set my-production (local-yield-dairy-cows * num-dairy-cows) + (local-yield-beef-cows * num-beef-cows) + (local-yield-other-cattle * num-other-cattle)
+    set my-production (local-yield-dairy-cows * num-dairy-cows)
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
+  report my-production
+end
+
+to-report farm-production-beef-cow-beef
+  let my-production 0
+  if num-beef-cows > 0 [
+    let my-fylke-id fylke-id
+    let local-yield-beef-cows 0
+    ask fylker with [ fylke-id = my-fylke-id ] [
+      ; Extract the local yield for the current year.
+      set local-yield-beef-cows filter [ i -> Year = item 0 i ] yield-beef-cow-carcass
+      set local-yield-beef-cows item 1 item 0 local-yield-beef-cows
+    ]
+    set my-production (local-yield-beef-cows * num-beef-cows)
+  ]
+  ; If inactive, production is reset to zero.
+  if active? = FALSE [ set my-production 0 ]
+  report my-production
+end
+
+to-report farm-production-other-cattle-beef
+  let my-production 0
+  if num-other-cattle > 0 [
+    let my-fylke-id fylke-id
+    let local-yield-other-cattle 0
+    ask fylker with [ fylke-id = my-fylke-id ] [
+      ; Extract the local yield for the current year.
+      set local-yield-other-cattle filter [ i -> Year = item 0 i ] yield-other-cattle-carcass
+      set local-yield-other-cattle item 1 item 0 local-yield-other-cattle
+    ]
+    set my-production (local-yield-other-cattle * num-other-cattle)
+  ]
+  ; If inactive, production is reset to zero.
+  if active? = FALSE [ set my-production 0 ]
+  report my-production
+end
+
+to-report farm-production-beef
+  let my-production farm-production-dairy-cow-beef + farm-production-beef-cow-beef + farm-production-other-cattle-beef
   report my-production
 end
 
@@ -2486,6 +2519,18 @@ end
 
 to-report total-farm-production-berries
   report sum [ farm-production-berries ] of farms with [active? = TRUE]
+end
+
+to-report total-farm-production-dairy-cow-beef
+  report sum [ farm-production-dairy-cow-beef ] of farms with [active? = TRUE]
+end
+
+to-report total-farm-production-beef-cow-beef
+  report sum [ farm-production-beef-cow-beef ] of farms with [active? = TRUE]
+end
+
+to-report total-farm-production-other-cattle-beef
+  report sum [ farm-production-other-cattle-beef ] of farms with [active? = TRUE]
 end
 
 to-report total-farm-production-beef
@@ -2960,6 +3005,22 @@ to-report total-emissions-cm
   report sum [ factory-emissions ] of cm-factories / 1000000
 end
 
+to-report total-emissions-cm-beef
+  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Beef" ] / 1000000
+end
+
+to-report total-emissions-cm-lamb
+  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Lamb" ] / 1000000
+end
+
+to-report total-emissions-cm-pork
+  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Pork" ] / 1000000
+end
+
+to-report total-emissions-cm-chicken
+  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Chicken" ] / 1000000
+end
+
 to-report total-emissions-pf-dairy
   report sum [ factory-emissions ] of pf-factories with [ product-type = "Dairy" ] / 1000000
 end
@@ -3076,6 +3137,53 @@ end
 ; Average emissions of domestically produced products by type                 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Conventional beef has an emissions coefficient of x kg CO2-eq. per kg.
+to-report av-emissions-kg-beef
+  ; Total emissions from farmed beef in kg.
+  let emissions-kg-conventional ((total-farm-production-dairy-cow-beef * 1000) * 27.657) + ((total-farm-production-beef-cow-beef * 1000) * 46.535) + ((total-farm-production-other-cattle-beef * 1000) * 54.346)
+  ; Total emissions from CM beef in kg.
+  let emissions-kg-cm total-emissions-cm-beef * 1000000
+  ; Total production of beef in kg.
+  let total-production-kg (total-farm-production-beef + (count cm-factories with [ meat-type = "Beef" ] * cm-factory-capacity)) * 1000
+  ; Total combined emissions divided by total combined production.
+  report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
+end
+
+; Conventional lamb has an emissions coefficient of 37.207 kg CO2-eq. per kg.
+to-report av-emissions-kg-lamb
+  ; Total emissions from farmed lamb in kg.
+  let emissions-kg-conventional (total-farm-production-lamb * 1000) * 37.207
+  ; Total emissions from CM lamb in kg.
+  let emissions-kg-cm total-emissions-cm-lamb * 1000000
+  ; Total production of lamb in kg.
+  let total-production-kg (total-farm-production-lamb + (count cm-factories with [ meat-type = "Lamb" ] * cm-factory-capacity)) * 1000
+  ; Total combined emissions divided by total combined production.
+  report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
+end
+
+; Conventional pork has an emissions coefficient of 2.022 kg CO2-eq. per kg.
+to-report av-emissions-kg-pork
+  ; Total emissions from farmed pork in kg.
+  let emissions-kg-conventional (total-farm-production-pork * 1000) * 2.022
+  ; Total emissions from CM pork in kg.
+  let emissions-kg-cm total-emissions-cm-pork * 1000000
+  ; Total production of pork in kg.
+  let total-production-kg (total-farm-production-pork + (count cm-factories with [ meat-type = "Pork" ] * cm-factory-capacity)) * 1000
+  ; Total combined emissions divided by total combined production.
+  report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
+end
+
+; Conventional chicken has an emissions coefficient of 0.69 kg CO2-eq. per kg.
+to-report av-emissions-kg-chicken
+  ; Total emissions from farmed chicken in kg.
+  let emissions-kg-conventional (total-farm-production-chicken * 1000) * 0.69
+  ; Total emissions from CM chicken in kg.
+  let emissions-kg-cm total-emissions-cm-chicken * 1000000
+  ; Total production of chicken in kg.
+  let total-production-kg (total-farm-production-chicken + (count cm-factories with [ meat-type = "Chicken" ] * cm-factory-capacity)) * 1000
+  ; Total combined emissions divided by total combined production.
+  report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
+end
 
 ; Conventional dairy has an emissions coefficient of 1.139 kg CO2-eq. per kg.
 ; PF dairy has an emissions coefficient set by emissions-pf-dairy.
@@ -3103,11 +3211,6 @@ to-report av-emissions-kg-egg
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-pf) / total-production-kg
 end
-
-
-; TRY TO CALCULATE THE AVERAGE EMISSIONS PER KG OF DOMESTICALLY PRODUCED PROTEIN AS A HEADLINE FIGURE THAT CAN BE USED IN OUR PLOT!
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Report percentage change in product trade balance relative to previous year ;
@@ -3928,7 +4031,7 @@ SWITCH
 235
 hide-dairies?
 hide-dairies?
-0
+1
 1
 -1000
 
@@ -4761,7 +4864,7 @@ SWITCH
 270
 hide-farm-dairy-links?
 hide-farm-dairy-links?
-0
+1
 1
 -1000
 
@@ -4933,7 +5036,7 @@ farm-income-viability
 farm-income-viability
 -100
 -5
--15.0
+-10.0
 1
 1
 %
@@ -6240,7 +6343,7 @@ CHOOSER
 emissions-pf-dairy
 emissions-pf-dairy
 0.091327 0.4044
-1
+0
 
 CHOOSER
 1205
@@ -6250,7 +6353,7 @@ CHOOSER
 emissions-pf-egg
 emissions-pf-egg
 0.3523 1.56
-1
+0
 
 CHOOSER
 1205
@@ -6266,8 +6369,8 @@ TEXTBOX
 1408
 40
 1714
-180
-Emission coefficients for conventionally produced products in Norway are as follows (Source: Mittenzwei and Prestvik, 2022):\n\n• Chicken: 0.69\n• Pork: 2.022\n• Lamb: 37.207\n• Beef: 33.392-54.346\n• Raw milk: 1.139\n• Eggs: 0.777
+194
+Emission coefficients for conventionally produced products in Norway are as follows (Source: Mittenzwei and Prestvik, 2022 p.21):\n\n• Chicken: 0.69\n• Pork: 2.022\n• Lamb: 37.207\n• Beef: 27.657 (d. cow); 46.535 (b. cow); 54.346 (other)\n• Raw milk: 1.139\n• Eggs: 0.777
 11
 0.0
 1
@@ -6376,6 +6479,10 @@ true
 PENS
 "Eggs" 1.0 0 -4079321 true "" "plot av-emissions-kg-egg"
 "Dairy" 1.0 0 -12345184 true "" "plot av-emissions-kg-dairy"
+"Beef" 1.0 0 -5298144 true "" "plot av-emissions-kg-beef"
+"Lamb" 1.0 0 -10603201 true "" "plot av-emissions-kg-lamb"
+"Pork" 1.0 0 -13360827 true "" "plot av-emissions-kg-pork"
+"Chicken" 1.0 0 -13210332 true "" "plot av-emissions-kg-chicken"
 
 @#$#@#$#@
 ## WHAT IS IT?
