@@ -1,6 +1,6 @@
 extensions [ gis csv ]
 
-globals [ year kommuner-list fylker-list farms-list slaughterhouse-list dairy-list checkpoint-list fgp-barley fgp-oats fgp-wheat fgp-rye-triticale fgp-oilseeds fgp-potatoes fgp-vegetables fgp-fodder-silage fgp-other-crops fgp-pome-stone-fruit fgp-berries fgp-other-cattle-carcass fgp-beef-cow-carcass fgp-dairy-cow-carcass fgp-raw-milk fgp-pig-carcass fgp-sheep-carcass fgp-broiler-carcass fgp-wool fgp-eggs dist-coeff total-imports-beef total-imports-pork total-imports-lamb total-imports-chicken total-imports-eggs total-imports-milk-cream total-imports-yoghurt total-imports-butter total-imports-cheese total-exports-beef total-exports-pork total-exports-lamb total-exports-chicken total-exports-eggs total-exports-milk-cream total-exports-yoghurt total-exports-butter total-exports-cheese production-per-capita-beef production-per-capita-pork production-per-capita-lamb production-per-capita-chicken production-per-capita-eggs production-per-capita-wool production-per-capita-rawmilk cm-cost-beef cm-cost-pork cm-cost-lamb cm-cost-chicken pf-cost-dairy pf-cost-eggs aggregate-production-cm-meat aggregate-production-pf-dairy aggregate-production-pf-eggs emissions-ha-barley emissions-ha-oats emissions-ha-wheat emissions-ha-rye-triticale emissions-ha-oilseeds emissions-ha-potatoes emissions-ha-vegetables emissions-ha-fodder-silage emissions-ha-other-crops emissions-ha-orchards emissions-ha-berries emissions-head-dairy-cows emissions-head-beef-cows emissions-head-other-cattle emissions-head-sheep emissions-head-pigs emissions-head-broilers emissions-head-laying-hens ]
+globals [ year kommuner-list fylker-list farms-list slaughterhouse-list dairy-list checkpoint-list pp-barley pp-oats pp-wheat pp-rye-triticale pp-oilseeds pp-potatoes pp-vegetables pp-fodder-silage pp-other-crops pp-pome-stone-fruit pp-berries pp-other-cattle-meat pp-beef-cow-meat pp-dairy-cow-meat pp-raw-milk pp-pig-meat pp-sheep-meat pp-broiler-meat pp-wool pp-eggs dist-coeff total-imports-beef total-imports-pork total-imports-lamb total-imports-chicken total-imports-eggs total-imports-milk-cream total-imports-yoghurt total-imports-butter total-imports-cheese total-exports-beef total-exports-pork total-exports-lamb total-exports-chicken total-exports-eggs total-exports-milk-cream total-exports-yoghurt total-exports-butter total-exports-cheese production-per-capita-beef production-per-capita-pork production-per-capita-lamb production-per-capita-chicken production-per-capita-eggs production-per-capita-wool production-per-capita-rawmilk cm-cost-beef cm-cost-pork cm-cost-lamb cm-cost-chicken pf-cost-dairy pf-cost-eggs aggregate-production-cm-meat aggregate-production-pf-dairy aggregate-production-pf-eggs emissions-ha-barley emissions-ha-oats emissions-ha-wheat emissions-ha-rye-triticale emissions-ha-oilseeds emissions-ha-potatoes emissions-ha-vegetables emissions-ha-fodder-silage emissions-ha-other-crops emissions-ha-orchards emissions-ha-berries emissions-head-dairy-cows emissions-head-beef-cows emissions-head-other-cattle emissions-head-sheep emissions-head-pigs emissions-head-broilers emissions-head-laying-hens init-num-specialist-cattle-farms init-num-specialist-sheep-farms init-num-specialist-pig-farms init-num-specialist-broiler-farms init-num-specialist-laying-hen-farms init-num-specialist-fodder-silage-farms init-num-specialist-arable-horticulture-farms init-num-combined-cattle-grain-farms init-num-combined-cattle-sheep-farms init-num-other-mixed-farms init-num-no-activity-farms ]
 
 breed [ kommuner kommune ]
 breed [ fylker fylke ]
@@ -15,13 +15,13 @@ directed-link-breed [ farm-slaughterhouse-links farm-slaughterhouse-link ]
 
 patches-own [ parent-kommune ]
 kommuner-own [ kommune-id fylke-id kommune-name fylke-name population consumption-beef consumption-pork consumption-lamb consumption-chicken consumption-eggs consumption-milk-cream consumption-yoghurt consumption-butter consumption-cheese ]
-fylker-own [ fylke-id yield-barley yield-oats yield-wheat yield-rye-triticale yield-oilseeds yield-potatoes yield-vegetables yield-fodder-silage yield-other-crops yield-orchards yield-berries yield-other-cattle-carcass yield-beef-cow-carcass yield-dairy-cow-carcass yield-raw-milk yield-pig-carcass yield-sheep-carcass yield-broiler-carcass yield-wool yield-eggs ]
-farms-own [ farm-id active? kommune-id fylke-id partner-dairy dairy-distance-km partner-slaughterhouse slaughterhouse-distance-km ha-barley ha-oats ha-wheat ha-rye-triticale ha-oilseeds ha-potatoes ha-vegetables ha-fodder-silage ha-other-crops ha-orchards ha-berries num-dairy-cows num-beef-cows num-other-cattle num-sheep num-pigs num-broilers num-laying-hens subsidy-nonlivestock subsidy-livestock subsidy-milk benchmark-income annual-income recent-income farm-emissions ]
-slaughterhouses-own [ slaughterhouse-name min-viable-carcass supply-beef supply-pork supply-lamb supply-chicken supply-eggs processed-beef processed-pork processed-lamb processed-chicken processed-eggs wholesale-stock-beef wholesale-stock-pork wholesale-stock-lamb wholesale-stock-chicken wholesale-stock-eggs active? ]
+fylker-own [ fylke-id yield-barley yield-oats yield-wheat yield-rye-triticale yield-oilseeds yield-potatoes yield-vegetables yield-fodder-silage yield-other-crops yield-orchards yield-berries yield-other-cattle-meat yield-beef-cow-meat yield-dairy-cow-meat yield-raw-milk yield-pig-meat yield-sheep-meat yield-broiler-meat yield-wool yield-eggs ]
+farms-own [ farm-id farm-type active? kommune-id fylke-id partner-dairy dairy-distance-km partner-slaughterhouse slaughterhouse-distance-km ha-barley ha-oats ha-wheat ha-rye-triticale ha-oilseeds ha-potatoes ha-vegetables ha-fodder-silage ha-other-crops ha-orchards ha-berries num-dairy-cows num-beef-cows num-other-cattle num-sheep num-pigs num-broilers num-laying-hens subsidy-nonlivestock subsidy-livestock subsidy-milk benchmark-income annual-income recent-income current-income annual-emissions current-emissions annual-carbon-tax-liability current-carbon-tax-liability ]
+slaughterhouses-own [ slaughterhouse-name min-viable-meat supply-beef supply-pork supply-lamb supply-chicken supply-eggs processed-beef processed-pork processed-lamb processed-chicken processed-eggs wholesale-stock-beef wholesale-stock-pork wholesale-stock-lamb wholesale-stock-chicken wholesale-stock-eggs active? ]
 dairies-own[ dairy-name min-viable-rawmilk supply-rawmilk processed-rawmilk wholesale-stock-milk-cream wholesale-stock-yoghurt wholesale-stock-butter wholesale-stock-cheese active? ]
 checkpoints-own [ checkpoint-id checkpoint-name checkpoint-type destination imports-beef imports-pork imports-lamb imports-chicken imports-milk-cream imports-yoghurt imports-butter imports-cheese imports-eggs exports-beef exports-pork exports-lamb exports-chicken exports-milk-cream exports-yoghurt exports-butter exports-cheese exports-eggs ]
-cm-factories-own [ meat-type wholesale-stock processed-meat factory-emissions ]
-pf-factories-own [ product-type wholesale-stock-milk-cream wholesale-stock-yoghurt wholesale-stock-butter wholesale-stock-cheese wholesale-stock-eggs processed-rawmilk processed-eggs factory-emissions ]
+cm-factories-own [ product-type production-quota wholesale-stock processed-meat factory-emissions ]
+pf-factories-own [ product-type production-quota wholesale-stock-milk-cream wholesale-stock-yoghurt wholesale-stock-butter wholesale-stock-cheese wholesale-stock-eggs processed-rawmilk processed-eggs factory-emissions ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; SETUP                                                                                            ;
@@ -44,7 +44,7 @@ to setup
   setup-dairies
   setup-crop-yields
   setup-animal-yields
-  setup-farm-gate-price
+  setup-producer-price
   calibrate-distance
   setup-farm-to-processor-links
   setup-checkpoints
@@ -141,13 +141,13 @@ to setup-fylker
       set yield-other-crops []
       set yield-orchards []
       set yield-berries []
-      set yield-other-cattle-carcass []
-      set yield-beef-cow-carcass []
-      set yield-dairy-cow-carcass []
+      set yield-other-cattle-meat []
+      set yield-beef-cow-meat []
+      set yield-dairy-cow-meat []
       set yield-raw-milk []
-      set yield-pig-carcass []
-      set yield-sheep-carcass []
-      set yield-broiler-carcass []
+      set yield-pig-meat []
+      set yield-sheep-meat []
+      set yield-broiler-meat []
       set yield-wool []
       set yield-eggs []
       ; Specify aesthetics.
@@ -215,6 +215,8 @@ to setup-population
 end
 
 to setup-farms
+  if start-yr = 2013 [ set num-farms-to-sim 42437 ]
+  if start-yr = 2020 [ set num-farms-to-sim 40382 ]
   file-close-all
   ; One at a time, add ports as agents.
   foreach n-of num-farms-to-sim gis:feature-list-of farms-list [ current-farm ->
@@ -223,6 +225,7 @@ to setup-farms
       ; Assign each farm their ID, kommune ID, and details of their activities, plus initialise lists
       ; that will be used to determine the benchmark income they aspire to and their annual income.
       set farm-id gis:property-value current-farm "FarmerID"
+      set farm-type gis:property-value current-farm "FarmType"
       set active? TRUE
       set kommune-id gis:property-value current-farm "KommunerID"
       set fylke-id gis:property-value current-farm "FylkerID"
@@ -250,6 +253,11 @@ to setup-farms
       set benchmark-income []
       set annual-income []
       set recent-income []
+      set current-income 0
+      set annual-emissions []
+      set current-emissions 0
+      set annual-carbon-tax-liability []
+      set current-carbon-tax-liability 0
       ; Specify aesthetics.
       set xcor item 0 centroid
       set ycor item 1 centroid
@@ -262,6 +270,18 @@ to setup-farms
     ]
   ]
   file-close
+  ; Log the initial number of farms of each type to the relevant global variables.
+  set init-num-specialist-cattle-farms specialist-cattle-farms
+  set init-num-specialist-sheep-farms specialist-sheep-farms
+  set init-num-specialist-pig-farms specialist-pig-farms
+  set init-num-specialist-broiler-farms specialist-broiler-farms
+  set init-num-specialist-laying-hen-farms specialist-laying-hen-farms
+  set init-num-specialist-fodder-silage-farms specialist-fodder-silage-farms
+  set init-num-specialist-arable-horticulture-farms specialist-arable-horticulture-farms
+  set init-num-combined-cattle-grain-farms combined-cattle-grain-farms
+  set init-num-combined-cattle-sheep-farms combined-cattle-sheep-farms
+  set init-num-other-mixed-farms other-mixed-farms
+  set init-num-no-activity-farms no-activity-farms
 end
 
 to setup-slaughterhouses
@@ -273,12 +293,12 @@ to setup-slaughterhouses
       ; Set the name and the processing capacity. The max processing capacity is set for each animal
       ; type individually. It is the number of slaughters performed in 2020 by the slaughterhouse as
       ; reported by Animalia (2021, p.132), plus a percentage buffer specified by the slaughter-max-
-      ; capacity slider. The min-viable-carcass threshold is the point at which the slaughterhouse is
-      ; no longer considered viable. It is the total carcass weight processed in 2020, multiplied by
+      ; capacity slider. The min-viable-meat threshold is the point at which the slaughterhouse is
+      ; no longer considered viable. It is the total meat weight processed in 2020, multiplied by
       ; a slaughter-min-capacity slider value. The wholesale-meat lists are records of the amount of
       ; meat the slaughterhouse have processed in each given year.
       set slaughterhouse-name gis:property-value current-slaughterhouse "Slaughterhouse"
-      set min-viable-carcass 0
+      set min-viable-meat 0
       set supply-beef 0
       set supply-pork 0
       set supply-lamb 0
@@ -354,9 +374,30 @@ to setup-crop-yields
       let current-fylker item 1 row
       ; Identify the fylke that matches the current-fylker ID.
       ask fylker with [(word fylke-id) = (word current-fylker)] [
-        ; Ask this fylke to generate a yield value for the current crop based on the specified yield, plus a
-        ;randomly determined noise value, then add this value to the end of the nested list for the crop of interest.
-        let current-yield random-normal item 4 row item 5 row
+        ; Extract the mean yield and SD values for the current crop and fylker.
+        let yield-mean item 3 row
+        let yield-sd item 4 row
+        ; There SD of the green fodder and silage is very high for some fylker. This variability leads to
+        ; a lot of farms ceasing operations at some point in the model, yet there the degree of variability
+        ; in the data seems suspect. As with the berries, oilseeds, orchards, vegetables, and other crop
+        ; categories (which lack sufficient data to assess variability with confidence), we have therefore
+        ; decided to not simulate temporal variability in green fodder and silage yields, only spatial
+        ; variability. Here we reset the SD for these cases to zero.
+        if item 2 row = "Green fodder & silage" [ set yield-sd 0 ]
+        ; Ask this fylke to generate a yield value for the current crop based on the mean and SD.
+        let current-yield precision (random-normal yield-mean yield-sd) 2
+        ; If the generated value is more than two standard deviations above or below the mean, we
+        ; set the number to the two standard deviations threshold. This prevents negative yield
+        ; values which are not possible in the real world and puts bounds on the possible extreme
+        ; values. This is reasonable to do in a Western agricultural context where there typically
+        ; are upper and lower bounds to viable yields.
+        if current-yield < (yield-mean - (yield-sd * 2)) [
+          set current-yield yield-mean - (yield-sd * 2)
+        ]
+        if current-yield > (yield-mean + (yield-sd * 2)) [
+          set current-yield yield-mean + (yield-sd * 2)
+        ]
+        ; Add the generated value to the end of the nested list for the crop of interest.
         if item 2 row = "Barley" [ set yield-barley lput list (current-year) (current-yield) yield-barley ]
         if item 2 row = "Oats" [ set yield-oats lput list (current-year) (current-yield) yield-oats ]
         if item 2 row = "Wheat" [ set yield-wheat lput list (current-year) (current-yield) yield-wheat ]
@@ -392,13 +433,13 @@ to setup-animal-yields
         if animal-yield-trajectory = "Constant" [ set current-yield item 4 row ]
         if animal-yield-trajectory = "Trend" [ set current-yield item 5 row ]
         ; Ask the fylke to add the yield value to the end of the nested list for the raw agricultural product of interest.
-        if item 3 row = "Other cattle carcass" [ set yield-other-cattle-carcass lput list (current-year) (current-yield) yield-other-cattle-carcass ]
-        if item 3 row = "Beef cow carcass" [ set yield-beef-cow-carcass lput list (current-year) (current-yield) yield-beef-cow-carcass ]
-        if item 3 row = "Dairy cow carcass" [ set yield-dairy-cow-carcass lput list (current-year) (current-yield) yield-dairy-cow-carcass ]
+        if item 3 row = "Other cattle meat" [ set yield-other-cattle-meat lput list (current-year) (current-yield) yield-other-cattle-meat ]
+        if item 3 row = "Beef cow meat" [ set yield-beef-cow-meat lput list (current-year) (current-yield) yield-beef-cow-meat ]
+        if item 3 row = "Dairy cow meat" [ set yield-dairy-cow-meat lput list (current-year) (current-yield) yield-dairy-cow-meat ]
         if item 3 row = "Raw milk" [ set yield-raw-milk lput list (current-year) (current-yield) yield-raw-milk ]
-        if item 3 row = "Pig carcass" [ set yield-pig-carcass lput list (current-year) (current-yield) yield-pig-carcass ]
-        if item 3 row = "Sheep carcass" [ set yield-sheep-carcass lput list (current-year) (current-yield) yield-sheep-carcass ]
-        if item 3 row = "Broiler carcass" [ set yield-broiler-carcass lput list (current-year) (current-yield) yield-broiler-carcass ]
+        if item 3 row = "Pig meat" [ set yield-pig-meat lput list (current-year) (current-yield) yield-pig-meat ]
+        if item 3 row = "Sheep meat" [ set yield-sheep-meat lput list (current-year) (current-yield) yield-sheep-meat ]
+        if item 3 row = "Broiler meat" [ set yield-broiler-meat lput list (current-year) (current-yield) yield-broiler-meat ]
         if item 3 row = "Wool" [ set yield-wool lput list (current-year) (current-yield) yield-wool ]
         if item 3 row = "Eggs" [ set yield-eggs lput list (current-year) (current-yield) yield-eggs ]
       ]
@@ -407,28 +448,28 @@ to setup-animal-yields
   file-close
 end
 
-to setup-farm-gate-price
-  ; Initialise farm gate price lists.
-  set fgp-barley []
-  set fgp-oats []
-  set fgp-wheat []
-  set fgp-rye-triticale []
-  set fgp-oilseeds []
-  set fgp-potatoes []
-  set fgp-vegetables []
-  set fgp-fodder-silage []
-  set fgp-other-crops []
-  set fgp-pome-stone-fruit []
-  set fgp-berries []
-  set fgp-other-cattle-carcass []
-  set fgp-beef-cow-carcass []
-  set fgp-dairy-cow-carcass []
-  set fgp-raw-milk []
-  set fgp-pig-carcass []
-  set fgp-sheep-carcass []
-  set fgp-broiler-carcass []
-  set fgp-wool []
-  set fgp-eggs []
+to setup-producer-price
+  ; Initialise producer price lists.
+  set pp-barley []
+  set pp-oats []
+  set pp-wheat []
+  set pp-rye-triticale []
+  set pp-oilseeds []
+  set pp-potatoes []
+  set pp-vegetables []
+  set pp-fodder-silage []
+  set pp-other-crops []
+  set pp-pome-stone-fruit []
+  set pp-berries []
+  set pp-other-cattle-meat []
+  set pp-beef-cow-meat []
+  set pp-dairy-cow-meat []
+  set pp-raw-milk []
+  set pp-pig-meat []
+  set pp-sheep-meat []
+  set pp-broiler-meat []
+  set pp-wool []
+  set pp-eggs []
   ; Read in price data to populate lists.
   file-close-all
   file-open "Data/NO_ProducerPrice/ProcessedData/NO_NetLogoProducerPrice.csv"
@@ -440,35 +481,35 @@ to setup-farm-gate-price
     ; Drop the first sublist as it contains the header rather than any data of relevance & ignore data that
     ; preceeds the simulation start year.
     if current-year != "Year" and current-year >= start-yr [
-      if item 1 row = "Barley" [ set fgp-barley lput list (current-year) (current-price) fgp-barley ]
-      if item 1 row = "Oats" [ set fgp-oats lput list (current-year) (current-price) fgp-oats ]
-      if item 1 row = "Wheat" [ set fgp-wheat lput list (current-year) (current-price) fgp-wheat ]
-      if item 1 row = "Rye & triticale" [ set fgp-rye-triticale lput list (current-year) (current-price) fgp-rye-triticale ]
-      if item 1 row = "Oilseeds" [ set fgp-oilseeds lput list (current-year) (current-price) fgp-oilseeds ]
-      if item 1 row = "Potatoes" [ set fgp-potatoes lput list (current-year) (current-price) fgp-potatoes ]
-      if item 1 row = "Vegetables" [ set fgp-vegetables lput list (current-year) (current-price) fgp-vegetables ]
-      if item 1 row = "Green fodder & silage" [ set fgp-fodder-silage lput list (current-year) (current-price) fgp-fodder-silage ]
-      if item 1 row = "Other crops" [ set fgp-other-crops lput list (current-year) (current-price) fgp-other-crops ]
-      if item 1 row = "Pome & stone fruits" [ set fgp-pome-stone-fruit lput list (current-year) (current-price) fgp-pome-stone-fruit ]
-      if item 1 row = "Berries" [ set fgp-berries lput list (current-year) (current-price) fgp-berries ]
+      if item 1 row = "Barley" [ set pp-barley lput list (current-year) (current-price) pp-barley ]
+      if item 1 row = "Oats" [ set pp-oats lput list (current-year) (current-price) pp-oats ]
+      if item 1 row = "Wheat" [ set pp-wheat lput list (current-year) (current-price) pp-wheat ]
+      if item 1 row = "Rye & triticale" [ set pp-rye-triticale lput list (current-year) (current-price) pp-rye-triticale ]
+      if item 1 row = "Oilseeds" [ set pp-oilseeds lput list (current-year) (current-price) pp-oilseeds ]
+      if item 1 row = "Potatoes" [ set pp-potatoes lput list (current-year) (current-price) pp-potatoes ]
+      if item 1 row = "Vegetables" [ set pp-vegetables lput list (current-year) (current-price) pp-vegetables ]
+      if item 1 row = "Green fodder & silage" [ set pp-fodder-silage lput list (current-year) (current-price) pp-fodder-silage ]
+      if item 1 row = "Other crops" [ set pp-other-crops lput list (current-year) (current-price) pp-other-crops ]
+      if item 1 row = "Pome & stone fruits" [ set pp-pome-stone-fruit lput list (current-year) (current-price) pp-pome-stone-fruit ]
+      if item 1 row = "Berries" [ set pp-berries lput list (current-year) (current-price) pp-berries ]
       ; The post-2020 livestock product prices are set seperately so we cease reading them in after 2020.
       if current-year <= 2020 [
-        if item 1 row = "Other cattle carcass" [ set fgp-other-cattle-carcass lput list (current-year) (current-price) fgp-other-cattle-carcass ]
-        if item 1 row = "Beef cow carcass" [ set fgp-beef-cow-carcass lput list (current-year) (current-price) fgp-beef-cow-carcass ]
-        if item 1 row = "Dairy cow carcass" [ set fgp-dairy-cow-carcass lput list (current-year) (current-price) fgp-dairy-cow-carcass ]
-        if item 1 row = "Raw milk" [ set fgp-raw-milk lput list (current-year) (current-price) fgp-raw-milk ]
-        if item 1 row = "Pig carcass" [ set fgp-pig-carcass lput list (current-year) (current-price) fgp-pig-carcass ]
-        if item 1 row = "Sheep carcass" [ set fgp-sheep-carcass lput list (current-year) (current-price) fgp-sheep-carcass ]
-        if item 1 row = "Broiler carcass" [ set fgp-broiler-carcass lput list (current-year) (current-price) fgp-broiler-carcass ]
-        if item 1 row = "Wool" [ set fgp-wool lput list (current-year) (current-price) fgp-wool ]
-        if item 1 row = "Eggs" [ set fgp-eggs lput list (current-year) (current-price) fgp-eggs ]
+        if item 1 row = "Other cattle meat" [ set pp-other-cattle-meat lput list (current-year) (current-price) pp-other-cattle-meat ]
+        if item 1 row = "Beef cow meat" [ set pp-beef-cow-meat lput list (current-year) (current-price) pp-beef-cow-meat ]
+        if item 1 row = "Dairy cow meat" [ set pp-dairy-cow-meat lput list (current-year) (current-price) pp-dairy-cow-meat ]
+        if item 1 row = "Raw milk" [ set pp-raw-milk lput list (current-year) (current-price) pp-raw-milk ]
+        if item 1 row = "Pig meat" [ set pp-pig-meat lput list (current-year) (current-price) pp-pig-meat ]
+        if item 1 row = "Sheep meat" [ set pp-sheep-meat lput list (current-year) (current-price) pp-sheep-meat ]
+        if item 1 row = "Broiler meat" [ set pp-broiler-meat lput list (current-year) (current-price) pp-broiler-meat ]
+        if item 1 row = "Wool" [ set pp-wool lput list (current-year) (current-price) pp-wool ]
+        if item 1 row = "Eggs" [ set pp-eggs lput list (current-year) (current-price) pp-eggs ]
       ]
     ]
   ]
   file-close
   ; If the price scenario selected calls for prices to be set by users...
   if price-scenario = "User specified" [
-    ; The empirical data used to inform the farm-gate price scenarios only takes us to 2020 so we need
+    ; The empirical data used to inform the producer price scenarios only takes us to 2020 so we need
     ; to determine values for subsequent years. We do this by assuming constant year-on-year growth
     ; with the rate of growth determined by the `price-growth-product` sliders. It can be between
     ; -5% and 5%.
@@ -476,44 +517,44 @@ to setup-farm-gate-price
     loop [
       if current-year > sim-end-yr [ stop ]
       ; Determine the previous year's beef price (which is the same for all cattle types), then calculate
-      ; what the current price should be given the slider specified growth, then add it to the fgp lists
+      ; what the current price should be given the slider specified growth, then add it to the pp lists
       ; of the various cattle types.
-      let previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-other-cattle-carcass
-      set previous-fgp item 1 item 0 previous-fgp
-      let current-fgp (previous-fgp + (previous-fgp * (price-growth-beef / 100)))
-      set fgp-other-cattle-carcass lput list (current-year) (current-fgp) fgp-other-cattle-carcass
-      set fgp-dairy-cow-carcass lput list (current-year) (current-fgp) fgp-dairy-cow-carcass
-      set fgp-beef-cow-carcass lput list (current-year) (current-fgp) fgp-beef-cow-carcass
+      let previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-other-cattle-meat
+      set previous-pp item 1 item 0 previous-pp
+      let current-pp (previous-pp + (previous-pp * (price-growth-beef / 100)))
+      set pp-other-cattle-meat lput list (current-year) (current-pp) pp-other-cattle-meat
+      set pp-dairy-cow-meat lput list (current-year) (current-pp) pp-dairy-cow-meat
+      set pp-beef-cow-meat lput list (current-year) (current-pp) pp-beef-cow-meat
       ; Repeat for pork
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-pig-carcass
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-pork / 100)))
-      set fgp-pig-carcass lput list (current-year) (current-fgp) fgp-pig-carcass
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-pig-meat
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-pork / 100)))
+      set pp-pig-meat lput list (current-year) (current-pp) pp-pig-meat
       ; Repeat for lamb
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-sheep-carcass
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-lamb / 100)))
-      set fgp-sheep-carcass lput list (current-year) (current-fgp) fgp-sheep-carcass
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-sheep-meat
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-lamb / 100)))
+      set pp-sheep-meat lput list (current-year) (current-pp) pp-sheep-meat
       ; Repeat for chicken
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-broiler-carcass
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-chicken / 100)))
-      set fgp-broiler-carcass lput list (current-year) (current-fgp) fgp-broiler-carcass
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-broiler-meat
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-chicken / 100)))
+      set pp-broiler-meat lput list (current-year) (current-pp) pp-broiler-meat
       ; Repeat for eggs
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-eggs
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-eggs / 100)))
-      set fgp-eggs lput list (current-year) (current-fgp) fgp-eggs
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-eggs
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-eggs / 100)))
+      set pp-eggs lput list (current-year) (current-pp) pp-eggs
       ; Repeat for raw milk
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-raw-milk
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-raw-milk / 100)))
-      set fgp-raw-milk lput list (current-year) (current-fgp) fgp-raw-milk
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-raw-milk
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-raw-milk / 100)))
+      set pp-raw-milk lput list (current-year) (current-pp) pp-raw-milk
       ; Repeat for wool
-      set previous-fgp filter [ i -> (current-year - 1) = item 0 i ] fgp-wool
-      set previous-fgp item 1 item 0 previous-fgp
-      set current-fgp (previous-fgp + (previous-fgp * (price-growth-wool / 100)))
-      set fgp-wool lput list (current-year) (current-fgp) fgp-wool
+      set previous-pp filter [ i -> (current-year - 1) = item 0 i ] pp-wool
+      set previous-pp item 1 item 0 previous-pp
+      set current-pp (previous-pp + (previous-pp * (price-growth-wool / 100)))
+      set pp-wool lput list (current-year) (current-pp) pp-wool
       set current-year current-year + 1
     ]
   ]
@@ -578,13 +619,13 @@ to setup-farm-to-processor-links
     ]
     set slaughterhouse-distance-km (item 0 [link-length] of my-farm-slaughterhouse-links) * dist-coeff
   ]
-  ; Initialise the slaughterhouse min and max carcass processing capacity by calculating initial
-  ; carcass production of partner farms and applying the buffers specified by slaughter-min-capacity and
+  ; Initialise the slaughterhouse min and max meat processing capacity by calculating initial
+  ; meat production of partner farms and applying the buffers specified by slaughter-min-capacity and
   ; slaughter-max-capacity.
   ask slaughterhouses [
-    let carcass-supply-initial 0
-    ask my-farm-slaughterhouse-links [ ask other-end [ set carcass-supply-initial carcass-supply-initial + (farm-production-beef + farm-production-lamb + farm-production-pork + farm-production-chicken) ] ]
-    set min-viable-carcass (carcass-supply-initial / 100) * slaughter-min-capacity
+    let meat-supply-initial 0
+    ask my-farm-slaughterhouse-links [ ask other-end [ set meat-supply-initial meat-supply-initial + (farm-production-beef + farm-production-lamb + farm-production-pork + farm-production-chicken) ] ]
+    set min-viable-meat (meat-supply-initial / 100) * slaughter-min-capacity
   ]
 end
 
@@ -788,42 +829,45 @@ to setup-biosynthetic-liquid
 end
 
 to setup-emissions
+  ; Emissions values are given in terms of kg CO2-equiv. per ha or head.
   file-close-all
   file-open "Data/NO_Emissions/ProcessedData/NO_NetLogoEmissions.csv"
   while [ not file-at-end? ] [
     ; Use the CSV extension to grab a line at a time and extract the values.
     let row csv:from-row file-read-line
     let current-activity item 0 row
-    let current-emissions item 1 row
-    if current-activity = "Barley" [ set emissions-ha-barley current-emissions ]
-    if current-activity = "Oats" [ set emissions-ha-oats current-emissions ]
-    if current-activity = "Wheat" [ set emissions-ha-wheat current-emissions ]
-    if current-activity = "Rye & triticale" [ set emissions-ha-rye-triticale current-emissions ]
-    if current-activity = "Oilseeds" [ set emissions-ha-oilseeds current-emissions ]
-    if current-activity = "Potatoes" [ set emissions-ha-potatoes current-emissions ]
-    if current-activity = "Vegetables" [ set emissions-ha-vegetables current-emissions ]
-    if current-activity = "Green fodder & silage" [ set emissions-ha-fodder-silage current-emissions ]
-    if current-activity = "Other crops" [ set emissions-ha-other-crops current-emissions ]
-    if current-activity = "Orchards" [ set emissions-ha-orchards current-emissions ]
-    if current-activity = "Berries" [ set emissions-ha-berries current-emissions ]
-    if current-activity = "Dairy cows" [ set emissions-head-dairy-cows current-emissions ]
-    if current-activity = "Beef cows" [ set emissions-head-beef-cows current-emissions ]
-    if current-activity = "Other cattle" [ set emissions-head-other-cattle current-emissions ]
-    if current-activity = "Sheep" [ set emissions-head-sheep current-emissions ]
-    if current-activity = "Pigs" [ set emissions-head-pigs current-emissions ]
-    if current-activity = "Broilers" [ set emissions-head-broilers current-emissions ]
-    if current-activity = "Laying hens" [ set emissions-head-laying-hens current-emissions ]
+    let current-value 0
+    if emissions-tax-coverage = "Agriculture" [ set current-value item 1 row ]
+    if emissions-tax-coverage = "Agriculture & energy" [ set current-value item 2 row ]
+    if emissions-tax-coverage = "Agriculture, energy & LULUCF" [ set current-value item 3 row ]
+    if current-activity = "Barley" [ set emissions-ha-barley current-value ]
+    if current-activity = "Oats" [ set emissions-ha-oats current-value ]
+    if current-activity = "Wheat" [ set emissions-ha-wheat current-value ]
+    if current-activity = "Rye & triticale" [ set emissions-ha-rye-triticale current-value ]
+    if current-activity = "Oilseeds" [ set emissions-ha-oilseeds current-value ]
+    if current-activity = "Potatoes" [ set emissions-ha-potatoes current-value ]
+    if current-activity = "Vegetables" [ set emissions-ha-vegetables current-value ]
+    if current-activity = "Green fodder & silage" [ set emissions-ha-fodder-silage current-value ]
+    if current-activity = "Other crops" [ set emissions-ha-other-crops current-value ]
+    if current-activity = "Orchards" [ set emissions-ha-orchards current-value ]
+    if current-activity = "Berries" [ set emissions-ha-berries current-value ]
+    if current-activity = "Dairy cows" [ set emissions-head-dairy-cows current-value ]
+    if current-activity = "Beef cows" [ set emissions-head-beef-cows current-value ]
+    if current-activity = "Other cattle" [ set emissions-head-other-cattle current-value ]
+    if current-activity = "Sheep" [ set emissions-head-sheep current-value ]
+    if current-activity = "Pigs" [ set emissions-head-pigs current-value ]
+    if current-activity = "Broilers" [ set emissions-head-broilers current-value ]
+    if current-activity = "Laying hens" [ set emissions-head-laying-hens current-value ]
   ]
   file-close
 end
 
 to set-params-to-default
+  set start-yr 2020
   set sim-end-yr 2050
-  if start-yr = 2013 [ set num-farms-to-sim 42437 ]
-  if start-yr = 2020 [ set num-farms-to-sim 40382 ]
   set animal-yield-trajectory "Constant"
   set population-growth "Medium"
-  set farm-income-viability -15
+  set farm-income-viability -20
   set slaughter-min-capacity 80
   set max-dist-to-slaughter 230
   set dairy-min-capacity 80
@@ -831,12 +875,13 @@ to set-params-to-default
   set price-scenario "Determined by markets"
   set price-baseline-year 2020
   set price-response-ratio 1
+  set cease-farming-prob 0.25
   set sim-cm? TRUE
   ; Note that with the cm-init-yr and the pf-init-yr, it will be the next year before production comes
   ; online. This reflects the lag between commisioning and openning such facilities.
   set cm-init-yr 2024
   set cm-factory-capacity 5000
-  set cm-scenario "Scenario 8"
+  set cm-scenario "Scenario 7"
   set cm-max-share 53.9
   set sim-pf? TRUE
   set pf-init-yr 2024
@@ -864,6 +909,13 @@ to set-params-to-default
   set consum-growth-yoghurt 0
   set consum-growth-butter 0
   set consum-growth-cheese 0
+  set emissions-tax-coverage "Agriculture & energy"
+  set emissions-cm-meat 4.1
+  set emissions-pf-dairy 0.4044
+  set emissions-pf-egg 1.56
+  set carbon-tax-per-tonne 1500
+  set carbon-tax-start-yr 2025
+  set cf-required-profit-margin 10
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -898,37 +950,52 @@ to go
         set supply-eggs (supply-eggs + my-production-eggs)
       ]
     ]
-    ; Farms calculate their emissions for the year.
-    set farm-emissions (ha-barley * emissions-ha-barley) + (ha-oats * emissions-ha-oats) + (ha-wheat * emissions-ha-wheat) + (ha-rye-triticale * emissions-ha-rye-triticale) + (ha-oilseeds * emissions-ha-oilseeds) + (ha-potatoes * emissions-ha-potatoes) + (ha-vegetables * emissions-ha-vegetables) + (ha-fodder-silage * emissions-ha-fodder-silage) + (ha-other-crops * emissions-ha-other-crops) + (ha-orchards * emissions-ha-orchards) + (ha-berries * emissions-ha-berries) + (num-dairy-cows * emissions-head-dairy-cows) + (num-beef-cows * emissions-head-beef-cows) + (num-other-cattle * emissions-head-other-cattle) + (num-sheep * emissions-head-sheep) + (num-pigs * emissions-head-pigs) + (num-broilers * emissions-head-broilers) + (num-laying-hens * emissions-head-laying-hens)
-    ; Farms calculate their annual income from crops, livestock, poultry, subsidies, and grants.
-    let current-farm-income farm-income
+    ; Farms calculate their emissions for the year (values are given in kg CO2-equiv.).
+    set current-emissions round ((ha-barley * emissions-ha-barley) + (ha-oats * emissions-ha-oats) + (ha-wheat * emissions-ha-wheat) + (ha-rye-triticale * emissions-ha-rye-triticale) + (ha-oilseeds * emissions-ha-oilseeds) + (ha-potatoes * emissions-ha-potatoes) + (ha-vegetables * emissions-ha-vegetables) + (ha-fodder-silage * emissions-ha-fodder-silage) + (ha-other-crops * emissions-ha-other-crops) + (ha-orchards * emissions-ha-orchards) + (ha-berries * emissions-ha-berries) + (num-dairy-cows * emissions-head-dairy-cows) + (num-beef-cows * emissions-head-beef-cows) + (num-other-cattle * emissions-head-other-cattle) + (num-sheep * emissions-head-sheep) + (num-pigs * emissions-head-pigs) + (num-broilers * emissions-head-broilers) + (num-laying-hens * emissions-head-laying-hens))
+    ; Farms note their emissions each year.
+    set annual-emissions lput list ( year ) ( current-emissions ) annual-emissions
+    ; Farms calculate their carbon tax liability for the year given their emissions, the tax level, and the year.
+    ifelse year < carbon-tax-start-yr [ set current-carbon-tax-liability 0 ] [ set current-carbon-tax-liability round ((current-emissions / 1000) * carbon-tax-per-tonne) ]
+    ; Farms note their carbon tax liabilities each year.
+    set annual-carbon-tax-liability lput list ( year ) ( current-carbon-tax-liability) annual-carbon-tax-liability
+    ; Farms calculate their annual income from crops, livestock, poultry, subsidies, and grants, deducting
+    ; carbon tax liabilities at the same time.
+    set current-income round farm-income
     ; Farms note their income each year.
-    set annual-income lput list ( year ) ( current-farm-income ) annual-income
+    set annual-income lput list ( year ) ( current-income ) annual-income
     ; Add the income to the recent-income list as well. This stores just the income values from the last
     ; five years as we drop the first value in the list each year post-2017.
-    if Year <= start-yr + 4 [ set recent-income lput current-farm-income recent-income ]
+    if Year <= start-yr + 4 [ set recent-income lput current-income recent-income ]
     if Year > start-yr + 4 [
       set recent-income remove-item 0 recent-income
-      set recent-income lput current-farm-income recent-income
+      set recent-income lput current-income recent-income
     ]
     ; The benchmark income is the mean income of each farm as determined during the first five
     ; years of the simulations. Prior to five year point, the benchmark is set to the mean
     ; annual income since the start of the simulation.
-    if Year = start-yr [ set benchmark-income current-farm-income ]
+    if Year = start-yr [ set benchmark-income current-income ]
     if Year = start-yr + 1 [ set benchmark-income ((item 1 item 0 annual-income) + (item 1 item 1 annual-income)) / 2 ]
     if Year = start-yr + 2 [ set benchmark-income ((item 1 item 0 annual-income) + (item 1 item 1 annual-income) + (item 1 item 2 annual-income)) / 3 ]
     if Year = start-yr + 3 [ set benchmark-income ((item 1 item 0 annual-income) + (item 1 item 1 annual-income) + (item 1 item 2 annual-income) + (item 1 item 3 annual-income)) / 4 ]
     if Year = start-yr + 4 [ set benchmark-income ((item 1 item 0 annual-income) + (item 1 item 1 annual-income) + (item 1 item 2 annual-income) + (item 1 item 3 annual-income) + (item 1 item 4 annual-income)) / 5 ]
     ; For all years after the initialisation year, farms compare their mean recent-income against
     ; this benchmark income. If it is more than the % specified by the farm-income-viability
-    ; parameter below their benchmark income, they will cease operations.
+    ; parameter below their benchmark income, they will consider ceasing operations. They
+    ; do this by drawing a value at random from a uniform distribution between 0 and 1. If the
+    ; value is less than the cease-farming-prob slider value, the farm will become inactive.
     if Year > start-yr and mean recent-income < (benchmark-income - abs(farm-income-viability) * (benchmark-income / 100)) [
-      set active? FALSE
-      set partner-slaughterhouse 0
-      set partner-dairy 0
-      set farm-emissions 0
-      ask my-links [die]
-      set color [77 20 106 125]
+      if random-float 1 < cease-farming-prob [
+        set active? FALSE
+        if highlight-inactive-farms = TRUE [
+          set size 3
+        ]
+        set partner-slaughterhouse 0
+        set partner-dairy 0
+        set current-emissions 0
+        set current-income 0
+        ask my-links [ die ]
+        set color [77 20 106 125]
+      ]
     ]
   ]
 
@@ -959,20 +1026,20 @@ to go
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ask slaughterhouses with [ active? = TRUE ] [
-    ; Slaughterhouses note the quantity of carcass they have for processing in their historical records.
+    ; Slaughterhouses note the quantity of meat they have for processing in their historical records.
     set processed-beef lput list ( year ) ( supply-beef ) processed-beef
     set processed-pork lput list ( year ) ( supply-pork ) processed-pork
     set processed-lamb lput list ( year ) ( supply-lamb ) processed-lamb
     set processed-chicken lput list ( year ) ( supply-chicken ) processed-chicken
     set processed-eggs lput list ( year ) ( supply-eggs ) processed-eggs
-    ; Slaughterhouses convert their carcass supplies into meat goods. In this version of the
-    ; model, carcass is simply converted into meat products on a one-to-one basis.
+    ; Slaughterhouses convert their meat supplies into meat goods. In this version of the
+    ; model, meat is simply converted into meat products on a one-to-one basis.
     set wholesale-stock-beef supply-beef
     set wholesale-stock-pork supply-pork
     set wholesale-stock-lamb supply-lamb
     set wholesale-stock-chicken supply-chicken
     set wholesale-stock-eggs supply-eggs
-    ; With all carcass converted to meat products, the carcass supply of slaughterhouses is reset to 0.
+    ; With all meat converted to meat products, the meat supply of slaughterhouses is reset to 0.
     set supply-beef 0
     set supply-pork 0
     set supply-lamb 0
@@ -980,14 +1047,128 @@ to go
     set supply-eggs 0
   ]
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ; Update CM and PF production quotas to account for changes in the population ;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ; If there are facilities that are not operating at full capacity, assess whether
+  ; they can increase their output to serve an expanded population.
+
+  ; Beef
+  if count cm-factories with [ product-type = "Beef" and production-quota != cm-factory-capacity ] > 0 [
+    ask one-of cm-factories with [ product-type = "Beef" and production-quota != cm-factory-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let potential-cm-production-beef (count cm-factories with [ product-type = "Beef" ] * cm-factory-capacity)
+      if ((potential-cm-production-beef / total-consumption-beef) * 100 < cm-max-share) [
+        set production-quota cm-factory-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-cm-production-beef / total-consumption-beef) * 100 > cm-max-share) [
+        set production-quota production-limit-cm-beef - sum [ production-quota ] of other cm-factories with [ product-type = "Beef" ]
+      ]
+    ]
+  ]
+
+  ; Lamb
+  if count cm-factories with [ product-type = "Lamb" and production-quota != cm-factory-capacity ] > 0 [
+    ask one-of cm-factories with [ product-type = "Lamb" and production-quota != cm-factory-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let potential-cm-production-lamb (count cm-factories with [ product-type = "Lamb" ] * cm-factory-capacity)
+      if ((potential-cm-production-lamb / total-consumption-lamb) * 100 < cm-max-share) [
+        set production-quota cm-factory-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-cm-production-lamb / total-consumption-lamb) * 100 > cm-max-share) [
+        set production-quota production-limit-cm-lamb - sum [ production-quota ] of other cm-factories with [ product-type = "Lamb" ]
+      ]
+    ]
+  ]
+
+  ; Pork
+  if count cm-factories with [ product-type = "Pork" and production-quota != cm-factory-capacity ] > 0 [
+    ask one-of cm-factories with [ product-type = "Pork" and production-quota != cm-factory-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let potential-cm-production-pork (count cm-factories with [ product-type = "Pork" ] * cm-factory-capacity)
+      if ((potential-cm-production-pork / total-consumption-pork) * 100 < cm-max-share) [
+        set production-quota cm-factory-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-cm-production-pork / total-consumption-pork) * 100 > cm-max-share) [
+        set production-quota production-limit-cm-pork - sum [ production-quota ] of other cm-factories with [ product-type = "Pork" ]
+      ]
+    ]
+  ]
+
+  ; Chicken
+  if count cm-factories with [ product-type = "Chicken" and production-quota != cm-factory-capacity ] > 0 [
+    ask one-of cm-factories with [ product-type = "Chicken" and production-quota != cm-factory-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let potential-cm-production-chicken (count cm-factories with [ product-type = "Chicken" ] * cm-factory-capacity)
+      if ((potential-cm-production-chicken / total-consumption-chicken) * 100 < cm-max-share) [
+        set production-quota cm-factory-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-cm-production-chicken / total-consumption-chicken) * 100 > cm-max-share) [
+        set production-quota production-limit-cm-chicken - sum [ production-quota ] of other cm-factories with [ product-type = "Chicken" ]
+      ]
+    ]
+  ]
+
+  ; Egg
+  if count pf-factories with [ product-type = "Eggs" and production-quota != pf-factory-egg-capacity ] > 0 [
+    ask one-of pf-factories with [ product-type = "Eggs" and production-quota != pf-factory-egg-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let potential-pf-production-eggs (count pf-factories with [ product-type = "Eggs" ] * pf-factory-egg-capacity)
+      if ((potential-pf-production-eggs / total-consumption-eggs) * 100 < pf-max-share) [
+        set production-quota pf-factory-egg-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-pf-production-eggs / total-consumption-eggs) * 100 > pf-max-share) [
+        set production-quota production-limit-pf-eggs - sum [ production-quota ] of other pf-factories with [ product-type = "Eggs" ]
+      ]
+    ]
+  ]
+
+  ; Dairy
+  if count pf-factories with [ product-type = "Dairy" and production-quota != pf-factory-dairy-capacity ] > 0 [
+    ask one-of pf-factories with [ product-type = "Dairy" and production-quota != pf-factory-dairy-capacity ] [
+      ; If there is sufficient demand to operate at full capacity it will do so.
+      let total-consumption-rawmilk (total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335000) + (total-consumption-butter * 0.2522000) + (total-consumption-cheese * 6.9140000)
+      let potential-pf-production-dairy (count pf-factories with [ product-type = "Dairy" ] * pf-factory-dairy-capacity)
+      if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 < pf-max-share) [
+        set production-quota pf-factory-dairy-capacity
+      ]
+      ; Else it will determine the maximum level of production that will not lead
+      ; to excess total production, making this its production quota.
+      if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 > pf-max-share) [
+        set production-quota production-limit-pf-rawmilk - sum [ production-quota ] of other pf-factories with [ product-type = "Dairy" ]
+      ]
+    ]
+  ]
+
+
+
+  ; MILK IS BUGGERED
+
+
+
+
+
+
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; Account for production of cultured meat facilities ;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ask cm-factories [
-    set wholesale-stock cm-factory-capacity
-    set processed-meat lput list ( year ) ( cm-factory-capacity ) processed-meat
-    set factory-emissions cm-factory-capacity * (emissions-cm-meat * 1000)
+    set wholesale-stock production-quota
+    set processed-meat lput list ( year ) ( production-quota ) processed-meat
+    set factory-emissions precision (((production-quota * 1000) * emissions-cm-meat) / 1000) 2
   ]
 
   ; Update global storing details of aggregate CM meat production.
@@ -1011,23 +1192,24 @@ to go
       ; details of how this is calculated). After determining the share of raw milk dedicated to the
       ; production of each good, a conversion factor is applied which shows how 1kg of raw milk translates
       ; into 1kg of the good.
-      set wholesale-stock-milk-cream (pf-factory-dairy-capacity * item 0 raw-milk-division-ratio) / 1
-      set wholesale-stock-yoghurt (pf-factory-dairy-capacity * item 1 raw-milk-division-ratio) / 1.13
-      set wholesale-stock-butter (pf-factory-dairy-capacity * item 2 raw-milk-division-ratio) / 0.252
-      set wholesale-stock-cheese (pf-factory-dairy-capacity * item 3 raw-milk-division-ratio) / 6.91
+      set wholesale-stock-milk-cream (production-quota * item 0 raw-milk-division-ratio) / 1
+      set wholesale-stock-yoghurt (production-quota * item 1 raw-milk-division-ratio) / 1.13
+      set wholesale-stock-butter (production-quota * item 2 raw-milk-division-ratio) / 0.252
+      set wholesale-stock-cheese (production-quota * item 3 raw-milk-division-ratio) / 6.91
       set wholesale-stock-eggs 0
-      set processed-rawmilk lput list ( year ) ( pf-factory-dairy-capacity ) processed-rawmilk
-      set factory-emissions pf-factory-dairy-capacity * (emissions-pf-dairy * 1000)
+      set processed-rawmilk lput list ( year ) ( production-quota ) processed-rawmilk
+      set factory-emissions precision (((production-quota * 1000) * emissions-pf-dairy) / 1000) 2
     ]
+
     if product-type = "Eggs" [
-      ; In contrast, eggs production is simply determined by the egg production capacity slider.
-      set wholesale-stock-eggs pf-factory-egg-capacity
+      ; In contrast, eggs production is simply determined by the facilities production quota.
+      set wholesale-stock-eggs production-quota
       set wholesale-stock-milk-cream 0
       set wholesale-stock-yoghurt 0
       set wholesale-stock-butter 0
       set wholesale-stock-cheese 0
-      set processed-eggs lput list ( year ) ( pf-factory-egg-capacity ) processed-eggs
-      set factory-emissions pf-factory-egg-capacity * (emissions-pf-egg * 1000)
+      set processed-eggs lput list ( year ) ( production-quota ) processed-eggs
+      set factory-emissions precision (((production-quota * 1000) * emissions-pf-egg) / 1000) 2
     ]
   ]
 
@@ -1068,9 +1250,9 @@ to go
       ]
     ]
     ; If consumption requirements are yet to be fully met but slaughterhouse supplies are exhausted, seek stocks from cultured meat factories.
-    if required-beef > 0 and count cm-factories with [ meat-type = "Beef" and wholesale-stock > 0 ] > 0 [
-      while [ required-beef > 0 and count cm-factories with [ meat-type = "Beef" and wholesale-stock > 0 ] > 0 ] [
-        let cm-factory-to-buy-from one-of cm-factories with [ meat-type = "Beef" and wholesale-stock > 0 ]
+    if required-beef > 0 and count cm-factories with [ product-type = "Beef" and wholesale-stock > 0 ] > 0 [
+      while [ required-beef > 0 and count cm-factories with [ product-type = "Beef" and wholesale-stock > 0 ] > 0 ] [
+        let cm-factory-to-buy-from one-of cm-factories with [ product-type = "Beef" and wholesale-stock > 0 ]
         ifelse [ wholesale-stock ] of cm-factory-to-buy-from > required-beef [
           ask cm-factory-to-buy-from [ set wholesale-stock wholesale-stock - required-beef ]
           set required-beef 0
@@ -1094,7 +1276,7 @@ to go
     ask nearest-checkpoint [ set exports-beef exports-beef + remaining-stock ]
     set wholesale-stock-beef 0
   ]
-  ask cm-factories with [ meat-type = "Beef" and wholesale-stock > 0 ] [
+  ask cm-factories with [ product-type = "Beef" and wholesale-stock > 0 ] [
     let remaining-stock wholesale-stock
     ask one-of checkpoints [ set exports-beef exports-beef + remaining-stock ]
     set wholesale-stock 0
@@ -1114,9 +1296,9 @@ to go
       ]
     ]
     ; If consumption requirements are yet to be fully met but slaughterhouse supplies are exhausted, seek stocks from cultured meat factories.
-    if required-pork > 0 and count cm-factories with [ meat-type = "Pork" and wholesale-stock > 0 ] > 0 [
-      while [ required-pork > 0 and count cm-factories with [ meat-type = "Pork" and wholesale-stock > 0 ] > 0 ] [
-        let cm-factory-to-buy-from one-of cm-factories with [ meat-type = "Pork" and wholesale-stock > 0 ]
+    if required-pork > 0 and count cm-factories with [ product-type = "Pork" and wholesale-stock > 0 ] > 0 [
+      while [ required-pork > 0 and count cm-factories with [ product-type = "Pork" and wholesale-stock > 0 ] > 0 ] [
+        let cm-factory-to-buy-from one-of cm-factories with [ product-type = "Pork" and wholesale-stock > 0 ]
         ifelse [ wholesale-stock ] of cm-factory-to-buy-from > required-pork [
           ask cm-factory-to-buy-from [ set wholesale-stock wholesale-stock - required-pork ]
           set required-pork 0
@@ -1140,7 +1322,7 @@ to go
     ask nearest-checkpoint [ set exports-pork exports-pork + remaining-stock ]
     set wholesale-stock-pork 0
   ]
-  ask cm-factories with [ meat-type = "Pork" and wholesale-stock > 0 ] [
+  ask cm-factories with [ product-type = "Pork" and wholesale-stock > 0 ] [
     let remaining-stock wholesale-stock
     ask one-of checkpoints [ set exports-pork exports-pork + remaining-stock ]
     set wholesale-stock 0
@@ -1160,9 +1342,9 @@ to go
       ]
     ]
     ; If consumption requirements are yet to be fully met but slaughterhouse supplies are exhausted, seek stocks from cultured meat factories.
-    if required-lamb > 0 and count cm-factories with [ meat-type = "Lamb" and wholesale-stock > 0 ] > 0 [
-      while [ required-lamb > 0 and count cm-factories with [ meat-type = "Lamb" and wholesale-stock > 0 ] > 0 ] [
-        let cm-factory-to-buy-from one-of cm-factories with [ meat-type = "Lamb" and wholesale-stock > 0 ]
+    if required-lamb > 0 and count cm-factories with [ product-type = "Lamb" and wholesale-stock > 0 ] > 0 [
+      while [ required-lamb > 0 and count cm-factories with [ product-type = "Lamb" and wholesale-stock > 0 ] > 0 ] [
+        let cm-factory-to-buy-from one-of cm-factories with [ product-type = "Lamb" and wholesale-stock > 0 ]
         ifelse [ wholesale-stock ] of cm-factory-to-buy-from > required-lamb [
           ask cm-factory-to-buy-from [ set wholesale-stock wholesale-stock - required-lamb ]
           set required-lamb 0
@@ -1186,7 +1368,7 @@ to go
     ask nearest-checkpoint [ set exports-lamb exports-lamb + remaining-stock ]
     set wholesale-stock-lamb 0
   ]
-  ask cm-factories with [ meat-type = "Lamb" and wholesale-stock > 0 ] [
+  ask cm-factories with [ product-type = "Lamb" and wholesale-stock > 0 ] [
     let remaining-stock wholesale-stock
     ask one-of checkpoints [ set exports-lamb exports-lamb + remaining-stock ]
     set wholesale-stock 0
@@ -1206,9 +1388,9 @@ to go
       ]
     ]
     ; If consumption requirements are yet to be fully met but slaughterhouse supplies are exhausted, seek stocks from cultured meat factories.
-    if required-chicken > 0 and count cm-factories with [ meat-type = "Chicken" and wholesale-stock > 0 ] > 0 [
-      while [ required-chicken > 0 and count cm-factories with [ meat-type = "Chicken" and wholesale-stock > 0 ] > 0 ] [
-        let cm-factory-to-buy-from one-of cm-factories with [ meat-type = "Chicken" and wholesale-stock > 0 ]
+    if required-chicken > 0 and count cm-factories with [ product-type = "Chicken" and wholesale-stock > 0 ] > 0 [
+      while [ required-chicken > 0 and count cm-factories with [ product-type = "Chicken" and wholesale-stock > 0 ] > 0 ] [
+        let cm-factory-to-buy-from one-of cm-factories with [ product-type = "Chicken" and wholesale-stock > 0 ]
         ifelse [ wholesale-stock ] of cm-factory-to-buy-from > required-chicken [
           ask cm-factory-to-buy-from [ set wholesale-stock wholesale-stock - required-chicken ]
           set required-chicken 0
@@ -1232,7 +1414,7 @@ to go
     ask nearest-checkpoint [ set exports-chicken exports-chicken + remaining-stock ]
     set wholesale-stock-chicken 0
   ]
-  ask cm-factories with [ meat-type = "Chicken" and wholesale-stock > 0 ] [
+  ask cm-factories with [ product-type = "Chicken" and wholesale-stock > 0 ] [
     let remaining-stock wholesale-stock
     ask one-of checkpoints [ set exports-chicken exports-chicken + remaining-stock ]
     set wholesale-stock 0
@@ -1523,10 +1705,10 @@ to go
   ; Assess the quantity of meat processed by each slaughterhouse this year. If the quantity
   ; is below the viability threshold, the slaughterhouse in question will no longer be active.
   ask slaughterhouses with [ active? = TRUE ] [
-    ; Calculate the total carcass that has been processed in the current year.
-    let carcass-supply-current (last last processed-beef) + (last last processed-pork) + (last last processed-lamb) + (last last processed-chicken)
-    ; If the total is below the min-viable-carcass capacity, the slaughterhouse will no longer be viable.
-    if carcass-supply-current < min-viable-carcass [
+    ; Calculate the total meat that has been processed in the current year.
+    let meat-supply-current (last last processed-beef) + (last last processed-pork) + (last last processed-lamb) + (last last processed-chicken)
+    ; If the total is below the min-viable-meat capacity, the slaughterhouse will no longer be viable.
+    if meat-supply-current < min-viable-meat [
       set active? FALSE
       set color [138 93 146 ]
       ask link-neighbors [
@@ -1625,10 +1807,10 @@ to go
   if Year >= 2020 and price-scenario = "Determined by markets" [
 
     ; Beef.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita. All
+    ; Identify the baseline producer price and production per capita, plus the current production per capita. All
     ; cattle are priced the same per kg meat.
-    let baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-beef-cow-carcass
-    set baseline-fgp item 1 item 0 baseline-fgp
+    let baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-beef-cow-meat
+    set baseline-pp item 1 item 0 baseline-pp
     let baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-beef
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     let current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-beef
@@ -1636,16 +1818,16 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    let next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-other-cattle-carcass lput list (Year + 1) (next-fgp) fgp-other-cattle-carcass
-    set fgp-beef-cow-carcass lput list (Year + 1) (next-fgp) fgp-beef-cow-carcass
-    set fgp-dairy-cow-carcass lput list (Year + 1) (next-fgp) fgp-dairy-cow-carcass
+    let next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-other-cattle-meat lput list (Year + 1) (next-pp) pp-other-cattle-meat
+    set pp-beef-cow-meat lput list (Year + 1) (next-pp) pp-beef-cow-meat
+    set pp-dairy-cow-meat lput list (Year + 1) (next-pp) pp-dairy-cow-meat
 
     ; Pork.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-pig-carcass
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-pig-meat
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-pork
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-pork
@@ -1653,14 +1835,14 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-pig-carcass lput list (Year + 1) (next-fgp) fgp-pig-carcass
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-pig-meat lput list (Year + 1) (next-pp) pp-pig-meat
 
     ; Lamb.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-sheep-carcass
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-sheep-meat
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-lamb
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-lamb
@@ -1668,14 +1850,14 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-sheep-carcass lput list (Year + 1) (next-fgp) fgp-sheep-carcass
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-sheep-meat lput list (Year + 1) (next-pp) pp-sheep-meat
 
     ; Chicken.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-broiler-carcass
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-broiler-meat
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-chicken
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-chicken
@@ -1683,14 +1865,14 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-broiler-carcass lput list (Year + 1) (next-fgp) fgp-broiler-carcass
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-broiler-meat lput list (Year + 1) (next-pp) pp-broiler-meat
 
     ; Eggs.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-eggs
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-eggs
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-eggs
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-eggs
@@ -1698,14 +1880,14 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-eggs lput list (Year + 1) (next-fgp) fgp-eggs
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-eggs lput list (Year + 1) (next-pp) pp-eggs
 
     ; Wool.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-wool
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-wool
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-wool
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-wool
@@ -1713,14 +1895,14 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-wool lput list (Year + 1) (next-fgp) fgp-wool
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-wool lput list (Year + 1) (next-pp) pp-wool
 
     ; Raw milk.
-    ; Identify the baseline farm gate price and production per capita, plus the current production per capita.
-    set baseline-fgp filter [ i -> price-baseline-year = item 0 i ] fgp-raw-milk
-    set baseline-fgp item 1 item 0 baseline-fgp
+    ; Identify the baseline producer price and production per capita, plus the current production per capita.
+    set baseline-pp filter [ i -> price-baseline-year = item 0 i ] pp-raw-milk
+    set baseline-pp item 1 item 0 baseline-pp
     set baseline-production-per-capita filter [ i -> price-baseline-year = item 0 i ] production-per-capita-rawmilk
     set baseline-production-per-capita item 1 item 0 baseline-production-per-capita
     set current-production-per-capita filter [ i -> Year = item 0 i ] production-per-capita-rawmilk
@@ -1728,60 +1910,54 @@ to go
     ; Determine new price given the current level of production relative to the baseline per capita production
     ; levels. The price-response-ratio slider determines responsiveness of prices to per capita production changes as
     ; a ratio, e.g., a value of 1 means prices go up or down 1% for every 1% change in per capita production.
-    set next-fgp baseline-fgp + (baseline-fgp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
-    ; Add the new farm gate price to the fgp list for implementation next year.
-    set fgp-raw-milk lput list (Year + 1) (next-fgp) fgp-raw-milk
+    set next-pp baseline-pp + (baseline-pp * ((baseline-production-per-capita - current-production-per-capita) / baseline-production-per-capita)) * price-response-ratio
+    ; Add the new producer price to the pp list for implementation next year.
+    set pp-raw-milk lput list (Year + 1) (next-pp) pp-raw-milk
   ]
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; Assess whether to construct cultured meat production facilities ;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ; Assess whether to construct additional cultured meat production facilities ;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ; Each year, one new cultured meat facility can be built.
   if sim-cm? = TRUE and year >= cm-init-yr [
-    ; For each type of meat, check whether biosynthetic production is profitable at
-    ; current prices and whether building a new factory would result in a breach
-    ; in the biosynthetic market share cap for that particular meat. CM costs decline
-    ; as total annual production rises past thresholds set by certain thresholds,
-    ; leading to modification of the `cm-cost-` values.
+    ; For each type of meat, check whether biosynthetic production is sufficiently
+    ; profitable at current prices given the current carbon tax level and minimum
+    ; profit margin required by the CF industry. Also check whether there is already
+    ; sufficient production capacity to fulfil all potential market demand for the
+    ; biosynthetic product. CM costs decline as total annual production rises
+    ; past thresholds set by certain thresholds, leading to modification of the
+    ; `cm-cost-` values.
     ; Beef.
     let facility-allowed-beef? TRUE
-    let current-beef-profit-margin current-fgp-cattle-carcass - (cm-cost-beef * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk))
-    if current-beef-profit-margin < 0 [
+    if profit-margin-perc-cm-beef < cf-required-profit-margin [
       set facility-allowed-beef? FALSE
     ]
-    let potential-cm-production-beef cm-factory-capacity + (count cm-factories with [ meat-type = "Beef" ]  * cm-factory-capacity)
-    if (potential-cm-production-beef / total-consumption-beef) * 100 > cm-max-share [
+    if ((count cm-factories with [ product-type = "Beef" ] * cm-factory-capacity) / total-consumption-beef) * 100 > cm-max-share [
       set facility-allowed-beef? FALSE
     ]
     ; Pork.
     let facility-allowed-pork? TRUE
-    let current-pork-profit-margin current-fgp-pig-carcass - (cm-cost-pork * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk))
-    if current-pork-profit-margin < 0 [
+    if profit-margin-perc-cm-pork < cf-required-profit-margin [
       set facility-allowed-pork? FALSE
     ]
-    let potential-cm-production-pork cm-factory-capacity + (count cm-factories with [ meat-type = "Pork" ]  * cm-factory-capacity)
-    if (potential-cm-production-pork / total-consumption-pork) * 100 > cm-max-share [
+    if ((count cm-factories with [ product-type = "Pork" ] * cm-factory-capacity) / total-consumption-pork) * 100 > cm-max-share [
       set facility-allowed-pork? FALSE
     ]
     ; Lamb.
     let facility-allowed-lamb? TRUE
-    let current-lamb-profit-margin current-fgp-sheep-carcass - (cm-cost-lamb * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk))
-    if current-lamb-profit-margin < 0 [
+    if profit-margin-perc-cm-lamb < cf-required-profit-margin [
       set facility-allowed-lamb? FALSE
     ]
-    let potential-cm-production-lamb cm-factory-capacity + (count cm-factories with [ meat-type = "Lamb" ]  * cm-factory-capacity)
-    if (potential-cm-production-lamb / total-consumption-lamb) * 100 > cm-max-share [
+    if ((count cm-factories with [ product-type = "Lamb" ] * cm-factory-capacity) / total-consumption-lamb) * 100 > cm-max-share [
       set facility-allowed-lamb? FALSE
     ]
     ; Chicken.
     let facility-allowed-chicken? TRUE
-    let current-chicken-profit-margin current-fgp-broiler-carcass - (cm-cost-chicken * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk))
-    if current-chicken-profit-margin < 0 [
+    if profit-margin-perc-cm-chicken < cf-required-profit-margin [
       set facility-allowed-chicken? FALSE
     ]
-    let potential-cm-production-chicken cm-factory-capacity + (count cm-factories with [ meat-type = "Chicken" ]  * cm-factory-capacity)
-    if (potential-cm-production-chicken / total-consumption-chicken) * 100 > cm-max-share [
+    if ((count cm-factories with [ product-type = "Chicken" ] * cm-factory-capacity) / total-consumption-chicken) * 100 > cm-max-share [
       set facility-allowed-chicken? FALSE
     ]
     ; We check whether there are any candidate meats that merit expanded production. If there is more
@@ -1791,40 +1967,92 @@ to go
       ; Create the list of candidate meats.
       let candidate-meats []
       if facility-allowed-beef? = TRUE [
-        set candidate-meats lput list (current-beef-profit-margin) ("Beef") candidate-meats
+        set candidate-meats lput list (profit-margin-cm-beef) ("Beef") candidate-meats
       ]
       if facility-allowed-pork? = TRUE [
-        set candidate-meats lput list (current-pork-profit-margin) ("Pork") candidate-meats
+        set candidate-meats lput list (profit-margin-cm-pork) ("Pork") candidate-meats
       ]
       if facility-allowed-lamb? = TRUE [
-        set candidate-meats lput list (current-lamb-profit-margin) ("Lamb") candidate-meats
+        set candidate-meats lput list (profit-margin-cm-lamb) ("Lamb") candidate-meats
       ]
       if facility-allowed-chicken? = TRUE [
-        set candidate-meats lput list (current-chicken-profit-margin) ("Chicken") candidate-meats
+        set candidate-meats lput list (profit-margin-cm-chicken) ("Chicken") candidate-meats
       ]
       ; Order the list by profit margin.
       set candidate-meats sort-by [[list1 list2] -> first list1 < first list2] candidate-meats
       ; Create a cultured meat factory producing whichever meat has the greatest profit margin.
       create-cm-factories 1 [
-        set meat-type item 1 item 0 candidate-meats
+        set product-type item 1 last candidate-meats
         set wholesale-stock 0
         set processed-meat []
-        ; Specify aesthetics.
-        if meat-type = "Beef" [
+        ; Specify aesthetics and initial capcity to be utilised.
+        if product-type = "Beef" [
+          ; If adding a factory will not result in excess production of the product when
+          ; the maximum market share is considered, the added factory will operate at
+          ; its maximum capacity.
+          let potential-cm-production-beef (count cm-factories with [ product-type = "Beef" ]  * cm-factory-capacity)
+          if ((potential-cm-production-beef / total-consumption-beef) * 100 < cm-max-share) [
+            set production-quota cm-factory-capacity
+          ]
+          ; Instead, if adding a factory will lead to excess production, the factory will
+          ; operate below its maximum capacity, producing whatever is required to bring
+          ; total production up to the maximum market share but no higher.
+          if ((potential-cm-production-beef / total-consumption-beef) * 100 > cm-max-share) [
+            set production-quota production-limit-cm-beef - sum [ production-quota ] of other cm-factories with [ product-type = "Beef" ]
+          ]
           set ycor -105
-          set xcor 220 - (20 * count cm-factories with [ meat-type = "Beef" ])
+          set xcor 220 - (20 * count cm-factories with [ product-type = "Beef" ])
         ]
-        if meat-type = "Pork" [
+        if product-type = "Pork" [
+          ; If adding a factory will not result in excess production of the product when
+          ; the maximum market share is considered, the added factory will operate at
+          ; its maximum capacity.
+          let potential-cm-production-pork (count cm-factories with [ product-type = "Pork" ]  * cm-factory-capacity)
+          if ((potential-cm-production-pork / total-consumption-pork) * 100 < cm-max-share) [
+            set production-quota cm-factory-capacity
+          ]
+          ; Instead, if adding a factory will lead to excess production, the factory will
+          ; operate below its maximum capacity, producing whatever is required to bring
+          ; total production up to the maximum market share but no higher.
+          if ((potential-cm-production-pork / total-consumption-pork) * 100 > cm-max-share) [
+            set production-quota production-limit-cm-pork - sum [ production-quota ] of other cm-factories with [ product-type = "Pork" ]
+          ]
           set ycor -120
-          set xcor 220 - (20 * count cm-factories with [ meat-type = "Pork" ])
+          set xcor 220 - (20 * count cm-factories with [ product-type = "Pork" ])
         ]
-        if meat-type = "Lamb" [
+        if product-type = "Lamb" [
+          ; If adding a factory will not result in excess production of the product when
+          ; the maximum market share is considered, the added factory will operate at
+          ; its maximum capacity.
+          let potential-cm-production-lamb (count cm-factories with [ product-type = "Lamb" ]  * cm-factory-capacity)
+          if ((potential-cm-production-lamb / total-consumption-lamb) * 100 < cm-max-share) [
+            set production-quota cm-factory-capacity
+          ]
+          ; Instead, if adding a factory will lead to excess production, the factory will
+          ; operate below its maximum capacity, producing whatever is required to bring
+          ; total production up to the maximum market share but no higher.
+          if ((potential-cm-production-lamb / total-consumption-lamb) * 100 > cm-max-share) [
+            set production-quota production-limit-cm-lamb - sum [ production-quota ] of other cm-factories with [ product-type = "Lamb" ]
+          ]
           set ycor -135
-          set xcor 220 - (20 * count cm-factories with [ meat-type = "Lamb" ])
+          set xcor 220 - (20 * count cm-factories with [ product-type = "Lamb" ])
         ]
-        if meat-type = "Chicken" [
-          set ycor -250
-          set xcor 220 - (20 * count cm-factories with [ meat-type = "Chicken" ])
+        if product-type = "Chicken" [
+          ; If adding a factory will not result in excess production of the product when
+          ; the maximum market share is considered, the added factory will operate at
+          ; its maximum capacity.
+          let potential-cm-production-chicken (count cm-factories with [ product-type = "Chicken" ]  * cm-factory-capacity)
+          if ((potential-cm-production-chicken / total-consumption-chicken) * 100 < cm-max-share) [
+            set production-quota cm-factory-capacity
+          ]
+          ; Instead, if adding a factory will lead to excess production, the factory will
+          ; operate below its maximum capacity, producing whatever is required to bring
+          ; total production up to the maximum market share but no higher.
+          if ((potential-cm-production-chicken / total-consumption-chicken) * 100 > cm-max-share) [
+            set production-quota production-limit-cm-chicken - sum [ production-quota ] of other cm-factories with [ product-type = "Chicken" ]
+          ]
+          set ycor -150
+          set xcor 220 - (20 * count cm-factories with [ product-type = "Chicken" ])
         ]
         set color [204 116 94]
         set shape "biosynth-factory"
@@ -1833,34 +2061,44 @@ to go
     ]
   ]
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; Assess whether to construct biosynthetic liquid production facilities ;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ; Assess whether to construct additional biosynthetic liquid production facilities ;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ; Each year, one new egg and one new milk biosynthetic liquid facility can be built.
   if sim-pf? = TRUE and year >= pf-init-yr [
     ; For each type of biosynthetic liquid, check whether biosynthetic production is profitable at
-    ; current prices and whether building a new factory would result in a breach in the biosynthetic
-    ; market share cap for that particular product. BL costs decline as total annual production rises
-    ; past thresholds set by certain thresholds, leading to modification of the `pf-cost-` values.
-    ; Milk.
-    let facility-allowed-milk? TRUE
-    let current-milk-profit-margin current-fgp-raw-milk - (pf-cost-dairy * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk))
-    if current-milk-profit-margin < 0 [
-      set facility-allowed-milk? FALSE
+    ; current prices and given the current carbon tax level. Also check whether there is already
+    ; sufficient production capacity to fulfil all potential market demand for the biosynthetic
+    ; product. BL costs decline as total annual production rises past thresholds set by certain
+    ; thresholds, leading to modification of the `pf-cost-` values.
+    ; Dairy.
+    let facility-allowed-dairy? TRUE
+    if profit-margin-perc-pf-raw-milk < cf-required-profit-margin [
+      set facility-allowed-dairy? FALSE
     ]
-    ; We calculate the proportion of total dairy consumption in raw milk equivalent that would be
-    ; made up of biosynthetic production if another facility is added.
-    let potential-pf-production-dairy pf-factory-dairy-capacity + (count pf-factories with [ product-type = "Dairy" ]  * pf-factory-dairy-capacity)
     let total-consumption-rawmilk (total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335000) + (total-consumption-butter * 0.2522000) + (total-consumption-cheese * 6.9140000)
-    if (potential-pf-production-dairy / total-consumption-rawmilk) * 100 > pf-max-share [
-      set facility-allowed-milk? FALSE
+    if ((count pf-factories with [ product-type = "Dairy" ] * pf-factory-dairy-capacity) / total-consumption-rawmilk) * 100 > pf-max-share [
+      set facility-allowed-dairy? FALSE
     ]
     ; If milk facilities are allowed, we will build one.
-    if facility-allowed-milk? = TRUE [
+    if facility-allowed-dairy? = TRUE [
       ; Create a biosynthetic liquid factory producing milk and converting it into dairy products.
       create-pf-factories 1 [
         set product-type "Dairy"
+        ; If adding a factory will not result in excess production of the product when
+        ; the maximum market share is considered, the added factory will operate at
+        ; its maximum capacity.
+        let potential-pf-production-dairy (count pf-factories with [ product-type = "Dairy" ]  * pf-factory-dairy-capacity)
+        if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 < pf-max-share) [
+          set production-quota pf-factory-dairy-capacity
+        ]
+        ; Instead, if adding a factory will lead to excess production, the factory will
+        ; operate below its maximum capacity, producing whatever is required to bring
+        ; total production up to the maximum market share but no higher.
+        if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 > pf-max-share) [
+          set production-quota production-limit-pf-rawmilk - sum [ production-quota ] of other pf-factories with [ product-type = "Dairy" ]
+        ]
         set wholesale-stock-milk-cream 0
         set wholesale-stock-yoghurt 0
         set wholesale-stock-butter 0
@@ -1880,12 +2118,10 @@ to go
     ]
     ; Eggs.
     let facility-allowed-eggs? TRUE
-    let current-egg-profit-margin current-fgp-eggs - (pf-cost-eggs * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk))
-    if current-egg-profit-margin < 0 [
+    if profit-margin-perc-pf-eggs < cf-required-profit-margin [
       set facility-allowed-eggs? FALSE
     ]
-    let potential-pf-production-eggs pf-factory-egg-capacity + (count pf-factories with [ product-type = "Eggs" ]  * pf-factory-egg-capacity)
-    if (potential-pf-production-eggs / total-consumption-eggs) * 100 > pf-max-share [
+    if ((count pf-factories with [ product-type = "Eggs" ] * pf-factory-egg-capacity) / total-consumption-eggs) * 100 > pf-max-share [
       set facility-allowed-eggs? FALSE
     ]
     ; If egg facilities are allowed, we will build one.
@@ -1893,6 +2129,19 @@ to go
       ; Create a biosynthetic liquid factory producing egg.
       create-pf-factories 1 [
         set product-type "Eggs"
+        let potential-pf-production-eggs (count pf-factories with [ product-type = "Eggs" ]  * pf-factory-egg-capacity)
+        ; If adding a factory will not result in excess production of the product when
+        ; the maximum market share is considered, the added factory will operate at
+        ; its maximum capacity.
+        if ((potential-pf-production-eggs / total-consumption-eggs) * 100 < pf-max-share) [
+          set production-quota pf-factory-egg-capacity
+        ]
+        ; Instead, if adding a factory will lead to excess production, the factory will
+        ; operate below its maximum capacity, producing whatever is required to bring
+        ; total production up to the maximum market share but no higher.
+        if ((potential-pf-production-eggs / total-consumption-eggs) * 100 > pf-max-share) [
+          set production-quota production-limit-pf-eggs - sum [ production-quota ] of other pf-factories with [ product-type = "Eggs" ]
+        ]
         set wholesale-stock-milk-cream 0
         set wholesale-stock-yoghurt 0
         set wholesale-stock-butter 0
@@ -1980,6 +2229,50 @@ end
 
 to-report total-farms
   report count farms with [ active? = TRUE ]
+end
+
+to-report specialist-cattle-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist cattle" ]
+end
+
+to-report specialist-sheep-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist sheep" ]
+end
+
+to-report specialist-pig-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist pig" ]
+end
+
+to-report specialist-broiler-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist broiler" ]
+end
+
+to-report specialist-laying-hen-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist laying hens" ]
+end
+
+to-report specialist-fodder-silage-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist fodder/silage" ]
+end
+
+to-report specialist-arable-horticulture-farms
+  report count farms with [ active? = TRUE and farm-type = "Specialist arable/horticulture" ]
+end
+
+to-report combined-cattle-grain-farms
+  report count farms with [ active? = TRUE and farm-type = "Combined cattle & grain" ]
+end
+
+to-report combined-cattle-sheep-farms
+  report count farms with [ active? = TRUE and farm-type = "Combined cattle & sheep" ]
+end
+
+to-report other-mixed-farms
+  report count farms with [ active? = TRUE and farm-type = "Other mixed" ]
+end
+
+to-report no-activity-farms
+  report count farms with [ active? = TRUE and farm-type = "No activities reported" ]
 end
 
 ; Define a reporter that returns the present population of the specified kommune.
@@ -2146,7 +2439,7 @@ to-report farm-production-barley
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-oats
@@ -2163,7 +2456,7 @@ to-report farm-production-oats
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-wheat
@@ -2180,7 +2473,7 @@ to-report farm-production-wheat
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-rye-triticale
@@ -2197,7 +2490,7 @@ to-report farm-production-rye-triticale
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-oilseeds
@@ -2214,7 +2507,7 @@ to-report farm-production-oilseeds
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-potatoes
@@ -2231,7 +2524,7 @@ to-report farm-production-potatoes
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-vegetables
@@ -2248,7 +2541,7 @@ to-report farm-production-vegetables
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-fodder-silage
@@ -2265,7 +2558,7 @@ to-report farm-production-fodder-silage
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-other-crops
@@ -2282,7 +2575,7 @@ to-report farm-production-other-crops
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-orchards
@@ -2299,7 +2592,7 @@ to-report farm-production-orchards
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-berries
@@ -2316,7 +2609,7 @@ to-report farm-production-berries
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-dairy-cow-beef
@@ -2326,14 +2619,14 @@ to-report farm-production-dairy-cow-beef
     let local-yield-dairy-cows 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield-dairy-cows filter [ i -> Year = item 0 i ] yield-dairy-cow-carcass
+      set local-yield-dairy-cows filter [ i -> Year = item 0 i ] yield-dairy-cow-meat
       set local-yield-dairy-cows item 1 item 0 local-yield-dairy-cows
     ]
     set my-production (local-yield-dairy-cows * num-dairy-cows)
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-beef-cow-beef
@@ -2343,14 +2636,14 @@ to-report farm-production-beef-cow-beef
     let local-yield-beef-cows 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield-beef-cows filter [ i -> Year = item 0 i ] yield-beef-cow-carcass
+      set local-yield-beef-cows filter [ i -> Year = item 0 i ] yield-beef-cow-meat
       set local-yield-beef-cows item 1 item 0 local-yield-beef-cows
     ]
     set my-production (local-yield-beef-cows * num-beef-cows)
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-other-cattle-beef
@@ -2360,14 +2653,14 @@ to-report farm-production-other-cattle-beef
     let local-yield-other-cattle 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield-other-cattle filter [ i -> Year = item 0 i ] yield-other-cattle-carcass
+      set local-yield-other-cattle filter [ i -> Year = item 0 i ] yield-other-cattle-meat
       set local-yield-other-cattle item 1 item 0 local-yield-other-cattle
     ]
     set my-production (local-yield-other-cattle * num-other-cattle)
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-beef
@@ -2382,14 +2675,14 @@ to-report farm-production-pork
     let local-yield 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield filter [ i -> Year = item 0 i ] yield-pig-carcass
+      set local-yield filter [ i -> Year = item 0 i ] yield-pig-meat
       set local-yield item 1 item 0 local-yield
     ]
     set my-production local-yield * num-pigs
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-lamb
@@ -2399,14 +2692,14 @@ to-report farm-production-lamb
     let local-yield 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield filter [ i -> Year = item 0 i ] yield-sheep-carcass
+      set local-yield filter [ i -> Year = item 0 i ] yield-sheep-meat
       set local-yield item 1 item 0 local-yield
     ]
     set my-production local-yield * num-sheep
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-chicken
@@ -2416,14 +2709,14 @@ to-report farm-production-chicken
     let local-yield 0
     ask fylker with [ fylke-id = my-fylke-id ] [
       ; Extract the local yield for the current year.
-      set local-yield filter [ i -> Year = item 0 i ] yield-broiler-carcass
+      set local-yield filter [ i -> Year = item 0 i ] yield-broiler-meat
       set local-yield item 1 item 0 local-yield
     ]
     set my-production local-yield * num-broilers
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-eggs
@@ -2440,7 +2733,7 @@ to-report farm-production-eggs
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-wool
@@ -2457,7 +2750,7 @@ to-report farm-production-wool
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report farm-production-raw-milk
@@ -2474,7 +2767,7 @@ to-report farm-production-raw-milk
   ]
   ; If inactive, production is reset to zero.
   if active? = FALSE [ set my-production 0 ]
-  report my-production
+  report precision my-production 4
 end
 
 to-report total-farm-production-barley
@@ -2578,19 +2871,19 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to-report total-factory-production-beef
-  report count cm-factories with [ meat-type = "Beef" ] * cm-factory-capacity
+  report sum [ production-quota ] of cm-factories with [product-type = "Beef"]
 end
 
 to-report total-factory-production-pork
-  report count cm-factories with [ meat-type = "Pork" ] * cm-factory-capacity
+  report sum [ production-quota ] of cm-factories with [product-type = "Pork"]
 end
 
 to-report total-factory-production-lamb
-  report count cm-factories with [ meat-type = "Lamb" ] * cm-factory-capacity
+  report sum [ production-quota ] of cm-factories with [product-type = "Lamb"]
 end
 
 to-report total-factory-production-chicken
-  report count cm-factories with [ meat-type = "Chicken" ] * cm-factory-capacity
+  report sum [ production-quota ] of cm-factories with [product-type = "Chicken"]
 end
 
 to-report total-factory-production-meat
@@ -2598,11 +2891,11 @@ to-report total-factory-production-meat
 end
 
 to-report total-factory-production-eggs
-  report count pf-factories with [ product-type = "Eggs" ] * pf-factory-egg-capacity
+  report sum [ production-quota ] of pf-factories with [product-type = "Eggs"]
 end
 
 to-report total-factory-production-raw-milk
-  report count pf-factories with [ product-type = "Dairy" ] * pf-factory-dairy-capacity
+  report sum [ production-quota ] of pf-factories with [product-type = "Dairy"]
 end
 
 to-report total-factory-production-pf
@@ -2610,115 +2903,172 @@ to-report total-factory-production-pf
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Report farm-gate price ;
+; Report producer price ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-to-report current-fgp-barley
-  let national-fgp-barley filter [ i -> Year = item 0 i ] fgp-barley
-  set national-fgp-barley item 1 item 0 national-fgp-barley
-  report national-fgp-barley
+to-report current-pp-barley
+  let national-pp-barley filter [ i -> Year = item 0 i ] pp-barley
+  set national-pp-barley item 1 item 0 national-pp-barley
+  report national-pp-barley
 end
 
-to-report current-fgp-oats
-  let national-fgp-oats filter [ i -> Year = item 0 i ] fgp-oats
-  set national-fgp-oats item 1 item 0 national-fgp-oats
-  report national-fgp-oats
+to-report current-pp-oats
+  let national-pp-oats filter [ i -> Year = item 0 i ] pp-oats
+  set national-pp-oats item 1 item 0 national-pp-oats
+  report national-pp-oats
 end
 
-to-report current-fgp-wheat
-  let national-fgp-wheat filter [ i -> Year = item 0 i ] fgp-wheat
-  set national-fgp-wheat item 1 item 0 national-fgp-wheat
-  report national-fgp-wheat
+to-report current-pp-wheat
+  let national-pp-wheat filter [ i -> Year = item 0 i ] pp-wheat
+  set national-pp-wheat item 1 item 0 national-pp-wheat
+  report national-pp-wheat
 end
 
-to-report current-fgp-rye-triticale
-  let national-fgp-rye-triticale filter [ i -> Year = item 0 i ] fgp-rye-triticale
-  set national-fgp-rye-triticale item 1 item 0 national-fgp-rye-triticale
-  report national-fgp-rye-triticale
+to-report current-pp-rye-triticale
+  let national-pp-rye-triticale filter [ i -> Year = item 0 i ] pp-rye-triticale
+  set national-pp-rye-triticale item 1 item 0 national-pp-rye-triticale
+  report national-pp-rye-triticale
 end
 
-to-report current-fgp-oilseeds
-  let national-fgp-oilseeds filter [ i -> Year = item 0 i ] fgp-oilseeds
-  set national-fgp-oilseeds item 1 item 0 national-fgp-oilseeds
-  report national-fgp-oilseeds
+to-report current-pp-oilseeds
+  let national-pp-oilseeds filter [ i -> Year = item 0 i ] pp-oilseeds
+  set national-pp-oilseeds item 1 item 0 national-pp-oilseeds
+  report national-pp-oilseeds
 end
 
-to-report current-fgp-potatoes
-  let national-fgp-potatoes filter [ i -> Year = item 0 i ] fgp-potatoes
-  set national-fgp-potatoes item 1 item 0 national-fgp-potatoes
-  report national-fgp-potatoes
+to-report current-pp-potatoes
+  let national-pp-potatoes filter [ i -> Year = item 0 i ] pp-potatoes
+  set national-pp-potatoes item 1 item 0 national-pp-potatoes
+  report national-pp-potatoes
 end
 
-to-report current-fgp-vegetables
-  let national-fgp-vegetables filter [ i -> Year = item 0 i ] fgp-vegetables
-  set national-fgp-vegetables item 1 item 0 national-fgp-vegetables
-  report national-fgp-vegetables
+to-report current-pp-vegetables
+  let national-pp-vegetables filter [ i -> Year = item 0 i ] pp-vegetables
+  set national-pp-vegetables item 1 item 0 national-pp-vegetables
+  report national-pp-vegetables
 end
 
-to-report current-fgp-fodder-silage
-  let national-fgp-fodder-silage filter [ i -> Year = item 0 i ] fgp-fodder-silage
-  set national-fgp-fodder-silage item 1 item 0 national-fgp-fodder-silage
-  report national-fgp-fodder-silage
+to-report current-pp-fodder-silage
+  let national-pp-fodder-silage filter [ i -> Year = item 0 i ] pp-fodder-silage
+  set national-pp-fodder-silage item 1 item 0 national-pp-fodder-silage
+  report national-pp-fodder-silage
 end
 
-to-report current-fgp-other-crops
-  let national-fgp-other-crops filter [ i -> Year = item 0 i ] fgp-other-crops
-  set national-fgp-other-crops item 1 item 0 national-fgp-other-crops
-  report national-fgp-other-crops
+to-report current-pp-other-crops
+  let national-pp-other-crops filter [ i -> Year = item 0 i ] pp-other-crops
+  set national-pp-other-crops item 1 item 0 national-pp-other-crops
+  report national-pp-other-crops
 end
 
-to-report current-fgp-pome-stone-fruit
-  let national-fgp-pome-stone-fruit filter [ i -> Year = item 0 i ] fgp-pome-stone-fruit
-  set national-fgp-pome-stone-fruit item 1 item 0 national-fgp-pome-stone-fruit
-  report national-fgp-pome-stone-fruit
+to-report current-pp-pome-stone-fruit
+  let national-pp-pome-stone-fruit filter [ i -> Year = item 0 i ] pp-pome-stone-fruit
+  set national-pp-pome-stone-fruit item 1 item 0 national-pp-pome-stone-fruit
+  report national-pp-pome-stone-fruit
 end
 
-to-report current-fgp-berries
-  let national-fgp-berries filter [ i -> Year = item 0 i ] fgp-berries
-  set national-fgp-berries item 1 item 0 national-fgp-berries
-  report national-fgp-berries
+to-report current-pp-berries
+  let national-pp-berries filter [ i -> Year = item 0 i ] pp-berries
+  set national-pp-berries item 1 item 0 national-pp-berries
+  report national-pp-berries
 end
 
-to-report current-fgp-cattle-carcass
-  let national-fgp-cattle filter [ i -> Year = item 0 i ] fgp-other-cattle-carcass
-  set national-fgp-cattle item 1 item 0 national-fgp-cattle
-  report national-fgp-cattle
+to-report current-pp-cattle-meat
+  let national-pp-cattle filter [ i -> Year = item 0 i ] pp-other-cattle-meat
+  set national-pp-cattle item 1 item 0 national-pp-cattle
+  report precision national-pp-cattle 0
 end
 
-to-report current-fgp-pig-carcass
-  let national-fgp-pigs filter [ i -> Year = item 0 i ] fgp-pig-carcass
-  set national-fgp-pigs item 1 item 0 national-fgp-pigs
-  report national-fgp-pigs
+to-report current-pp-pig-meat
+  let national-pp-pigs filter [ i -> Year = item 0 i ] pp-pig-meat
+  set national-pp-pigs item 1 item 0 national-pp-pigs
+  report precision national-pp-pigs 0
 end
 
-to-report current-fgp-sheep-carcass
-  let national-fgp-sheep filter [ i -> Year = item 0 i ] fgp-sheep-carcass
-  set national-fgp-sheep item 1 item 0 national-fgp-sheep
-  report national-fgp-sheep
+to-report current-pp-sheep-meat
+  let national-pp-sheep filter [ i -> Year = item 0 i ] pp-sheep-meat
+  set national-pp-sheep item 1 item 0 national-pp-sheep
+  report precision national-pp-sheep 0
 end
 
-to-report current-fgp-broiler-carcass
-  let national-fgp-broiler filter [ i -> Year = item 0 i ] fgp-broiler-carcass
-  set national-fgp-broiler item 1 item 0 national-fgp-broiler
-  report national-fgp-broiler
+to-report current-pp-broiler-meat
+  let national-pp-broiler filter [ i -> Year = item 0 i ] pp-broiler-meat
+  set national-pp-broiler item 1 item 0 national-pp-broiler
+  report precision national-pp-broiler 0
 end
 
-to-report current-fgp-eggs
-  let national-fgp-eggs filter [ i -> Year = item 0 i ] fgp-eggs
-  set national-fgp-eggs item 1 item 0 national-fgp-eggs
-  report national-fgp-eggs
+to-report current-pp-eggs
+  let national-pp-eggs filter [ i -> Year = item 0 i ] pp-eggs
+  set national-pp-eggs item 1 item 0 national-pp-eggs
+  report precision national-pp-eggs 0
 end
 
-to-report current-fgp-raw-milk
-  let national-fgp-raw-milk filter [ i -> Year = item 0 i ] fgp-raw-milk
-  set national-fgp-raw-milk item 1 item 0 national-fgp-raw-milk
-  report national-fgp-raw-milk
+to-report current-pp-raw-milk
+  let national-pp-raw-milk filter [ i -> Year = item 0 i ] pp-raw-milk
+  set national-pp-raw-milk item 1 item 0 national-pp-raw-milk
+  report precision national-pp-raw-milk 0
 end
 
-to-report current-fgp-wool
-  let national-fgp-wool filter [ i -> Year = item 0 i ] fgp-wool
-  set national-fgp-wool item 1 item 0 national-fgp-wool
-  report national-fgp-wool
+to-report current-pp-wool
+  let national-pp-wool filter [ i -> Year = item 0 i ] pp-wool
+  set national-pp-wool item 1 item 0 national-pp-wool
+  report precision national-pp-wool 0
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Report profit margins of CF foods in NOK/t ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to-report profit-margin-cm-beef
+  report precision (current-pp-cattle-meat - ((cm-cost-beef * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) 0
+end
+
+to-report profit-margin-cm-lamb
+  report precision (current-pp-sheep-meat - ((cm-cost-lamb * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) 0
+end
+
+to-report profit-margin-cm-pork
+  report precision (current-pp-pig-meat - ((cm-cost-pork * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) 0
+end
+
+to-report profit-margin-cm-chicken
+  report precision (current-pp-broiler-meat - ((cm-cost-chicken * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) 0
+end
+
+to-report profit-margin-pf-eggs
+  report precision (current-pp-eggs - ((pf-cost-eggs * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-egg * carbon-tax-per-tonne))) 0
+end
+
+to-report profit-margin-pf-raw-milk
+  report precision (current-pp-raw-milk - ((pf-cost-dairy * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-dairy * carbon-tax-per-tonne))) 0
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Report profit margins of CF foods as a % ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to-report profit-margin-perc-cm-beef
+  report precision (((current-pp-cattle-meat - ((cm-cost-beef * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) / current-pp-cattle-meat) * 100) 2
+end
+
+to-report profit-margin-perc-cm-lamb
+  report precision (((current-pp-sheep-meat - ((cm-cost-lamb * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) / current-pp-sheep-meat) * 100) 2
+end
+
+to-report profit-margin-perc-cm-pork
+  report precision (((current-pp-pig-meat - ((cm-cost-pork * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) / current-pp-pig-meat) * 100) 2
+end
+
+to-report profit-margin-perc-cm-chicken
+  report precision (((current-pp-broiler-meat - ((cm-cost-chicken * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))) / current-pp-broiler-meat) * 100) 2
+end
+
+to-report profit-margin-perc-pf-eggs
+  report precision (((current-pp-eggs - ((pf-cost-eggs * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-egg * carbon-tax-per-tonne))) / current-pp-eggs) * 100) 2
+end
+
+to-report profit-margin-perc-pf-raw-milk
+  report precision (((current-pp-raw-milk - ((pf-cost-dairy * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-dairy * carbon-tax-per-tonne))) / current-pp-raw-milk) * 100) 2
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2728,28 +3078,34 @@ end
 ; For animal products, send the production to a dairy or slaughterhouse. Initially use the nearest facility, but update this later to account for capacity.
 ; Calculate the mean income each year for the first five years, updating it for each of these years, making this the baseline against which farms judge viability.
 to-report farm-income
-  let income-barley (farm-production-barley * current-fgp-barley)
-  let income-oats (farm-production-oats * current-fgp-oats)
-  let income-wheat (farm-production-wheat * current-fgp-wheat)
-  let income-rye-triticale (farm-production-rye-triticale * current-fgp-rye-triticale)
-  let income-oilseeds (farm-production-oilseeds * current-fgp-oilseeds)
-  let income-potatoes (farm-production-potatoes * current-fgp-potatoes)
-  let income-vegetables (farm-production-vegetables * current-fgp-vegetables)
-  let income-fodder-silage (farm-production-fodder-silage * current-fgp-fodder-silage)
-  let income-other-crops (farm-production-other-crops * current-fgp-other-crops)
-  let income-pome-stone-fruit (farm-production-orchards * current-fgp-pome-stone-fruit)
-  let income-berries (farm-production-berries * current-fgp-berries)
-  let income-beef (farm-production-beef * current-fgp-cattle-carcass)
-  let income-pork (farm-production-pork * current-fgp-pig-carcass)
-  let income-lamb (farm-production-lamb * current-fgp-sheep-carcass)
-  let income-chicken (farm-production-chicken * current-fgp-broiler-carcass)
-  let income-eggs (farm-production-eggs * current-fgp-eggs)
-  let income-wool (farm-production-wool * current-fgp-wool)
-  let income-raw-milk (farm-production-raw-milk * current-fgp-raw-milk)
+  let income-barley (farm-production-barley * current-pp-barley)
+  let income-oats (farm-production-oats * current-pp-oats)
+  let income-wheat (farm-production-wheat * current-pp-wheat)
+  let income-rye-triticale (farm-production-rye-triticale * current-pp-rye-triticale)
+  let income-oilseeds (farm-production-oilseeds * current-pp-oilseeds)
+  let income-potatoes (farm-production-potatoes * current-pp-potatoes)
+  let income-vegetables (farm-production-vegetables * current-pp-vegetables)
+  let income-fodder-silage (farm-production-fodder-silage * current-pp-fodder-silage)
+  let income-other-crops (farm-production-other-crops * current-pp-other-crops)
+  let income-pome-stone-fruit (farm-production-orchards * current-pp-pome-stone-fruit)
+  let income-berries (farm-production-berries * current-pp-berries)
+  let income-beef (farm-production-beef * current-pp-cattle-meat)
+  let income-pork (farm-production-pork * current-pp-pig-meat)
+  let income-lamb (farm-production-lamb * current-pp-sheep-meat)
+  let income-chicken (farm-production-chicken * current-pp-broiler-meat)
+  let income-eggs (farm-production-eggs * current-pp-eggs)
+  let income-wool (farm-production-wool * current-pp-wool)
+  let income-raw-milk (farm-production-raw-milk * current-pp-raw-milk)
   let subsidy-income (subsidy-nonlivestock + subsidy-livestock + subsidy-milk)
-  let total-farm-income (income-barley + income-oats + income-wheat + income-rye-triticale + income-oilseeds + income-potatoes + income-vegetables + income-fodder-silage + income-other-crops + income-pome-stone-fruit + income-berries + income-beef + income-lamb + income-pork + income-chicken + income-eggs + income-wool + income-raw-milk + subsidy-income)
-  if  active? = FALSE [ set total-farm-income 0 ]
-  report total-farm-income
+  let my-total-farm-income (income-barley + income-oats + income-wheat + income-rye-triticale + income-oilseeds + income-potatoes + income-vegetables + income-fodder-silage + income-other-crops + income-pome-stone-fruit + income-berries + income-beef + income-lamb + income-pork + income-chicken + income-eggs + income-wool + income-raw-milk + subsidy-income)
+  ; If a carbon tax is in operation, adjust the total farm income to account for carbon tax liabilities.
+  ; We convert farm emissions from kg to tonnes as the carbon tax is set per tonne.
+  if year >= carbon-tax-start-yr [
+    set my-total-farm-income my-total-farm-income - current-carbon-tax-liability
+  ;  set my-total-farm-income my-total-farm-income - ((current-emissions / 1000) * carbon-tax-per-tonne)
+  ]
+  if  active? = FALSE [ set my-total-farm-income 0 ]
+  report my-total-farm-income
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2912,80 +3268,109 @@ to-report per-capita-production-rawmilk
   report per-capita-domestic-production
 end
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Report the effective CF product quotas for the current year ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to-report production-limit-cm-beef
+  report precision ((total-consumption-beef / 100) * cm-max-share) 2
+end
+
+to-report production-limit-cm-lamb
+  report precision ((total-consumption-lamb / 100) * cm-max-share) 2
+end
+
+to-report production-limit-cm-pork
+  report precision ((total-consumption-pork / 100) * cm-max-share) 2
+end
+
+to-report production-limit-cm-chicken
+  report precision ((total-consumption-chicken / 100) * cm-max-share) 2
+end
+
+to-report production-limit-pf-rawmilk
+  let total-consumption-rawmilk (total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335000) + (total-consumption-butter * 0.2522000) + (total-consumption-cheese * 6.9140000)
+  report precision ((total-consumption-rawmilk / 100) * pf-max-share) 2
+end
+
+to-report production-limit-pf-eggs
+  report precision ((total-consumption-eggs / 100) * pf-max-share) 2
+end
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Report total CO2-equiv. emissions by activity in kt                         ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to-report total-emissions-barley
-  report (total-ha-barley * emissions-ha-barley) / 1000000
+  report precision ((total-ha-barley * emissions-ha-barley) / 1000000) 2
 end
 
 to-report total-emissions-oats
-  report (total-ha-oats * emissions-ha-oats) / 1000000
+  report precision ((total-ha-oats * emissions-ha-oats) / 1000000) 2
 end
 
 to-report total-emissions-wheat
-  report (total-ha-wheat * emissions-ha-wheat) / 1000000
+  report precision ((total-ha-wheat * emissions-ha-wheat) / 1000000) 2
 end
 
 to-report total-emissions-rye-triticale
-  report (total-ha-rye-triticale * emissions-ha-rye-triticale) / 1000000
+  report precision ((total-ha-rye-triticale * emissions-ha-rye-triticale) / 1000000) 2
 end
 
 to-report total-emissions-oilseeds
-  report (total-ha-oilseeds * emissions-ha-oilseeds) / 1000000
+  report precision ((total-ha-oilseeds * emissions-ha-oilseeds) / 1000000) 2
 end
 
 to-report total-emissions-potatoes
-  report (total-ha-potatoes * emissions-ha-potatoes) / 1000000
+  report precision ((total-ha-potatoes * emissions-ha-potatoes) / 1000000) 2
 end
 
 to-report total-emissions-vegetables
-  report (total-ha-vegetables * emissions-ha-vegetables) / 1000000
+  report precision ((total-ha-vegetables * emissions-ha-vegetables) / 1000000) 2
 end
 
 to-report total-emissions-fodder-silage
-  report (total-ha-fodder-silage * emissions-ha-fodder-silage) / 1000000
+  report precision ((total-ha-fodder-silage * emissions-ha-fodder-silage) / 1000000) 2
 end
 
 to-report total-emissions-other-crops
-  report (total-ha-other-crops * emissions-ha-other-crops) / 1000000
+  report precision ((total-ha-other-crops * emissions-ha-other-crops) / 1000000) 2
 end
 
 to-report total-emissions-orchards
-  report (total-ha-orchards * emissions-ha-orchards) / 1000000
+  report precision ((total-ha-orchards * emissions-ha-orchards) / 1000000) 2
 end
 
 to-report total-emissions-berries
-  report (total-ha-berries * emissions-ha-berries) / 1000000
+  report precision ((total-ha-berries * emissions-ha-berries) / 1000000) 2
 end
 
 to-report total-emissions-dairy-cows
-  report (total-dairy-cows * emissions-head-dairy-cows) / 1000000
+  report precision ((total-dairy-cows * emissions-head-dairy-cows) / 1000000) 2
 end
 
 to-report total-emissions-beef-cows
-  report (total-beef-cows * emissions-head-beef-cows) / 1000000
+  report precision ((total-beef-cows * emissions-head-beef-cows) / 1000000) 2
 end
 
 to-report total-emissions-other-cattle
-  report (total-other-cattle * emissions-head-other-cattle) / 1000000
+  report precision ((total-other-cattle * emissions-head-other-cattle) / 1000000) 2
 end
 
 to-report total-emissions-sheep
-  report (total-sheep * emissions-head-sheep) / 1000000
+  report precision ((total-sheep * emissions-head-sheep) / 1000000) 2
 end
 
 to-report total-emissions-pigs
-  report (total-pigs * emissions-head-pigs) / 1000000
+  report precision ((total-pigs * emissions-head-pigs) / 1000000) 2
 end
 
 to-report total-emissions-broilers
-  report (total-broilers * emissions-head-broilers) / 1000000
+  report precision ((total-broilers * emissions-head-broilers) / 1000000) 2
 end
 
 to-report total-emissions-laying-hens
-  report (total-laying-hens * emissions-head-laying-hens) / 1000000
+  report precision ((total-laying-hens * emissions-head-laying-hens) / 1000000) 2
 end
 
 to-report total-emissions-crops
@@ -3002,31 +3387,31 @@ end
 
 ; Report total emissions for the year from CM and PF production in kt.
 to-report total-emissions-cm
-  report sum [ factory-emissions ] of cm-factories / 1000000
+  report precision (sum [ factory-emissions ] of cm-factories / 1000) 2
 end
 
 to-report total-emissions-cm-beef
-  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Beef" ] / 1000000
+  report precision (sum [ factory-emissions ] of cm-factories with [ product-type = "Beef" ] / 1000) 2
 end
 
 to-report total-emissions-cm-lamb
-  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Lamb" ] / 1000000
+  report precision (sum [ factory-emissions ] of cm-factories with [ product-type = "Lamb" ] / 1000) 2
 end
 
 to-report total-emissions-cm-pork
-  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Pork" ] / 1000000
+  report precision (sum [ factory-emissions ] of cm-factories with [ product-type = "Pork" ] / 1000) 2
 end
 
 to-report total-emissions-cm-chicken
-  report sum [ factory-emissions ] of cm-factories with [ meat-type = "Chicken" ] / 1000000
+  report precision (sum [ factory-emissions ] of cm-factories with [ product-type = "Chicken" ] / 1000) 2
 end
 
 to-report total-emissions-pf-dairy
-  report sum [ factory-emissions ] of pf-factories with [ product-type = "Dairy" ] / 1000000
+  report precision (sum [ factory-emissions ] of pf-factories with [ product-type = "Dairy" ] / 1000) 2
 end
 
 to-report total-emissions-pf-egg
-  report sum [ factory-emissions ] of pf-factories with [ product-type = "Eggs" ] / 1000000
+  report precision (sum [ factory-emissions ] of pf-factories with [ product-type = "Eggs" ] / 1000) 2
 end
 
 to-report total-emissions-cf
@@ -3144,7 +3529,7 @@ to-report av-emissions-kg-beef
   ; Total emissions from CM beef in kg.
   let emissions-kg-cm total-emissions-cm-beef * 1000000
   ; Total production of beef in kg.
-  let total-production-kg (total-farm-production-beef + (count cm-factories with [ meat-type = "Beef" ] * cm-factory-capacity)) * 1000
+  let total-production-kg (total-farm-production-beef + total-factory-production-beef) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
 end
@@ -3156,7 +3541,7 @@ to-report av-emissions-kg-lamb
   ; Total emissions from CM lamb in kg.
   let emissions-kg-cm total-emissions-cm-lamb * 1000000
   ; Total production of lamb in kg.
-  let total-production-kg (total-farm-production-lamb + (count cm-factories with [ meat-type = "Lamb" ] * cm-factory-capacity)) * 1000
+  let total-production-kg (total-farm-production-lamb + total-factory-production-lamb) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
 end
@@ -3168,7 +3553,7 @@ to-report av-emissions-kg-pork
   ; Total emissions from CM pork in kg.
   let emissions-kg-cm total-emissions-cm-pork * 1000000
   ; Total production of pork in kg.
-  let total-production-kg (total-farm-production-pork + (count cm-factories with [ meat-type = "Pork" ] * cm-factory-capacity)) * 1000
+  let total-production-kg (total-farm-production-pork + total-factory-production-pork) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
 end
@@ -3180,7 +3565,7 @@ to-report av-emissions-kg-chicken
   ; Total emissions from CM chicken in kg.
   let emissions-kg-cm total-emissions-cm-chicken * 1000000
   ; Total production of chicken in kg.
-  let total-production-kg (total-farm-production-chicken + (count cm-factories with [ meat-type = "Chicken" ] * cm-factory-capacity)) * 1000
+  let total-production-kg (total-farm-production-chicken + total-factory-production-chicken) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-cm) / total-production-kg
 end
@@ -3193,7 +3578,7 @@ to-report av-emissions-kg-dairy
   ; Total emissions from PF dairy in kg.
   let emissions-kg-pf total-emissions-pf-dairy * 1000000
   ; Total production of dairy in kg.
-  let total-production-kg (total-farm-production-raw-milk + (count pf-factories with [ product-type = "Dairy" ] * pf-factory-dairy-capacity)) * 1000
+  let total-production-kg (total-farm-production-raw-milk + total-factory-production-raw-milk) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-pf) / total-production-kg
 end
@@ -3207,7 +3592,7 @@ to-report av-emissions-kg-egg
   ; Total emissions from PF egg in kg.
   let emissions-kg-pf total-emissions-pf-egg * 1000000
   ; Total production of egg in kg.
-  let total-production-kg (total-farm-production-eggs + (count pf-factories with [ product-type = "Eggs" ] * pf-factory-egg-capacity)) * 1000
+  let total-production-kg (total-farm-production-eggs + total-factory-production-eggs) * 1000
   ; Total combined emissions divided by total combined production.
   report (emissions-kg-conventional + emissions-kg-pf) / total-production-kg
 end
@@ -3495,9 +3880,15 @@ to-report total-consumption-animal-products
   report (total-consumption-beef + total-consumption-pork + total-consumption-lamb + total-consumption-chicken + total-consumption-eggs + (total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335000) + (total-consumption-butter * 0.2522000) + (total-consumption-cheese * 6.9140000))
 end
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Report total farm income each year ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; NOTES:
-; - Prices are set based on per capita production relative to 2020, rather than on ability to meet updated per capita demands so increasing consumption has no impact!
+; Report total income of farms in billions of NOK.
+to-report total-farm-income
+  report sum [ current-income ] of farms with [ active? = TRUE ]
+end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 8
@@ -3585,7 +3976,7 @@ SWITCH
 165
 hide-slaughterhouses?
 hide-slaughterhouses?
-0
+1
 1
 -1000
 
@@ -3643,13 +4034,13 @@ NIL
 HORIZONTAL
 
 PLOT
-1721
-26
-1920
-146
-Population (m)
+1723
+23
+1922
+143
+Population
 Tick
-NIL
+Million
 0.0
 37.0
 0.0
@@ -3849,10 +4240,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-dairy-farms"
 
 PLOT
-1721
-148
-1920
-268
+1723
+145
+1922
+265
 Total farms
 Tick
 NIL
@@ -3885,9 +4276,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-livestock-farms"
 
 TEXTBOX
-1721
+1723
 10
-1871
+1873
 28
 Overview metrics
 11
@@ -4103,7 +4494,7 @@ SWITCH
 130
 hide-fylker?
 hide-fylker?
-0
+1
 1
 -1000
 
@@ -4253,9 +4644,9 @@ Per-capita consumption growth post-2020
 1
 
 PLOT
-1616
+1817
 878
-1815
+2016
 998
 Consumption of beef
 NIL
@@ -4271,9 +4662,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-beef"
 
 PLOT
-1616
+1817
 1244
-1815
+2016
 1364
 Consumption of chicken
 NIL
@@ -4289,9 +4680,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-chicken"
 
 PLOT
-1616
+1817
 1122
-1815
+2016
 1242
 Consumption of pork
 NIL
@@ -4307,9 +4698,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-pork"
 
 PLOT
-1616
+1817
 1000
-1815
+2016
 1120
 Consumption of lamb
 NIL
@@ -4325,9 +4716,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-lamb"
 
 PLOT
-1616
+1817
 1366
-1815
+2016
 1486
 Consumption of eggs
 NIL
@@ -4343,9 +4734,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-eggs"
 
 PLOT
-1616
+1817
 1488
-1815
+2016
 1608
 Consumption of milk & cream
 NIL
@@ -4361,9 +4752,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-milk-cream"
 
 PLOT
-1616
+1817
 1610
-1815
+2016
 1730
 Consumption of yoghurt
 NIL
@@ -4379,9 +4770,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-yoghurt"
 
 PLOT
-1616
+1817
 1732
-1815
+2016
 1852
 Consumption of butter
 NIL
@@ -4397,9 +4788,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-butter"
 
 PLOT
-1616
+1817
 1854
-1815
+2016
 1974
 Consumption of cheese
 NIL
@@ -4415,9 +4806,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot total-consumption-cheese"
 
 PLOT
-1616
+1817
 756
-1815
+2016
 876
 Consumption animal products (with dairy as raw milk equiv.)
 NIL
@@ -4437,7 +4828,7 @@ PLOT
 878
 1614
 998
-Farm-gate price beef
+Producer price beef
 NIL
 NOK/t
 0.0
@@ -4448,7 +4839,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-cattle-carcass"
+"default" 1.0 0 -16777216 true "" "plot current-pp-cattle-meat"
+"CM beef cost" 1.0 0 -6759204 true "" "plot ((cm-cost-beef * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))"
 
 CHOOSER
 539
@@ -4595,7 +4987,7 @@ PLOT
 1000
 1614
 1120
-Farm-gate price lamb
+Producer price lamb
 NIL
 NOK/t
 0.0
@@ -4606,14 +4998,15 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-sheep-carcass"
+"default" 1.0 0 -16777216 true "" "plot current-pp-sheep-meat"
+"CM lamb cost" 1.0 0 -6759204 true "" "plot ((cm-cost-lamb * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))"
 
 PLOT
 1415
 1122
 1614
 1242
-Farm-gate price pork
+Producer price pork
 NIL
 NOK/t
 0.0
@@ -4624,14 +5017,15 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-pig-carcass"
+"default" 1.0 0 -16777216 true "" "plot current-pp-pig-meat"
+"CM pork cost" 1.0 0 -6759204 true "" "plot ((cm-cost-pork * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))"
 
 PLOT
 1415
 1244
 1614
 1364
-Farm-gate price chicken
+Producer price chicken
 NIL
 NOK/t
 0.0
@@ -4642,14 +5036,15 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-broiler-carcass"
+"default" 1.0 0 -16777216 true "" "plot current-pp-broiler-meat"
+"CM chicken cost" 1.0 0 -6759204 true "" "plot ((cm-cost-chicken * efficiency-gain-multiplier ^ floor(total-factory-production-meat / efficiency-step-int-nonmilk)) + (emissions-cm-meat * carbon-tax-per-tonne))"
 
 PLOT
 1415
 1366
 1614
 1486
-Farm-gate price eggs
+Producer price eggs
 NIL
 NOK/t
 0.0
@@ -4660,14 +5055,15 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-eggs"
+"default" 1.0 0 -16777216 true "" "plot current-pp-eggs"
+"PF egg cost" 1.0 0 -6759204 true "" "plot ((pf-cost-eggs * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-egg * carbon-tax-per-tonne))"
 
 PLOT
 1415
 1488
 1614
 1608
-Farm-gate price raw milk
+Producer price raw milk
 NIL
 NOK/t
 0.0
@@ -4678,7 +5074,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot current-fgp-raw-milk"
+"default" 1.0 0 -16777216 true "" "plot current-pp-raw-milk"
+"PF raw milk cost" 1.0 0 -6759204 true "" "plot ((pf-cost-dairy * efficiency-gain-multiplier ^ floor(total-factory-production-pf / efficiency-step-int-milk)) + (emissions-pf-dairy * carbon-tax-per-tonne))"
 
 SLIDER
 539
@@ -4864,7 +5261,7 @@ SWITCH
 270
 hide-farm-dairy-links?
 hide-farm-dairy-links?
-1
+0
 1
 -1000
 
@@ -4902,9 +5299,9 @@ hide-checkpoints?
 -1000
 
 PLOT
-1817
+2018
 878
-2016
+2217
 998
 Beef from NO farms
 NIL
@@ -4920,9 +5317,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-farm-production-beef / total-consumption-beef) * 100"
 
 PLOT
-1817
+2018
 1000
-2016
+2217
 1120
 Lamb from NO farms
 NIL
@@ -4938,9 +5335,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-farm-production-lamb / total-consumption-lamb) * 100"
 
 PLOT
-1817
+2018
 1122
-2016
+2217
 1242
 Pork from NO farms
 NIL
@@ -4956,9 +5353,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-farm-production-pork / total-consumption-pork) * 100"
 
 PLOT
-1817
+2018
 1244
-2016
+2217
 1364
 Chicken from NO farms
 NIL
@@ -4974,9 +5371,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-farm-production-chicken / total-consumption-chicken) * 100"
 
 PLOT
-1817
+2018
 1366
-2016
+2217
 1486
 Eggs from NO farms
 NIL
@@ -4992,9 +5389,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-farm-production-eggs / total-consumption-eggs) * 100"
 
 PLOT
-1817
+2018
 1488
-2016
+2217
 1608
 Dairy from NO farms
 NIL
@@ -5010,9 +5407,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-farm-production-raw-milk * 0.8894143)  / ((total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335) + (total-consumption-butter * 0.2522) + (total-consumption-cheese * 6.914))) * 100"
 
 PLOT
-1817
+2018
 756
-2016
+2217
 876
 Animal products from NO farms
 NIL
@@ -5036,7 +5433,7 @@ farm-income-viability
 farm-income-viability
 -100
 -5
--10.0
+-20.0
 1
 1
 %
@@ -5073,10 +5470,10 @@ km
 HORIZONTAL
 
 PLOT
-1721
-270
-1920
-390
+1723
+389
+1922
+509
 Total slaughterhouses
 Tick
 NIL
@@ -5091,10 +5488,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count slaughterhouses with [ active? = TRUE ]"
 
 PLOT
-1721
-392
-1920
-512
+1723
+511
+1922
+631
 Total dairies
 Tick
 NIL
@@ -5165,8 +5562,8 @@ CHOOSER
 727
 cm-scenario
 cm-scenario
-"Scenario 6" "Scenario 7" "Scenario 8"
-2
+"Scenario 1" "Scenario 2" "Scenario 3" "Scenario 4" "Scenario 5" "Scenario 6" "Scenario 7" "Scenario 8"
+6
 
 SLIDER
 539
@@ -5215,9 +5612,9 @@ Cultured meat factories
 1
 
 PLOT
-2018
+2219
 878
-2217
+2418
 998
 Beef from CM factories
 NIL
@@ -5233,9 +5630,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-factory-production-beef / total-consumption-beef) * 100"
 
 PLOT
-2018
+2219
 1000
-2217
+2418
 1120
 Lamb from CM factories
 NIL
@@ -5251,9 +5648,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-factory-production-lamb / total-consumption-lamb) * 100"
 
 PLOT
-2018
+2219
 1122
-2217
+2418
 1242
 Pork from CM factories
 NIL
@@ -5269,9 +5666,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-factory-production-pork / total-consumption-pork) * 100"
 
 PLOT
-2018
+2219
 1244
-2217
+2418
 1364
 Chicken from CM factories
 NIL
@@ -5302,7 +5699,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-beef"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-cm-beef"
 
 PLOT
 611
@@ -5320,7 +5718,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-lamb"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-cm-lamb"
 
 PLOT
 611
@@ -5338,7 +5737,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-pork"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-cm-pork"
 
 PLOT
 611
@@ -5356,7 +5756,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-chicken"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-cm-chicken"
 
 SLIDER
 539
@@ -5368,7 +5769,7 @@ cm-factory-capacity
 0
 10000
 5000.0
-1000
+500
 1
 tonnes
 HORIZONTAL
@@ -5404,9 +5805,9 @@ Chicken
 1
 
 PLOT
-2219
+2420
 878
-2418
+2619
 998
 Beef self-sufficiency
 NIL
@@ -5422,9 +5823,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-farm-production-beef + total-factory-production-beef) / total-consumption-beef) * 100"
 
 PLOT
-2219
+2420
 1000
-2418
+2619
 1120
 Lamb self-sufficiency
 NIL
@@ -5440,9 +5841,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-farm-production-lamb + total-factory-production-lamb) / total-consumption-lamb) * 100"
 
 PLOT
-2219
+2420
 1122
-2418
+2619
 1242
 Pork self-sufficiency
 NIL
@@ -5458,9 +5859,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-farm-production-pork + total-factory-production-pork) / total-consumption-pork) * 100"
 
 PLOT
-2219
+2420
 1244
-2418
+2619
 1364
 Chicken self-sufficiency
 NIL
@@ -5572,7 +5973,8 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-eggs"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-pf-eggs"
 
 TEXTBOX
 485
@@ -5585,9 +5987,9 @@ Eggs
 1
 
 PLOT
-2018
+2219
 1366
-2217
+2418
 1486
 Egg from PF factories
 NIL
@@ -5603,9 +6005,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-factory-production-eggs / total-consumption-eggs) * 100"
 
 PLOT
-2219
+2420
 1366
-2418
+2619
 1486
 Egg self-sufficiency
 NIL
@@ -5621,10 +6023,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-farm-production-eggs + total-factory-production-eggs) / total-consumption-eggs) * 100"
 
 PLOT
-1922
-270
-2121
-390
+1924
+389
+2123
+509
 Total CM factories
 NIL
 NIL
@@ -5639,10 +6041,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count cm-factories"
 
 PLOT
-1922
-392
-2121
-512
+1924
+511
+2123
+631
 Total PF milk factories
 NIL
 NIL
@@ -5657,10 +6059,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count pf-factories with [ product-type = \"Dairy\" ]"
 
 PLOT
-1922
-514
-2121
-634
+2125
+511
+2324
+631
 Total PF egg factories
 NIL
 NIL
@@ -5676,9 +6078,9 @@ PENS
 
 TEXTBOX
 745
-384
+316
 895
-402
+334
 Simulation settings (pt. 2)
 11
 0.0
@@ -5698,7 +6100,7 @@ TEXTBOX
 334
 600
 510
-628
+618
 Precision fermented factories
 11
 0.0
@@ -5720,12 +6122,13 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-raw-milk"
+"production-limit" 1.0 0 -3508570 true "" "plot production-limit-pf-rawmilk"
 
 PLOT
-2018
+2219
 1488
-2217
+2418
 1608
 Dairy from PF factories
 NIL
@@ -5741,9 +6144,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot (total-factory-production-raw-milk  / ((total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335) + (total-consumption-butter * 0.2522) + (total-consumption-cheese * 6.914))) * 100"
 
 PLOT
-2219
+2420
 1488
-2418
+2619
 1608
 Dairy self-sufficiency
 NIL
@@ -5774,12 +6177,12 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity) + (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity) + (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-factory-production-meat + total-factory-production-pf"
 
 PLOT
-2018
+2219
 756
-2217
+2418
 876
 Animal products from factories
 NIL
@@ -5795,9 +6198,9 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot ((total-factory-production-beef + total-factory-production-lamb + total-factory-production-pork + total-factory-production-chicken + total-factory-production-eggs + total-factory-production-raw-milk) / (total-consumption-beef + total-consumption-lamb + total-consumption-pork + total-consumption-chicken + total-consumption-eggs + (total-consumption-milk-cream * 1) + (total-consumption-yoghurt * 1.1335) + (total-consumption-butter * 0.2522) + (total-consumption-cheese * 6.914))) * 100"
 
 PLOT
-2219
+2420
 756
-2418
+2619
 876
 Animal product self-sufficiency
 NIL
@@ -5981,7 +6384,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-beef + (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-beef + total-factory-production-beef"
 
 PLOT
 812
@@ -5999,7 +6402,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-lamb + (count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-lamb + total-factory-production-lamb"
 
 PLOT
 812
@@ -6017,7 +6420,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-pork + (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-pork + total-factory-production-pork"
 
 PLOT
 812
@@ -6035,7 +6438,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-chicken + (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-chicken + total-factory-production-chicken"
 
 PLOT
 812
@@ -6053,7 +6456,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-eggs + (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-eggs + total-factory-production-eggs"
 
 PLOT
 812
@@ -6071,7 +6474,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-raw-milk + (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-raw-milk + total-factory-production-raw-milk"
 
 PLOT
 812
@@ -6089,7 +6492,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot total-farm-production-animal-products + (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity) + (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity) + (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)"
+"default" 1.0 0 -16777216 true "" "plot total-farm-production-animal-products + total-factory-production-meat + total-factory-production-pf"
 
 PLOT
 1013
@@ -6107,7 +6510,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-animal-products + (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity) + (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity) + (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity) + (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-animal-products + total-factory-production-meat + total-factory-production-pf) / total-population) * 1000"
 
 PLOT
 1013
@@ -6125,7 +6528,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-beef + (count cm-factories with [ meat-type = \"Beef\" ] * cm-factory-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-beef + total-factory-production-beef) / total-population) * 1000"
 
 PLOT
 1013
@@ -6143,7 +6546,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-lamb + (count cm-factories with [ meat-type = \"Lamb\" ] * cm-factory-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-lamb + total-factory-production-lamb) / total-population) * 1000"
 
 PLOT
 1013
@@ -6161,7 +6564,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-pork + (count cm-factories with [ meat-type = \"Pork\" ] * cm-factory-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-pork + total-factory-production-pork) / total-population) * 1000"
 
 PLOT
 1013
@@ -6179,7 +6582,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-chicken + (count cm-factories with [ meat-type = \"Chicken\" ] * cm-factory-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-chicken + total-factory-production-chicken) / total-population) * 1000"
 
 PLOT
 1013
@@ -6197,7 +6600,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-eggs + (count pf-factories with [ product-type = \"Eggs\" ] * pf-factory-egg-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-eggs + total-factory-production-eggs) / total-population) * 1000"
 
 PLOT
 1013
@@ -6215,13 +6618,13 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-raw-milk + (count pf-factories with [ product-type = \"Dairy\" ] * pf-factory-dairy-capacity)) / total-population) * 1000"
+"default" 1.0 0 -16777216 true "" "plot ((total-farm-production-raw-milk + total-factory-production-raw-milk) / total-population) * 1000"
 
 TEXTBOX
 1205
-432
+415
 1568
-474
+457
 Emissions by activity inc. energy & LULUCF (agricultural emission coefficients based on Table 12 Mittenzwei and Prestvik (2022))
 11
 0.0
@@ -6229,9 +6632,9 @@ Emissions by activity inc. energy & LULUCF (agricultural emission coefficients b
 
 MONITOR
 1406
-510
+493
 1560
-555
+538
 kt CO2-eq. livestock
 precision total-emissions-livestock 2
 17
@@ -6240,9 +6643,9 @@ precision total-emissions-livestock 2
 
 MONITOR
 1406
-463
+446
 1560
-508
+491
 kt CO2-eq. crops
 precision total-emissions-crops 2
 17
@@ -6251,9 +6654,9 @@ precision total-emissions-crops 2
 
 MONITOR
 1406
-699
+682
 1560
-744
+727
 kt CO2-eq. total
 precision total-emissions 2
 17
@@ -6262,9 +6665,9 @@ precision total-emissions 2
 
 MONITOR
 1562
-463
+446
 1716
-508
+491
 % emissions crops
 precision emissions-share-crops 2
 17
@@ -6273,9 +6676,9 @@ precision emissions-share-crops 2
 
 MONITOR
 1562
-510
+493
 1716
-555
+538
 % emissions livestock
 precision emissions-share-livestock 2
 17
@@ -6294,9 +6697,9 @@ start-yr
 
 PLOT
 1205
-463
+446
 1404
-744
+727
 Emissions by activity
 NIL
 kt CO2-eq.
@@ -6343,7 +6746,7 @@ CHOOSER
 emissions-pf-dairy
 emissions-pf-dairy
 0.091327 0.4044
-0
+1
 
 CHOOSER
 1205
@@ -6353,7 +6756,7 @@ CHOOSER
 emissions-pf-egg
 emissions-pf-egg
 0.3523 1.56
-0
+1
 
 CHOOSER
 1205
@@ -6363,7 +6766,7 @@ CHOOSER
 emissions-cm-meat
 emissions-cm-meat
 2.9 4.1
-0
+1
 
 TEXTBOX
 1408
@@ -6386,10 +6789,10 @@ Emission coefficients for CF products (kg CO2-eq. per kg)
 1
 
 TEXTBOX
-1204
-188
-1462
-230
+1205
+240
+1463
+282
 Average emissions from domestic production (kg CO2-eq. per kg)
 11
 0.0
@@ -6397,9 +6800,9 @@ Average emissions from domestic production (kg CO2-eq. per kg)
 
 MONITOR
 1406
-651
+634
 1560
-696
+679
 kt CO2-eq. PF egg
 precision total-emissions-pf-egg 2
 17
@@ -6408,9 +6811,9 @@ precision total-emissions-pf-egg 2
 
 MONITOR
 1406
-604
+587
 1560
-649
+632
 kt CO2-eq. PF dairy
 precision total-emissions-pf-dairy 2
 17
@@ -6419,9 +6822,9 @@ precision total-emissions-pf-dairy 2
 
 MONITOR
 1406
-557
+540
 1560
-602
+585
 kt CO2-eq. CM meat
 precision total-emissions-cm 2
 17
@@ -6430,9 +6833,9 @@ precision total-emissions-cm 2
 
 MONITOR
 1562
-651
+634
 1716
-696
+679
 % emissions PF egg
 precision emissions-share-pf-egg 2
 17
@@ -6441,9 +6844,9 @@ precision emissions-share-pf-egg 2
 
 MONITOR
 1562
-604
+587
 1716
-649
+632
 % emissions PF dairy
 precision emissions-share-pf-dairy 2
 17
@@ -6452,9 +6855,9 @@ precision emissions-share-pf-dairy 2
 
 MONITOR
 1562
-557
+540
 1716
-602
+585
 % emissions CM meat
 precision emissions-share-cm 2
 17
@@ -6462,10 +6865,10 @@ precision emissions-share-cm 2
 11
 
 PLOT
-1204
-218
-1456
-428
+1205
+270
+1467
+410
 Average emissions per kg
 NIL
 kg CO2-eq. per kg
@@ -6484,42 +6887,1216 @@ PENS
 "Pork" 1.0 0 -13360827 true "" "plot av-emissions-kg-pork"
 "Chicken" 1.0 0 -13210332 true "" "plot av-emissions-kg-chicken"
 
+SLIDER
+1205
+201
+1404
+234
+carbon-tax-per-tonne
+carbon-tax-per-tonne
+0
+5000
+1500.0
+10
+1
+NOK
+HORIZONTAL
+
+TEXTBOX
+1205
+185
+1491
+213
+Carbon tax rate (NOK/tonne CO2-eq) and start year
+11
+0.0
+1
+
+SLIDER
+1406
+201
+1605
+234
+carbon-tax-start-yr
+carbon-tax-start-yr
+2013
+2050
+2025.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+1723
+267
+1922
+387
+Total farm income
+NIL
+bn/NOK
+1.0
+37.0
+0.0
+86.0
+false
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot total-farm-income / 1000000000"
+
+PLOT
+1924
+267
+2123
+387
+Average farm income
+NIL
+1000/NOK
+1.0
+37.0
+0.0
+2500.0
+false
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (total-farm-income / total-farms) / 1000"
+
+PLOT
+2629
+23
+2930
+143
+Surviving specialist cattle farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-cattle-farms / init-num-specialist-cattle-farms) * 100"
+
+PLOT
+2629
+145
+2930
+265
+Surviving specialist sheep farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-sheep-farms / init-num-specialist-sheep-farms) * 100"
+
+PLOT
+2629
+267
+2930
+387
+Surviving specialist pig farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-pig-farms / init-num-specialist-pig-farms) * 100"
+
+PLOT
+2629
+389
+2930
+509
+Surviving specialist broiler farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-broiler-farms / init-num-specialist-broiler-farms) * 100"
+
+PLOT
+2629
+511
+2930
+631
+Surviving specialist laying hen farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-laying-hen-farms / init-num-specialist-laying-hen-farms) * 100"
+
+TEXTBOX
+2628
+10
+2778
+28
+Farm survival by type
+11
+0.0
+1
+
+PLOT
+2629
+633
+2930
+753
+Surviving specialist fodder/silage farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-fodder-silage-farms / init-num-specialist-fodder-silage-farms) * 100"
+
+PLOT
+2629
+755
+2930
+875
+Surviving specialist arable/horticulture farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (specialist-arable-horticulture-farms / init-num-specialist-arable-horticulture-farms) * 100"
+
+PLOT
+2629
+877
+2930
+997
+Surviving combined cattle-grain farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (combined-cattle-grain-farms / init-num-combined-cattle-grain-farms) * 100"
+
+PLOT
+2629
+999
+2930
+1119
+Surviving combined cattle-sheep farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (combined-cattle-sheep-farms / init-num-combined-cattle-sheep-farms) * 100"
+
+PLOT
+2629
+1121
+2930
+1241
+Surviving other mixed farms
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (other-mixed-farms / init-num-other-mixed-farms) * 100"
+
+PLOT
+2629
+1243
+2930
+1363
+Surviving farms with no activity
+NIL
+%
+0.0
+37.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot (no-activity-farms / init-num-no-activity-farms) * 100"
+
+SWITCH
+193
+707
+411
+740
+highlight-inactive-farms
+highlight-inactive-farms
+0
+1
+-1000
+
+SLIDER
+744
+332
+944
+365
+cease-farming-prob
+cease-farming-prob
+0
+1
+0.25
+0.05
+1
+NIL
+HORIZONTAL
+
+CHOOSER
+1482
+238
+1682
+283
+emissions-tax-coverage
+emissions-tax-coverage
+"Agriculture" "Agriculture & energy" "Agriculture, energy & LULUCF"
+1
+
+MONITOR
+1616
+1000
+1815
+1045
+CM lamb profit margin (NOK/t)
+profit-margin-cm-lamb
+0
+1
+11
+
+MONITOR
+1616
+1122
+1815
+1167
+CM pork profit margin (NOK/t)
+profit-margin-cm-pork
+0
+1
+11
+
+MONITOR
+1616
+1244
+1815
+1289
+CM chicken profit margin (NOK/t)
+profit-margin-cm-chicken
+0
+1
+11
+
+MONITOR
+1616
+1366
+1815
+1411
+PF egg profit margin (NOK/t)
+profit-margin-pf-eggs
+0
+1
+11
+
+MONITOR
+1616
+1488
+1815
+1533
+PF milk profit margin (NOK/t)
+profit-margin-pf-raw-milk
+0
+1
+11
+
+MONITOR
+1616
+1291
+1815
+1336
+CM chicken profit margin (%)
+profit-margin-perc-cm-chicken
+2
+1
+11
+
+MONITOR
+1616
+1169
+1815
+1214
+CM pork profit margin (%)
+profit-margin-perc-cm-pork
+2
+1
+11
+
+MONITOR
+1616
+1047
+1815
+1092
+CM lamb profit margin (%)
+profit-margin-perc-cm-lamb
+2
+1
+11
+
+MONITOR
+1616
+925
+1815
+970
+CM beef profit margin (%)
+profit-margin-perc-cm-beef
+2
+1
+11
+
+MONITOR
+1616
+1413
+1815
+1458
+PF egg profit margin (%)
+profit-margin-perc-pf-eggs
+2
+1
+11
+
+MONITOR
+1616
+1535
+1815
+1580
+PF milk profit margin (%)
+profit-margin-perc-pf-raw-milk
+2
+1
+11
+
+MONITOR
+1616
+878
+1815
+923
+CM beef profit margin (NOK/t)
+profit-margin-cm-beef
+0
+1
+11
+
+SLIDER
+744
+367
+944
+400
+cf-required-profit-margin
+cf-required-profit-margin
+0
+30
+10.0
+1
+1
+%
+HORIZONTAL
+
+TEXTBOX
+8
+1900
+714
+1947
+NO_Protein_ABM. Copyright (C) 2023. The James Hutton Institute.\nThis program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions. For more information on this and the (lack of) warranty, see the LICENCE section in the Info tab.
+11
+0.0
+1
+
 @#$#@#$#@
-## WHAT IS IT?
-
-(a general understanding of what the model is trying to show or explain)
-
-## HOW IT WORKS
-
-(what rules the agents use to create the overall behavior of the model)
-
-## HOW TO USE IT
-
-(how to use the model, including a description of each of the items in the Interface tab)
-
-## THINGS TO NOTICE
-
-(suggested things for the user to notice while running the model)
-
-## THINGS TO TRY
-
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
-
-## EXTENDING THE MODEL
-
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
-
-## NETLOGO FEATURES
-
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-## RELATED MODELS
-
-(models in the NetLogo Models Library and elsewhere which are of related interest)
-
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+Authors: Nick Roxburgh (nick.roxburgh@hutton.ac.uk), Gary Polhill (gary.polhill@hutton.ac.uk), Rob Burton (rob.burton@ruralis.no), Klaus Mittenzwei (klaus.mittenzwei@ruralis.no)
+
+Data references:
+- Animalia 2021. Kjøttets Tilstand 2021: Status i norsk kjøtt- og eggproduksjon
+Source URL: https://www.animalia.no/globalassets/kjottets-tilstand/kt21-web-endelig.pdf. Data acquired: 17 August 2022
+- Boyd, J.H. (2020) Biomanufacturing Costs in Cities around the Globe. Genetic Engineering & Biotechnology News. Vol 40. No.6. https://www.genengnews.com/topics/bioprocessing/biomanufacturing-costs-in-cities-around-the-globe/. Accessed 4 September 2022.
+- Conroy, S.B., Drennan, M.J., McGee, M., Keane, M.G., Kenny, D.A. and Berry, D.P., 2010. Predicting beef carcass meat, fat and bone proportions from carcass conformation and fat scores or hindquarter dissection. Animal, 4(2), pp.234-241.
+- Diplom-Is (2022). Om oss. https://www.diplom-is.no/om-oss/selskapet. Accessed 16 September 2022.
+- Europe Economics (2017). The Brewers of Europe Cost comparability study Final report. https://brewersofeurope.org/uploads/mycms-files/documents/publications/2017/Cost%20Comparability%20Study%20-%20Europe%20Economics%20February%202017.pdf. Accessed 4 September 2022.
+- Eurostat (2013). File:Cow's milk apparent yield, 2011.png. https://ec.europa.eu/eurostat/statistics-explained/index.php?title=File:Cow%27s_milk_apparent_yield,_2011.png. Accessed 4 September 2022.
+- Eurostat/GISCO (2014). Ports, 2013-TransportNetworks-Dataset. https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/transport-networks. Data accessed: 12 April 2022.
+- FAOSTAT (2022). Producer Price (LCU/tonne). Date accessed: 2 November 2022
+URL: https://www.fao.org/faostat/en/#search/producer%20price
+- Geonorge (2022a). File names: Basisdata_0000_Norge_25833_Kommuner_GML.gml. Data acquired: 16 April 2022. https://kartkatalog.geonorge.no/metadata/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b. Source title: Administrative enheter kommuner. Accessed 29 March 2022.
+- Geonorge (2022b). Data acquired: 9 August 2022. Source URL: https://kartkatalog.geonorge.no/metadata/administrative-enheter-fylker/6093c8a8-fa80-11e6-bc64-92361f002671. Source title: Administrative enheter fylker. 
+- Gustavsen, G.W. and Mittenzwei, K., 2022. Potential demand for synthetic meat. Proceedings in Food System Dynamics, pp.44-52.
+- Helsedirektoratet (2021). Utviklingen I norsk kosthold: 2021. 
+https://www.helsedirektoratet.no/rapporter/utviklingen-i-norsk-kosthold. Accessed 26 October 2022.
+- Hennig Olsen (2022). Hennig Olsen: Kremen av iskrem. https://www.hennig-olsen.no/. Accessed 16 September 2022.
+- Kavli (2022). About Us. https://www.kavli.com. Accessed 16 September 2022.
+- Kongsro, J., Røe, M., Kvaal, K., Aastveit, A.H. and Egelandsdal, B., 2009. Prediction of fat, muscle and value in Norwegian lamb carcasses using EUROP classification, carcass shape and length measurements, visible light reflectance and computer tomography (CT). Meat Science, 81(1), pp.102-107.
+- Milczarek, A., Pachnik, M., Osek, M. and Świnarska, R., 2022. Rearing Performance and Carcass Composition of Broiler Chickens Fed Rations Containing Guar Meal at Graded Levels. Agriculture, 12(9), p.1385.
+- Mittenzwei, K. and Prestvik, A.S. (2022). Klimagassutslipp fra norsk jordbruk fordelt på areal, dyr og matproduksjon. PLATON Rapport - analyse 5/2022. Available from: https://www.platonklima.no/wp-content/uploads/2022/02/Rapport-analyse-5-2022-Klimagassutslipp-fra-jordbruk-1.pdf. Accessed: 12 January 2022.
+- Norwegian Agriculture Authority (2021). Felles datakatalog. https://data.norge.no/datasets?orgPath=%2FSTAT%2F972417874%2F981544315&q=produksjonstilskudd. Accessed 18 February 2021.
+- Pulkrábek, J., Pavlík, J., Valis, L. and Vítek, M., 2006. Pig carcass quality in relation to carcass lean meat proportion. Czech Journal of Animal Science, 51(1), p.18.
+- Q-Meieriene (2022). Om Q-Meieriene. https://www.q-meieriene.no/. Accessed 16 September 2022.
+- Rogelj, J., Popp, A., Calvin, K.V., Luderer, G., Emmerling, J., Gernaat, D., Fujimori, S., Strefler, J., Hasegawa, T., Marangoni, G. and Krey, V., 2018. Scenarios towards limiting global mean temperature increase below 1.5 C. Nature Climate Change, 8(4), pp.325-332.
+- Sinke, P., Swartz, E., Sanctorum, H., van der Giesen, C. and Odegard, I., 2023. Ex‐ante life cycle assessment of commercial‐scale cultivated meat production in 2030. The International Journal of Life Cycle Assessment. 28: 234-254. DOI: 10.1007/s11367-022-02128-8
+- Statistisk Sentralbyrå, 2022a https://www.ssb.no/en/statbank/table/01222/tableViewLayout1/. Source title: 01222: Population and changes during the quarter, by contents, region and quarter. Data acquired: 14 August 2022
+- Statistisk Sentralbyrå, 2022b. Data acquired: 14 August 2022. Source URL: https://www.ssb.no/en/statbank/table/13600/tableViewLayout1/. Source title: 13600: Population projections 1 January, by region, year and contents
+- Statistisk Sentralbyrå (2022c) Source title: 04609: Total production (1 000 tons), by contents, region and year. Source URL: https://www.ssb.no/en/statbank/table/04609/tableViewLayout1/. Data acquired: 5 August 2022
+- Statistisk Sentralbyrå (2022d) Source title: 05772: Yield of agricultural crops (1 000 tonnes), by contents, region and year. Source URL: https://www.ssb.no/en/statbank/table/05772/tableViewLayout1/. Date acquired: 10 August 2022
+- Statistisk Sentralbyrå (2022e) Source title: 10508: Yield (tonnes), by horticultural crop, contents and year. Source URL: https://www.ssb.no/en/statbank/table/10508/tableViewLayout1/. Data acquired: 10 August 2022
+- Statistisk Sentralbyrå (2022f) Source title: 11506: Agricultural area (decares), by contents, region, crop and year. Source URL: https://www.ssb.no/en/statbank/table/11506/tableViewLayout1/. Data acquired: 5 August 2022
+- Statistisk Sentralbyrå (2022g). 03551: Public meat inspection. Carcasses approved for human consumption (tonnes), by contents, region, carcasses approved and year. Data acquired: 11 August 2022. Source URL: https://www.ssb.no/en/statbank/table/03551/tableViewLayout1/
+- Statistisk Sentralbyrå (2022h). 11507: Domestic animals, by contents, region, domestic animals of various kinds and year. Source URL: https://www.ssb.no/en/statbank/table/11507/tableViewLayout1/. Data acquired: 15 August 2022
+- Steer, M. (2015). A comparison of land, water and energy use between conventional and yeast-derived dairy products: An initial analysis. Report prepared for Perfect Day. Accessed 4 October 2022.
+- Svindland, M., Monios, J., Hjelle, H. (2019). Port rationalization and the evolution of regional port systems: the case of Norway. Maritime Policy & Management. 46 (5): 613-629. DOI: 10.1080/03088839.2019.1574988
+- Synnove (2022). Synnøve i dag. https://www.synnove.no/synnøve-i-dag/. Accessed 16 September 2022.
+- TINE (2022). Om TINE Meieriene. https://www.tine.no/om-tine/meieriene. Accessed 16 September 2022.
+- Tingvollost (2022). Om Tingvollost. https://www.tingvollost.no/om-tingvollost1/om-tingvollost. Accessed 16 September 2022.
+- US Department of Agriculture (2019a). FoodData Central. Butter, without salt. https://fdc.nal.usda.gov/fdc-app.html#/food-details/173430/nutrients. Accessed 14 November 2022.
+- US Department of Agriculture (2019b). FoodData Central. Cheese, cheddar. https://fdc.nal.usda.gov/fdc-app.html#/food-details/328637/nutrients. Accessed 14 November 2022.
+- US Department of Agriculture (2019c). FoodData Central. Eggs, Grade A, Large, egg whole. https://fdc.nal.usda.gov/fdc-app.html#/food-details/748967/nutrients. Accessed 14 November 2022.
+- US Department of Agriculture (2019d). FoodData Central. Milk, fluid, 1% fat, without added vitamin A and vitamin D. https://fdc.nal.usda.gov/fdc-app.html#/food-details/173441/nutrients. Accessed 14 November 2022.
+- US Department of Agriculture (2019e). FoodData Central. Yogurt, plain, whole milk. https://fdc.nal.usda.gov/fdc-app.html#/food-details/2259793/nutrients. Accessed 14 November 2022.
+- Vergeer, R., Sinke, P., and Odegard, I. 2021. TEA of cultivated meat: Future projections of different scenarios – corrigendum. Delft, CE Delft. https://cedelft.eu/publications/tea-of-cultivated-meat/. Accessed 4 September 2022.
+- Wikipedia (2022a) Norway–Sweden border. https://en.wikipedia.org/wiki/Norway–Sweden_border. Accessed 22 August 2022.
+- Wikipedia (2022b) Finland–Norway border. https://en.wikipedia.org/wiki/Finland–Norway_border. Accessed 22 August 2022.
+- Wikipedia (2022c) Norway–Russia border. https://en.wikipedia.org/wiki/Norway–Russia_border. Accessed 22 August 2022.
+- WSP (2021). ISO-Conformant Report: Comparative Life Cycle Assessment of Perfect Day Whey Protein Production to Dairy Protein. Report No. 1. Portland: WSP.
+
+
+## LICENCE
+```text
+                        GNU GENERAL PUBLIC LICENSE
+                           Version 3, 29 June 2007
+    
+     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+     Everyone is permitted to copy and distribute verbatim copies
+     of this license document, but changing it is not allowed.
+    
+                                Preamble
+    
+      The GNU General Public License is a free, copyleft license for
+    software and other kinds of works.
+    
+      The licenses for most software and other practical works are designed
+    to take away your freedom to share and change the works.  By contrast,
+    the GNU General Public License is intended to guarantee your freedom to
+    share and change all versions of a program--to make sure it remains free
+    software for all its users.  We, the Free Software Foundation, use the
+    GNU General Public License for most of our software; it applies also to
+    any other work released this way by its authors.  You can apply it to
+    your programs, too.
+    
+      When we speak of free software, we are referring to freedom, not
+    price.  Our General Public Licenses are designed to make sure that you
+    have the freedom to distribute copies of free software (and charge for
+    them if you wish), that you receive source code or can get it if you
+    want it, that you can change the software or use pieces of it in new
+    free programs, and that you know you can do these things.
+    
+      To protect your rights, we need to prevent others from denying you
+    these rights or asking you to surrender the rights.  Therefore, you have
+    certain responsibilities if you distribute copies of the software, or if
+    you modify it: responsibilities to respect the freedom of others.
+    
+      For example, if you distribute copies of such a program, whether
+    gratis or for a fee, you must pass on to the recipients the same
+    freedoms that you received.  You must make sure that they, too, receive
+    or can get the source code.  And you must show them these terms so they
+    know their rights.
+    
+      Developers that use the GNU GPL protect your rights with two steps:
+    (1) assert copyright on the software, and (2) offer you this License
+    giving you legal permission to copy, distribute and/or modify it.
+    
+      For the developers' and authors' protection, the GPL clearly explains
+    that there is no warranty for this free software.  For both users' and
+    authors' sake, the GPL requires that modified versions be marked as
+    changed, so that their problems will not be attributed erroneously to
+    authors of previous versions.
+    
+      Some devices are designed to deny users access to install or run
+    modified versions of the software inside them, although the manufacturer
+    can do so.  This is fundamentally incompatible with the aim of
+    protecting users' freedom to change the software.  The systematic
+    pattern of such abuse occurs in the area of products for individuals to
+    use, which is precisely where it is most unacceptable.  Therefore, we
+    have designed this version of the GPL to prohibit the practice for those
+    products.  If such problems arise substantially in other domains, we
+    stand ready to extend this provision to those domains in future versions
+    of the GPL, as needed to protect the freedom of users.
+    
+      Finally, every program is threatened constantly by software patents.
+    States should not allow patents to restrict development and use of
+    software on general-purpose computers, but in those that do, we wish to
+    avoid the special danger that patents applied to a free program could
+    make it effectively proprietary.  To prevent this, the GPL assures that
+    patents cannot be used to render the program non-free.
+    
+      The precise terms and conditions for copying, distribution and
+    modification follow.
+    
+                           TERMS AND CONDITIONS
+    
+      0. Definitions.
+    
+      "This License" refers to version 3 of the GNU General Public License.
+    
+      "Copyright" also means copyright-like laws that apply to other kinds of
+    works, such as semiconductor masks.
+    
+      "The Program" refers to any copyrightable work licensed under this
+    License.  Each licensee is addressed as "you".  "Licensees" and
+    "recipients" may be individuals or organizations.
+    
+      To "modify" a work means to copy from or adapt all or part of the work
+    in a fashion requiring copyright permission, other than the making of an
+    exact copy.  The resulting work is called a "modified version" of the
+    earlier work or a work "based on" the earlier work.
+    
+      A "covered work" means either the unmodified Program or a work based
+    on the Program.
+    
+      To "propagate" a work means to do anything with it that, without
+    permission, would make you directly or secondarily liable for
+    infringement under applicable copyright law, except executing it on a
+    computer or modifying a private copy.  Propagation includes copying,
+    distribution (with or without modification), making available to the
+    public, and in some countries other activities as well.
+    
+      To "convey" a work means any kind of propagation that enables other
+    parties to make or receive copies.  Mere interaction with a user through
+    a computer network, with no transfer of a copy, is not conveying.
+    
+      An interactive user interface displays "Appropriate Legal Notices"
+    to the extent that it includes a convenient and prominently visible
+    feature that (1) displays an appropriate copyright notice, and (2)
+    tells the user that there is no warranty for the work (except to the
+    extent that warranties are provided), that licensees may convey the
+    work under this License, and how to view a copy of this License.  If
+    the interface presents a list of user commands or options, such as a
+    menu, a prominent item in the list meets this criterion.
+    
+      1. Source Code.
+    
+      The "source code" for a work means the preferred form of the work
+    for making modifications to it.  "Object code" means any non-source
+    form of a work.
+    
+      A "Standard Interface" means an interface that either is an official
+    standard defined by a recognized standards body, or, in the case of
+    interfaces specified for a particular programming language, one that
+    is widely used among developers working in that language.
+    
+      The "System Libraries" of an executable work include anything, other
+    than the work as a whole, that (a) is included in the normal form of
+    packaging a Major Component, but which is not part of that Major
+    Component, and (b) serves only to enable use of the work with that
+    Major Component, or to implement a Standard Interface for which an
+    implementation is available to the public in source code form.  A
+    "Major Component", in this context, means a major essential component
+    (kernel, window system, and so on) of the specific operating system
+    (if any) on which the executable work runs, or a compiler used to
+    produce the work, or an object code interpreter used to run it.
+        
+      The "Corresponding Source" for a work in object code form means all
+    the source code needed to generate, install, and (for an executable
+    work) run the object code and to modify the work, including scripts to
+    control those activities.  However, it does not include the work's
+    System Libraries, or general-purpose tools or generally available free
+    programs which are used unmodified in performing those activities but
+    which are not part of the work.  For example, Corresponding Source
+    includes interface definition files associated with source files for
+    the work, and the source code for shared libraries and dynamically
+    linked subprograms that the work is specifically designed to require,
+    such as by intimate data communication or control flow between those
+    subprograms and other parts of the work.
+    
+      The Corresponding Source need not include anything that users
+    can regenerate automatically from other parts of the Corresponding
+    Source.
+    
+      The Corresponding Source for a work in source code form is that
+    same work.
+    
+      2. Basic Permissions.
+    
+      All rights granted under this License are granted for the term of
+    copyright on the Program, and are irrevocable provided the stated
+    conditions are met.  This License explicitly affirms your unlimited
+    permission to run the unmodified Program.  The output from running a
+    covered work is covered by this License only if the output, given its
+    content, constitutes a covered work.  This License acknowledges your
+    rights of fair use or other equivalent, as provided by copyright law.
+    
+      You may make, run and propagate covered works that you do not
+    convey, without conditions so long as your license otherwise remains
+    in force.  You may convey covered works to others for the sole purpose
+    of having them make modifications exclusively for you, or provide you
+    with facilities for running those works, provided that you comply with
+    the terms of this License in conveying all material for which you do
+    not control copyright.  Those thus making or running the covered works
+    for you must do so exclusively on your behalf, under your direction
+    and control, on terms that prohibit them from making any copies of
+    your copyrighted material outside their relationship with you.
+    
+      Conveying under any other circumstances is permitted solely under
+    the conditions stated below.  Sublicensing is not allowed; section 10
+    makes it unnecessary.
+    
+      3. Protecting Users' Legal Rights From Anti-Circumvention Law.
+    
+      No covered work shall be deemed part of an effective technological
+    measure under any applicable law fulfilling obligations under article
+    11 of the WIPO copyright treaty adopted on 20 December 1996, or
+    similar laws prohibiting or restricting circumvention of such
+    measures.
+    
+      When you convey a covered work, you waive any legal power to forbid
+    circumvention of technological measures to the extent such circumvention
+    is effected by exercising rights under this License with respect to
+    the covered work, and you disclaim any intention to limit operation or
+    modification of the work as a means of enforcing, against the work's
+    users, your or third parties' legal rights to forbid circumvention of
+    technological measures.
+    
+      4. Conveying Verbatim Copies.
+    
+      You may convey verbatim copies of the Program's source code as you
+    receive it, in any medium, provided that you conspicuously and
+    appropriately publish on each copy an appropriate copyright notice;
+    keep intact all notices stating that this License and any
+    non-permissive terms added in accord with section 7 apply to the code;
+    keep intact all notices of the absence of any warranty; and give all
+    recipients a copy of this License along with the Program.
+    
+      You may charge any price or no price for each copy that you convey,
+    and you may offer support or warranty protection for a fee.
+    
+      5. Conveying Modified Source Versions.
+    
+      You may convey a work based on the Program, or the modifications to
+    produce it from the Program, in the form of source code under the
+    terms of section 4, provided that you also meet all of these conditions:
+    
+        a) The work must carry prominent notices stating that you modified
+        it, and giving a relevant date.
+    
+        b) The work must carry prominent notices stating that it is
+        released under this License and any conditions added under section
+        7.  This requirement modifies the requirement in section 4 to
+        "keep intact all notices".
+    
+        c) You must license the entire work, as a whole, under this
+        License to anyone who comes into possession of a copy.  This
+        License will therefore apply, along with any applicable section 7
+        additional terms, to the whole of the work, and all its parts,
+        regardless of how they are packaged.  This License gives no
+        permission to license the work in any other way, but it does not
+        invalidate such permission if you have separately received it.
+    
+        d) If the work has interactive user interfaces, each must display
+        Appropriate Legal Notices; however, if the Program has interactive
+        interfaces that do not display Appropriate Legal Notices, your
+        work need not make them do so.
+    
+      A compilation of a covered work with other separate and independent
+    works, which are not by their nature extensions of the covered work,
+    and which are not combined with it such as to form a larger program,
+    in or on a volume of a storage or distribution medium, is called an
+    "aggregate" if the compilation and its resulting copyright are not
+    used to limit the access or legal rights of the compilation's users
+    beyond what the individual works permit.  Inclusion of a covered work
+    in an aggregate does not cause this License to apply to the other
+    parts of the aggregate.
+    
+      6. Conveying Non-Source Forms.
+    
+      You may convey a covered work in object code form under the terms
+    of sections 4 and 5, provided that you also convey the
+    machine-readable Corresponding Source under the terms of this License,
+    in one of these ways:
+    
+        a) Convey the object code in, or embodied in, a physical product
+        (including a physical distribution medium), accompanied by the
+        Corresponding Source fixed on a durable physical medium
+        customarily used for software interchange.
+    
+        b) Convey the object code in, or embodied in, a physical product
+        (including a physical distribution medium), accompanied by a
+        written offer, valid for at least three years and valid for as
+        long as you offer spare parts or customer support for that product
+        model, to give anyone who possesses the object code either (1) a
+        copy of the Corresponding Source for all the software in the
+        product that is covered by this License, on a durable physical
+        medium customarily used for software interchange, for a price no
+        more than your reasonable cost of physically performing this
+        conveying of source, or (2) access to copy the
+        Corresponding Source from a network server at no charge.
+    
+        c) Convey individual copies of the object code with a copy of the
+        written offer to provide the Corresponding Source.  This
+        alternative is allowed only occasionally and noncommercially, and
+        only if you received the object code with such an offer, in accord
+        with subsection 6b.
+    
+        d) Convey the object code by offering access from a designated
+        place (gratis or for a charge), and offer equivalent access to the
+        Corresponding Source in the same way through the same place at no
+        further charge.  You need not require recipients to copy the
+        Corresponding Source along with the object code.  If the place to
+        copy the object code is a network server, the Corresponding Source
+        may be on a different server (operated by you or a third party)
+        that supports equivalent copying facilities, provided you maintain
+        clear directions next to the object code saying where to find the
+        Corresponding Source.  Regardless of what server hosts the
+        Corresponding Source, you remain obligated to ensure that it is
+        available for as long as needed to satisfy these requirements.
+    
+        e) Convey the object code using peer-to-peer transmission, provided
+        you inform other peers where the object code and Corresponding
+        Source of the work are being offered to the general public at no
+        charge under subsection 6d.
+    
+      A separable portion of the object code, whose source code is excluded
+    from the Corresponding Source as a System Library, need not be
+    included in conveying the object code work.
+    
+      A "User Product" is either (1) a "consumer product", which means any
+    tangible personal property which is normally used for personal, family,
+    or household purposes, or (2) anything designed or sold for incorporation
+    into a dwelling.  In determining whether a product is a consumer product,
+    doubtful cases shall be resolved in favor of coverage.  For a particular
+    product received by a particular user, "normally used" refers to a
+    typical or common use of that class of product, regardless of the status
+    of the particular user or of the way in which the particular user
+    actually uses, or expects or is expected to use, the product.  A product
+    is a consumer product regardless of whether the product has substantial
+    commercial, industrial or non-consumer uses, unless such uses represent
+    the only significant mode of use of the product.
+    
+      "Installation Information" for a User Product means any methods,
+    procedures, authorization keys, or other information required to install
+    and execute modified versions of a covered work in that User Product from
+    a modified version of its Corresponding Source.  The information must
+    suffice to ensure that the continued functioning of the modified object
+    code is in no case prevented or interfered with solely because
+    modification has been made.
+    
+      If you convey an object code work under this section in, or with, or
+    specifically for use in, a User Product, and the conveying occurs as
+    part of a transaction in which the right of possession and use of the
+    User Product is transferred to the recipient in perpetuity or for a
+    fixed term (regardless of how the transaction is characterized), the
+    Corresponding Source conveyed under this section must be accompanied
+    by the Installation Information.  But this requirement does not apply
+    if neither you nor any third party retains the ability to install
+    modified object code on the User Product (for example, the work has
+    been installed in ROM).
+    
+      The requirement to provide Installation Information does not include a
+    requirement to continue to provide support service, warranty, or updates
+    for a work that has been modified or installed by the recipient, or for
+    the User Product in which it has been modified or installed.  Access to a
+    network may be denied when the modification itself materially and
+    adversely affects the operation of the network or violates the rules and
+    protocols for communication across the network.
+    
+      Corresponding Source conveyed, and Installation Information provided,
+    in accord with this section must be in a format that is publicly
+    documented (and with an implementation available to the public in
+    source code form), and must require no special password or key for
+    unpacking, reading or copying.
+    
+      7. Additional Terms.
+    
+      "Additional permissions" are terms that supplement the terms of this
+    License by making exceptions from one or more of its conditions.
+    Additional permissions that are applicable to the entire Program shall
+    be treated as though they were included in this License, to the extent
+    that they are valid under applicable law.  If additional permissions
+    apply only to part of the Program, that part may be used separately
+    under those permissions, but the entire Program remains governed by
+    this License without regard to the additional permissions.
+    
+      When you convey a copy of a covered work, you may at your option
+    remove any additional permissions from that copy, or from any part of
+    it.  (Additional permissions may be written to require their own
+    removal in certain cases when you modify the work.)  You may place
+    additional permissions on material, added by you to a covered work,
+    for which you have or can give appropriate copyright permission.
+    
+      Notwithstanding any other provision of this License, for material you
+    add to a covered work, you may (if authorized by the copyright holders of
+    that material) supplement the terms of this License with terms:
+    
+        a) Disclaiming warranty or limiting liability differently from the
+        terms of sections 15 and 16 of this License; or
+    
+        b) Requiring preservation of specified reasonable legal notices or
+        author attributions in that material or in the Appropriate Legal
+        Notices displayed by works containing it; or
+    
+        c) Prohibiting misrepresentation of the origin of that material, or
+        requiring that modified versions of such material be marked in
+        reasonable ways as different from the original version; or
+    
+        d) Limiting the use for publicity purposes of names of licensors or
+        authors of the material; or
+    
+        e) Declining to grant rights under trademark law for use of some
+        trade names, trademarks, or service marks; or
+    
+        f) Requiring indemnification of licensors and authors of that
+        material by anyone who conveys the material (or modified versions of
+        it) with contractual assumptions of liability to the recipient, for
+        any liability that these contractual assumptions directly impose on
+        those licensors and authors.
+    
+      All other non-permissive additional terms are considered "further
+    restrictions" within the meaning of section 10.  If the Program as you
+    received it, or any part of it, contains a notice stating that it is
+    governed by this License along with a term that is a further
+    restriction, you may remove that term.  If a license document contains
+    a further restriction but permits relicensing or conveying under this
+    License, you may add to a covered work material governed by the terms
+    of that license document, provided that the further restriction does
+    not survive such relicensing or conveying.
+    
+      If you add terms to a covered work in accord with this section, you
+    must place, in the relevant source files, a statement of the
+    additional terms that apply to those files, or a notice indicating
+    where to find the applicable terms.
+    
+      Additional terms, permissive or non-permissive, may be stated in the
+    form of a separately written license, or stated as exceptions;
+    the above requirements apply either way.
+    
+      8. Termination.
+    
+      You may not propagate or modify a covered work except as expressly
+    provided under this License.  Any attempt otherwise to propagate or
+    modify it is void, and will automatically terminate your rights under
+    this License (including any patent licenses granted under the third
+    paragraph of section 11).
+    
+      However, if you cease all violation of this License, then your
+    license from a particular copyright holder is reinstated (a)
+    provisionally, unless and until the copyright holder explicitly and
+    finally terminates your license, and (b) permanently, if the copyright
+    holder fails to notify you of the violation by some reasonable means
+    prior to 60 days after the cessation.
+    
+      Moreover, your license from a particular copyright holder is
+    reinstated permanently if the copyright holder notifies you of the
+    violation by some reasonable means, this is the first time you have
+    received notice of violation of this License (for any work) from that
+    copyright holder, and you cure the violation prior to 30 days after
+    your receipt of the notice.
+    
+      Termination of your rights under this section does not terminate the
+    licenses of parties who have received copies or rights from you under
+    this License.  If your rights have been terminated and not permanently
+    reinstated, you do not qualify to receive new licenses for the same
+    material under section 10.
+    
+      9. Acceptance Not Required for Having Copies.
+    
+      You are not required to accept this License in order to receive or
+    run a copy of the Program.  Ancillary propagation of a covered work
+    occurring solely as a consequence of using peer-to-peer transmission
+    to receive a copy likewise does not require acceptance.  However,
+    nothing other than this License grants you permission to propagate or
+    modify any covered work.  These actions infringe copyright if you do
+    not accept this License.  Therefore, by modifying or propagating a
+    covered work, you indicate your acceptance of this License to do so.
+    
+      10. Automatic Licensing of Downstream Recipients.
+    
+      Each time you convey a covered work, the recipient automatically
+    receives a license from the original licensors, to run, modify and
+    propagate that work, subject to this License.  You are not responsible
+    for enforcing compliance by third parties with this License.
+    
+      An "entity transaction" is a transaction transferring control of an
+    organization, or substantially all assets of one, or subdividing an
+    organization, or merging organizations.  If propagation of a covered
+    work results from an entity transaction, each party to that
+    transaction who receives a copy of the work also receives whatever
+    licenses to the work the party's predecessor in interest had or could
+    give under the previous paragraph, plus a right to possession of the
+    Corresponding Source of the work from the predecessor in interest, if
+    the predecessor has it or can get it with reasonable efforts.
+    
+      You may not impose any further restrictions on the exercise of the
+    rights granted or affirmed under this License.  For example, you may
+    not impose a license fee, royalty, or other charge for exercise of
+    rights granted under this License, and you may not initiate litigation
+    (including a cross-claim or counterclaim in a lawsuit) alleging that
+    any patent claim is infringed by making, using, selling, offering for
+    sale, or importing the Program or any portion of it.
+    
+      11. Patents.
+    
+      A "contributor" is a copyright holder who authorizes use under this
+    License of the Program or a work on which the Program is based.  The
+    work thus licensed is called the contributor's "contributor version".
+    
+      A contributor's "essential patent claims" are all patent claims
+    owned or controlled by the contributor, whether already acquired or
+    hereafter acquired, that would be infringed by some manner, permitted
+    by this License, of making, using, or selling its contributor version,
+    but do not include claims that would be infringed only as a
+    consequence of further modification of the contributor version.  For
+    purposes of this definition, "control" includes the right to grant
+    patent sublicenses in a manner consistent with the requirements of
+    this License.
+    
+      Each contributor grants you a non-exclusive, worldwide, royalty-free
+    patent license under the contributor's essential patent claims, to
+    make, use, sell, offer for sale, import and otherwise run, modify and
+    propagate the contents of its contributor version.
+    
+      In the following three paragraphs, a "patent license" is any express
+    agreement or commitment, however denominated, not to enforce a patent
+    (such as an express permission to practice a patent or covenant not to
+    sue for patent infringement).  To "grant" such a patent license to a
+    party means to make such an agreement or commitment not to enforce a
+    patent against the party.
+    
+      If you convey a covered work, knowingly relying on a patent license,
+    and the Corresponding Source of the work is not available for anyone
+    to copy, free of charge and under the terms of this License, through a
+    publicly available network server or other readily accessible means,
+    then you must either (1) cause the Corresponding Source to be so
+    available, or (2) arrange to deprive yourself of the benefit of the
+    patent license for this particular work, or (3) arrange, in a manner
+    consistent with the requirements of this License, to extend the patent
+    license to downstream recipients.  "Knowingly relying" means you have
+    actual knowledge that, but for the patent license, your conveying the
+    covered work in a country, or your recipient's use of the covered work
+    in a country, would infringe one or more identifiable patents in that
+    country that you have reason to believe are valid.
+    
+      If, pursuant to or in connection with a single transaction or
+    arrangement, you convey, or propagate by procuring conveyance of, a
+    covered work, and grant a patent license to some of the parties
+    receiving the covered work authorizing them to use, propagate, modify
+    or convey a specific copy of the covered work, then the patent license
+    you grant is automatically extended to all recipients of the covered
+    work and works based on it.
+    
+      A patent license is "discriminatory" if it does not include within
+    the scope of its coverage, prohibits the exercise of, or is
+    conditioned on the non-exercise of one or more of the rights that are
+    specifically granted under this License.  You may not convey a covered
+    work if you are a party to an arrangement with a third party that is
+    in the business of distributing software, under which you make payment
+    to the third party based on the extent of your activity of conveying
+    the work, and under which the third party grants, to any of the
+    parties who would receive the covered work from you, a discriminatory
+    patent license (a) in connection with copies of the covered work
+    conveyed by you (or copies made from those copies), or (b) primarily
+    for and in connection with specific products or compilations that
+    contain the covered work, unless you entered into that arrangement,
+    or that patent license was granted, prior to 28 March 2007.
+    
+      Nothing in this License shall be construed as excluding or limiting
+    any implied license or other defenses to infringement that may
+    otherwise be available to you under applicable patent law.
+    
+      12. No Surrender of Others' Freedom.
+    
+      If conditions are imposed on you (whether by court order, agreement or
+    otherwise) that contradict the conditions of this License, they do not
+    excuse you from the conditions of this License.  If you cannot convey a
+    covered work so as to satisfy simultaneously your obligations under this
+    License and any other pertinent obligations, then as a consequence you may
+    not convey it at all.  For example, if you agree to terms that obligate you
+    to collect a royalty for further conveying from those to whom you convey
+    the Program, the only way you could satisfy both those terms and this
+    License would be to refrain entirely from conveying the Program.
+    
+      13. Use with the GNU Affero General Public License.
+    
+      Notwithstanding any other provision of this License, you have
+    permission to link or combine any covered work with a work licensed
+    under version 3 of the GNU Affero General Public License into a single
+    combined work, and to convey the resulting work.  The terms of this
+    License will continue to apply to the part which is the covered work,
+    but the special requirements of the GNU Affero General Public License,
+    section 13, concerning interaction through a network will apply to the
+    combination as such.
+    
+      14. Revised Versions of this License.
+    
+      The Free Software Foundation may publish revised and/or new versions of
+    the GNU General Public License from time to time.  Such new versions will
+    be similar in spirit to the present version, but may differ in detail to
+    address new problems or concerns.
+    
+      Each version is given a distinguishing version number.  If the
+    Program specifies that a certain numbered version of the GNU General
+    Public License "or any later version" applies to it, you have the
+    option of following the terms and conditions either of that numbered
+    version or of any later version published by the Free Software
+    Foundation.  If the Program does not specify a version number of the
+    GNU General Public License, you may choose any version ever published
+    by the Free Software Foundation.
+    
+      If the Program specifies that a proxy can decide which future
+    versions of the GNU General Public License can be used, that proxy's
+    public statement of acceptance of a version permanently authorizes you
+    to choose that version for the Program.
+    
+      Later license versions may give you additional or different
+    permissions.  However, no additional obligations are imposed on any
+    author or copyright holder as a result of your choosing to follow a
+    later version.
+    
+      15. Disclaimer of Warranty.
+    
+      THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+    APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+    HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+    OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+    THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
+    IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
+    ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+    
+      16. Limitation of Liability.
+    
+      IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+    WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
+    THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+    GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+    USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
+    DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
+    PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+    EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+    SUCH DAMAGES.
+    
+      17. Interpretation of Sections 15 and 16.
+    
+      If the disclaimer of warranty and limitation of liability provided
+    above cannot be given local legal effect according to their terms,
+    reviewing courts shall apply local law that most closely approximates
+    an absolute waiver of all civil liability in connection with the
+    Program, unless a warranty or assumption of liability accompanies a
+    copy of the Program in return for a fee.
+    
+                         END OF TERMS AND CONDITIONS
+    
+                How to Apply These Terms to Your New Programs
+    
+      If you develop a new program, and you want it to be of the greatest
+    possible use to the public, the best way to achieve this is to make it
+    free software which everyone can redistribute and change under these terms.
+    
+      To do so, attach the following notices to the program.  It is safest
+    to attach them to the start of each source file to most effectively
+    state the exclusion of warranty; and each file should have at least
+    the "copyright" line and a pointer to where the full notice is found.
+    
+        <one line to give the program's name and a brief idea of what it does.>
+        Copyright (C) <year>  <name of author>
+    
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+    
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    
+        You should have received a copy of the GNU General Public License
+        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Also add information on how to contact you by electronic and paper mail.
+    
+      If the program does terminal interaction, make it output a short
+    notice like this when it starts in an interactive mode:
+    
+        <program>  Copyright (C) <year>  <name of author>
+        This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+        This is free software, and you are welcome to redistribute it
+        under certain conditions; type `show c' for details.
+    
+    The hypothetical commands `show w' and `show c' should show the appropriate
+    parts of the General Public License.  Of course, your program's commands
+    might be different; for a GUI interface, you would use an "about box".
+    
+      You should also get your employer (if you work as a programmer) or school,
+    if any, to sign a "copyright disclaimer" for the program, if necessary.
+    For more information on this, and how to apply and follow the GNU GPL, see
+    <http://www.gnu.org/licenses/>.
+
+      The GNU General Public License does not permit incorporating your program
+    into proprietary programs.  If your program is a subroutine library, you
+    may consider it more useful to permit linking proprietary applications with
+    the library.  If this is what you want to do, use the GNU Lesser General
+    Public License instead of this License.  But first, please read
+    <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+```
 @#$#@#$#@
 default
 true
