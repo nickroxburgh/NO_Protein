@@ -1,6 +1,6 @@
 extensions [ gis csv ]
 
-globals [ year kommuner-list fylker-list farms-list slaughterhouse-list dairy-list checkpoint-list pp-barley pp-oats pp-wheat pp-rye-triticale pp-oilseeds pp-potatoes pp-vegetables pp-fodder-silage pp-other-crops pp-pome-stone-fruit pp-berries pp-other-cattle-meat pp-beef-cow-meat pp-dairy-cow-meat pp-raw-milk pp-pig-meat pp-sheep-meat pp-broiler-meat pp-wool pp-eggs dist-coeff total-imports-beef total-imports-pork total-imports-lamb total-imports-chicken total-imports-eggs total-imports-milk-cream total-imports-yoghurt total-imports-butter total-imports-cheese total-exports-beef total-exports-pork total-exports-lamb total-exports-chicken total-exports-eggs total-exports-milk-cream total-exports-yoghurt total-exports-butter total-exports-cheese production-per-capita-beef production-per-capita-pork production-per-capita-lamb production-per-capita-chicken production-per-capita-eggs production-per-capita-wool production-per-capita-rawmilk cm-cost-beef cm-cost-pork cm-cost-lamb cm-cost-chicken pf-cost-dairy pf-cost-eggs aggregate-production-cm-meat aggregate-production-pf-dairy aggregate-production-pf-eggs emissions-ha-barley emissions-ha-oats emissions-ha-wheat emissions-ha-rye-triticale emissions-ha-oilseeds emissions-ha-potatoes emissions-ha-vegetables emissions-ha-fodder-silage emissions-ha-other-crops emissions-ha-orchards emissions-ha-berries emissions-head-dairy-cows emissions-head-beef-cows emissions-head-other-cattle emissions-head-sheep emissions-head-pigs emissions-head-broilers emissions-head-laying-hens init-num-specialist-cattle-farms init-num-specialist-sheep-farms init-num-specialist-pig-farms init-num-specialist-broiler-farms init-num-specialist-laying-hen-farms init-num-specialist-fodder-silage-farms init-num-specialist-arable-horticulture-farms init-num-combined-cattle-grain-farms init-num-combined-cattle-sheep-farms init-num-other-mixed-farms init-num-no-activity-farms ]
+globals [ starting-seed year kommuner-list fylker-list farms-list slaughterhouse-list dairy-list checkpoint-list pp-barley pp-oats pp-wheat pp-rye-triticale pp-oilseeds pp-potatoes pp-vegetables pp-fodder-silage pp-other-crops pp-pome-stone-fruit pp-berries pp-other-cattle-meat pp-beef-cow-meat pp-dairy-cow-meat pp-raw-milk pp-pig-meat pp-sheep-meat pp-broiler-meat pp-wool pp-eggs dist-coeff total-imports-beef total-imports-pork total-imports-lamb total-imports-chicken total-imports-eggs total-imports-milk-cream total-imports-yoghurt total-imports-butter total-imports-cheese total-exports-beef total-exports-pork total-exports-lamb total-exports-chicken total-exports-eggs total-exports-milk-cream total-exports-yoghurt total-exports-butter total-exports-cheese production-per-capita-beef production-per-capita-pork production-per-capita-lamb production-per-capita-chicken production-per-capita-eggs production-per-capita-wool production-per-capita-rawmilk cm-cost-beef cm-cost-pork cm-cost-lamb cm-cost-chicken pf-cost-dairy pf-cost-eggs aggregate-production-cm-meat aggregate-production-pf-dairy aggregate-production-pf-eggs emissions-ha-barley emissions-ha-oats emissions-ha-wheat emissions-ha-rye-triticale emissions-ha-oilseeds emissions-ha-potatoes emissions-ha-vegetables emissions-ha-fodder-silage emissions-ha-other-crops emissions-ha-orchards emissions-ha-berries emissions-head-dairy-cows emissions-head-beef-cows emissions-head-other-cattle emissions-head-sheep emissions-head-pigs emissions-head-broilers emissions-head-laying-hens init-num-specialist-cattle-farms init-num-specialist-sheep-farms init-num-specialist-pig-farms init-num-specialist-broiler-farms init-num-specialist-laying-hen-farms init-num-specialist-fodder-silage-farms init-num-specialist-arable-horticulture-farms init-num-combined-cattle-grain-farms init-num-combined-cattle-sheep-farms init-num-other-mixed-farms init-num-no-activity-farms ]
 
 breed [ kommuner kommune ]
 breed [ fylker fylke ]
@@ -31,6 +31,8 @@ to setup
   ca
   clear-all
   file-close-all
+  set starting-seed new-seed
+  random-seed starting-seed
   set year start-yr
   if param-scenario = "Default" [
     set-params-to-default
@@ -865,9 +867,10 @@ end
 to set-params-to-default
   set start-yr 2020
   set sim-end-yr 2050
+  set num-farms-to-sim 40382
   set animal-yield-trajectory "Constant"
   set population-growth "Medium"
-  set farm-income-viability -20
+  set farm-income-viability -15
   set slaughter-min-capacity 80
   set max-dist-to-slaughter 230
   set dairy-min-capacity 80
@@ -891,7 +894,7 @@ to set-params-to-default
   set pf-max-share 53.9
   set efficiency-gain-multiplier 0.95
   set efficiency-step-int-nonmilk 20000
-  set efficiency-step-int-milk 340000
+  set efficiency-step-int-milk 680000
   set price-growth-beef 0
   set price-growth-pork 0
   set price-growth-lamb 0
@@ -1150,16 +1153,6 @@ to go
       ]
     ]
   ]
-
-
-
-  ; MILK IS BUGGERED
-
-
-
-
-
-
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; Account for production of cultured meat facilities ;
@@ -2166,14 +2159,19 @@ to go
   ;;;;;;;;;
 
   update-agent-visibility
-  ; Advance a year.
-  set year year + 1
   ; Check if we have reached the specified end yr for the simulation.
   if year = sim-end-yr [
     stop
+    if play-end-sound? = TRUE [
+      repeat 5 [ beep wait 0.1 ]
+    ]
   ]
+  ; Advance a year.
+  set year year + 1
   tick
-  repeat 3 [ beep wait 0.1 ]
+  if play-step-sound? = TRUE [
+    repeat 3 [ beep wait 0.1 ]
+  ]
 end
 
 to update-agent-visibility
@@ -3888,7 +3886,6 @@ end
 to-report total-farm-income
   report sum [ current-income ] of farms with [ active? = TRUE ]
 end
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 8
@@ -5294,7 +5291,7 @@ SWITCH
 305
 hide-checkpoints?
 hide-checkpoints?
-1
+0
 1
 -1000
 
@@ -5433,7 +5430,7 @@ farm-income-viability
 farm-income-viability
 -100
 -5
--20.0
+-15.0
 1
 1
 %
@@ -5553,7 +5550,7 @@ CHOOSER
 param-scenario
 param-scenario
 "Default" "Custom"
-0
+1
 
 CHOOSER
 539
@@ -6254,7 +6251,7 @@ efficiency-step-int-milk
 efficiency-step-int-milk
 170000
 850000
-340000.0
+680000.0
 170000
 1
 tonnes
@@ -6711,25 +6708,7 @@ true
 false
 "" ""
 PENS
-"Barley" 1.0 0 -2166824 true "" "plot total-emissions-barley"
-"Oats" 1.0 0 -2166824 true "" "plot total-emissions-oats"
-"Wheat" 1.0 0 -2166824 true "" "plot total-emissions-wheat"
-"Rye & triticale" 1.0 0 -2166824 true "" "plot total-emissions-rye-triticale"
-"Oilseeds" 1.0 0 -2166824 true "" "plot total-emissions-oilseeds"
-"Potatoes" 1.0 0 -2166824 true "" "plot total-emissions-potatoes"
-"Vegetables" 1.0 0 -2166824 true "" "plot total-emissions-vegetables"
-"Green fodder & silage" 1.0 0 -2166824 true "" "plot total-emissions-fodder-silage"
-"Other crops" 1.0 0 -2166824 true "" "plot total-emissions-other-crops"
-"Orchards" 1.0 0 -2166824 true "" "plot total-emissions-orchards"
-"Berries" 1.0 0 -2166824 true "" "plot total-emissions-berries"
 "All crops" 1.0 0 -13210332 true "" "plot total-emissions-crops"
-"Dairy cows" 1.0 0 -1069655 true "" "plot total-emissions-dairy-cows"
-"Beef cows" 1.0 0 -1069655 true "" "plot total-emissions-beef-cows"
-"Other cattle" 1.0 0 -1069655 true "" "plot total-emissions-other-cattle"
-"Sheep" 1.0 0 -1069655 true "" "plot total-emissions-sheep"
-"Pigs" 1.0 0 -1069655 true "" "plot total-emissions-pigs"
-"Broilers" 1.0 0 -1069655 true "" "plot total-emissions-broilers"
-"Laying hens" 1.0 0 -1069655 true "" "plot total-emissions-laying-hens"
 "All livestock" 1.0 0 -8053223 true "" "plot total-emissions-livestock"
 "All agriculture" 1.0 0 -11053225 true "" "plot total-emissions-agriculture"
 "CM" 1.0 0 -5516827 true "" "plot total-emissions-cm"
@@ -6896,7 +6875,7 @@ carbon-tax-per-tonne
 carbon-tax-per-tonne
 0
 5000
-1500.0
+1000.0
 10
 1
 NOK
@@ -7178,7 +7157,7 @@ SWITCH
 740
 highlight-inactive-farms
 highlight-inactive-farms
-0
+1
 1
 -1000
 
@@ -7363,6 +7342,39 @@ NO_Protein_ABM. Copyright (C) 2023. The James Hutton Institute.\nThis program co
 11
 0.0
 1
+
+MONITOR
+413
+707
+537
+752
+Seed
+starting-seed
+0
+1
+11
+
+SWITCH
+950
+693
+1198
+726
+play-step-sound?
+play-step-sound?
+1
+1
+-1000
+
+SWITCH
+950
+658
+1198
+691
+play-end-sound?
+play-end-sound?
+0
+1
+-1000
 
 @#$#@#$#@
 ## CREDITS AND REFERENCES
@@ -8412,6 +8424,414 @@ NetLogo 6.2.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="VariabilityExperiment" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>export-all-plots (word "/Users/nickroxburgh/Library/CloudStorage/OneDrive-TheJamesHuttonInstitute/Documents/Projects/Protein 2.0/Results/NO_Protein_VariabilityResults/NO_Protein_VariabilityResults_" starting-seed ".csv")</final>
+    <enumeratedValueSet variable="play-end-sound?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="play-step-sound?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param-scenario">
+      <value value="&quot;Custom&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="start-yr">
+      <value value="2020"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-end-yr">
+      <value value="2050"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="num-farms-to-sim">
+      <value value="40382"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animal-yield-trajectory">
+      <value value="&quot;Constant&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-dist-to-slaughter">
+      <value value="230"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-dist-to-dairy">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slaughter-min-capacity">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="dairy-min-capacity">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-scenario">
+      <value value="&quot;Determined by markets&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-baseline-year">
+      <value value="2020"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-cm?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-pf?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-init-yr">
+      <value value="2024"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-init-yr">
+      <value value="2024"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-step-int-nonmilk">
+      <value value="20000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-step-int-milk">
+      <value value="680000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="carbon-tax-start-yr">
+      <value value="2025"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-tax-coverage">
+      <value value="&quot;Agriculture &amp; energy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-beef">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-pork">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-lamb">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-chicken">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-eggs">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-raw-milk">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-wool">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-crops">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-beef">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-pork">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-lamb">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-chicken">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-eggs">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-milk-cream">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-yoghurt">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-butter">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-cheese">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farms?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-kommuner?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-fylker?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-slaughterhouses?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farm-slaught-links?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-dairies?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farm-dairy-links?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-checkpoints?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="highlight-inactive-farms">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-scenario">
+      <value value="&quot;Scenario 7&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-scenario">
+      <value value="&quot;Scenario 2&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-cm-meat">
+      <value value="4.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-pf-dairy">
+      <value value="0.4044"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-pf-egg">
+      <value value="1.56"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="carbon-tax-per-tonne">
+      <value value="1000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-gain-multiplier">
+      <value value="0.95"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="population-growth">
+      <value value="&quot;Medium&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-response-ratio">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="farm-income-viability">
+      <value value="-15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cease-farming-prob">
+      <value value="0.25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-max-share">
+      <value value="53.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-max-share">
+      <value value="53.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cf-required-profit-margin">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-factory-capacity">
+      <value value="5000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-factory-dairy-capacity">
+      <value value="170000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-factory-egg-capacity">
+      <value value="5000"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="MainExperiment" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>export-all-plots (word "/Users/nickroxburgh/Library/CloudStorage/OneDrive-TheJamesHuttonInstitute/Documents/Projects/Protein 2.0/Results/NO_Protein_MainRuns/Main_" starting-seed ".csv")</final>
+    <enumeratedValueSet variable="play-end-sound?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="play-step-sound?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param-scenario">
+      <value value="&quot;Custom&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="start-yr">
+      <value value="2020"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-end-yr">
+      <value value="2050"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="num-farms-to-sim">
+      <value value="40382"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="animal-yield-trajectory">
+      <value value="&quot;Constant&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-dist-to-slaughter">
+      <value value="230"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-dist-to-dairy">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slaughter-min-capacity">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="dairy-min-capacity">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-scenario">
+      <value value="&quot;Determined by markets&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-baseline-year">
+      <value value="2020"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-cm?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="sim-pf?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-init-yr">
+      <value value="2024"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-init-yr">
+      <value value="2024"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-step-int-nonmilk">
+      <value value="20000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-step-int-milk">
+      <value value="680000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="carbon-tax-start-yr">
+      <value value="2025"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-tax-coverage">
+      <value value="&quot;Agriculture &amp; energy&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-beef">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-pork">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-lamb">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-chicken">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-eggs">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-raw-milk">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-wool">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-growth-crops">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-beef">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-pork">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-lamb">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-chicken">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-eggs">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-milk-cream">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-yoghurt">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-butter">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="consum-growth-cheese">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farms?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-kommuner?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-fylker?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-slaughterhouses?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farm-slaught-links?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-dairies?">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-farm-dairy-links?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hide-checkpoints?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="highlight-inactive-farms">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-scenario">
+      <value value="&quot;Scenario 5&quot;"/>
+      <value value="&quot;Scenario 6&quot;"/>
+      <value value="&quot;Scenario 7&quot;"/>
+      <value value="&quot;Scenario 8&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-scenario">
+      <value value="&quot;Scenario 1&quot;"/>
+      <value value="&quot;Scenario 2&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-cm-meat">
+      <value value="2.9"/>
+      <value value="4.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-pf-dairy">
+      <value value="0.091327"/>
+      <value value="0.4044"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="emissions-pf-egg">
+      <value value="0.3523"/>
+      <value value="1.56"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="carbon-tax-per-tonne">
+      <value value="0"/>
+      <value value="1000"/>
+      <value value="2000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="efficiency-gain-multiplier">
+      <value value="0.95"/>
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="population-growth">
+      <value value="&quot;Low&quot;"/>
+      <value value="&quot;Medium&quot;"/>
+      <value value="&quot;High&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-response-ratio">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="farm-income-viability">
+      <value value="-15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cease-farming-prob">
+      <value value="0.25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-max-share">
+      <value value="53.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-max-share">
+      <value value="53.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cf-required-profit-margin">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="cm-factory-capacity">
+      <value value="5000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-factory-dairy-capacity">
+      <value value="170000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="pf-factory-egg-capacity">
+      <value value="5000"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
