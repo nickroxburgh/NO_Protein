@@ -8625,7 +8625,7 @@ NetLogo 6.2.2
   <experiment name="MainExperiment" repetitions="10" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>(word "Main/" behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</final>
+    <final>export-all-plots (word "Main/" behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</final>
     <enumeratedValueSet variable="play-end-sound?">
       <value value="true"/>
     </enumeratedValueSet>
