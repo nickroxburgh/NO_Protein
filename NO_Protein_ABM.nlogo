@@ -2160,12 +2160,12 @@ to go
 
   update-agent-visibility
   ; Check if we have reached the specified end yr for the simulation.
-  if year = sim-end-yr [
-    stop
-    if play-end-sound? = TRUE [
-      repeat 5 [ beep wait 0.1 ]
-    ]
-  ]
+;  if year = sim-end-yr [
+;    stop
+;    if play-end-sound? = TRUE [
+;      repeat 5 [ beep wait 0.1 ]
+;    ]
+;  ]
   ; Advance a year.
   set year year + 1
   tick
@@ -8625,8 +8625,8 @@ NetLogo 6.2.2
   <experiment name="MainExperiment" repetitions="10" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-all-plots (word "Main/" behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</final>
-    <timeLimit steps="30"/>
+    <final>export-all-plots (word behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</final>
+    <exitCondition>year &gt; sim-end-yr</exitCondition>
     <enumeratedValueSet variable="play-end-sound?">
       <value value="true"/>
     </enumeratedValueSet>
