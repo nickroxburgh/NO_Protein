@@ -1006,11 +1006,11 @@ to go
   ; Run dairy procedures ;
   ;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ask dairies [
+  ask dairies with [ active? = TRUE ] [
     ; Dairies note the volume of raw milk they have for processing in their historical records.
     set processed-rawmilk lput list ( year ) ( supply-rawmilk ) processed-rawmilk
     ; Around 11% of milk supply is wasted during processing. We deduct this first.
-    set supply-rawmilk supply-rawmilk - ((supply-rawmilk / 100) * 0.1105857)
+    set supply-rawmilk supply-rawmilk * (1 - 0.1105857)
     ; The remaining raw milk is transformed into dairy goods. Production of dairy goods is
     ; in proportion to current demand for those goods (see `to-report raw-milk-division-ratio`
     ; for further details of how this is calculated). After determining the share of raw milk
@@ -8420,7 +8420,7 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.2.2
+NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
@@ -8428,7 +8428,7 @@ NetLogo 6.2.2
   <experiment name="VariabilityExperiment" repetitions="10" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-all-plots (word "/Users/nickroxburgh/Library/CloudStorage/OneDrive-TheJamesHuttonInstitute/Documents/Projects/Protein 2.0/Results/NO_Protein_VariabilityResults/NO_Protein_VariabilityResults_" starting-seed ".csv")</final>
+    <postRun>export-all-plots (word "/Users/nickroxburgh/Library/CloudStorage/OneDrive-TheJamesHuttonInstitute/Documents/Projects/Protein 2.0/Results/NO_Protein_VariabilityResults/NO_Protein_VariabilityResults_" starting-seed ".csv")</postRun>
     <enumeratedValueSet variable="play-end-sound?">
       <value value="true"/>
     </enumeratedValueSet>
@@ -8625,7 +8625,7 @@ NetLogo 6.2.2
   <experiment name="MainExperiment" repetitions="10" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-all-plots (word behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</final>
+    <postRun>export-all-plots (word behaviorspace-experiment-name "-" behaviorspace-run-number "-cmsc-" cm-scenario "-pfsc-" pf-scenario "-emcm-" emissions-cm-meat "-empfd-" emissions-pf-dairy "-empfe-" emissions-pf-egg "-tax-" carbon-tax-per-tonne "-multip-" efficiency-gain-multiplier "-popgrow-" population-growth ".csv")</postRun>
     <exitCondition>year &gt; sim-end-yr</exitCondition>
     <enumeratedValueSet variable="play-end-sound?">
       <value value="true"/>
