@@ -1972,7 +1972,7 @@ to go
         set candidate-meats lput list (profit-margin-cm-chicken) ("Chicken") candidate-meats
       ]
       ; Order the list by profit margin.
-      set candidate-meats sort-by [[list1 list2] -> first list1 < first list2] candidate-meats
+      set candidate-meats sort-by [[list1 list2] -> first list1 < first list2] shuffle candidate-meats
       ; Create a cultured meat factory producing whichever meat has the greatest profit margin.
       create-cm-factories 1 [
         set product-type item 1 last candidate-meats
