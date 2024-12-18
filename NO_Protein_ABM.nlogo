@@ -1067,7 +1067,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-cm-production-beef / total-consumption-beef) * 100 > cm-max-share) [
+      if ((potential-cm-production-beef / total-consumption-beef) * 100 >= cm-max-share) [
         set production-quota production-limit-cm-beef - sum [ production-quota ] of other cm-factories with [ product-type = "Beef" ]
       ]
     ]
@@ -1083,7 +1083,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-cm-production-lamb / total-consumption-lamb) * 100 > cm-max-share) [
+      if ((potential-cm-production-lamb / total-consumption-lamb) * 100 >= cm-max-share) [
         set production-quota production-limit-cm-lamb - sum [ production-quota ] of other cm-factories with [ product-type = "Lamb" ]
       ]
     ]
@@ -1099,7 +1099,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-cm-production-pork / total-consumption-pork) * 100 > cm-max-share) [
+      if ((potential-cm-production-pork / total-consumption-pork) * 100 >= cm-max-share) [
         set production-quota production-limit-cm-pork - sum [ production-quota ] of other cm-factories with [ product-type = "Pork" ]
       ]
     ]
@@ -1115,7 +1115,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-cm-production-chicken / total-consumption-chicken) * 100 > cm-max-share) [
+      if ((potential-cm-production-chicken / total-consumption-chicken) * 100 >= cm-max-share) [
         set production-quota production-limit-cm-chicken - sum [ production-quota ] of other cm-factories with [ product-type = "Chicken" ]
       ]
     ]
@@ -1131,7 +1131,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-pf-production-eggs / total-consumption-eggs) * 100 > pf-max-share) [
+      if ((potential-pf-production-eggs / total-consumption-eggs) * 100 >= pf-max-share) [
         set production-quota production-limit-pf-eggs - sum [ production-quota ] of other pf-factories with [ product-type = "Eggs" ]
       ]
     ]
@@ -1148,7 +1148,7 @@ to go
       ]
       ; Else it will determine the maximum level of production that will not lead
       ; to excess total production, making this its production quota.
-      if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 > pf-max-share) [
+      if ((potential-pf-production-dairy / total-consumption-rawmilk) * 100 >= pf-max-share) [
         set production-quota production-limit-pf-rawmilk - sum [ production-quota ] of other pf-factories with [ product-type = "Dairy" ]
       ]
     ]
